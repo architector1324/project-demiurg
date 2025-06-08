@@ -4,13 +4,13 @@
 
 ## Overview
 
-**SRGE** is a powerful tool that transforms natural language prompts into self-consistent, structured representations of fictional worlds. It leverages a highly specialized **system prompt** and local **Large Language Models (LLMs)** via Ollama to produce semantic JSON outputs. These outputs describe complex, internally coherent realities designed to exist and evolve according to their own intrinsic logic.
+**SRGE** is a tool that transforms natural language prompts into **self-sufficient, structured fictional realities**. By leveraging a highly specialized **system prompt** and local **Large Language Models (LLMs)** via Ollama, it generates semantic JSON outputs that don't just describe, but also **lay the foundation for the existence and evolution of complex worlds according to their own intrinsic logic.**
 
 Whether you're building a simulation, a narrative universe, or an abstract conceptual model, SRGE provides a foundational structure grounded in pure semantic meaning.
 
 ## Motivation / Philosophy
 
-SRGE was born from the desire to explore the true capabilities of Large Language Models beyond mere conversation or data retrieval. It represents an **ontological experiment** - a quest to harness LLMs as semantic engines capable of constructing self-contained, internally consistent realities. Our aim is to demonstrate that even smaller, locally runnable models can serve as a "semantic core," enabling the creation and simulation of complex worlds at arbitrary levels of detail, entirely independent of external human interpretation. This project challenges the very notion of what constitutes a "reality" and how it can be synthetically generated.
+SRGE was born from the desire to explore the true capabilities of Large Language Models beyond mere conversation or data retrieval. It represents an **ontological experiment** - a quest to harness LLMs as semantic engines capable of constructing self-contained, internally consistent realities. My aim is to demonstrate that even smaller, locally runnable models can serve as a "semantic core," enabling the creation and simulation of complex worlds at arbitrary levels of detail, entirely independent of external human interpretation. This project challenges the very notion of what constitutes a "reality" and how it can be synthetically generated.
 
 ## Core Features
 
@@ -29,7 +29,6 @@ SRGE offers a powerful set of capabilities designed to bring complex realities t
   * **Local & Autonomous:** Run SRGE entirely on your machine without an internet connection. Powered by Ollama, it provides a self-contained environment for reality generation and exploration.
 
 
-
 ## Installation
 
 To run SRGE locally, you'll need **Ollama** installed and configured, along with the `qwen3:4b` model.
@@ -46,7 +45,6 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 
     ```bash
     git clone https://github.com/architector1324/semantic-reality-generation-engine
-    cd srge
     ```
 
 4.  **Install Python dependencies (if any)::**

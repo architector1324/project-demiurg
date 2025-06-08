@@ -1,7 +1,0 @@
-Okay, the user wants a JSON summary of an ant colony world. Let me start by understanding the core elements of an ant colony. They're social insects with a complex hierarchy, communication through pheromones, and division of labor. The world essence should capture that collective intelligence and structured society.
-
-For primary constituents, I need to list key elements. The colony itself is the main entity. Then there's the queen, which is central to reproduction. Worker ants handle tasks, soldier ants defend, and maybe a forager ant for gathering resources. Also, the nest is crucial as their habitat.
-
-Governing frameworks would include the queen's role in reproduction, pheromone-based communication, division of labor based on caste, and the nest's structure. Driving forces could be resource acquisition, reproduction, defense, and environmental adaptation. Foundational state might involve the queen laying eggs, worker ants tending to larvae, and the nest's architecture.
-
-Wait, need to make sure all descriptions are from an intrinsic perspective, no external observers. Avoid terms like 'player' or 'protagonist'. Check for consistency: the queen's pheromones guide others, caste division is based on size and role, nest structures are maintained by workers. Also, ensure scientific accuracy where possible, like pheromones and caste systems. No real-world references beyond the ant colony itself. Let me structure this into the JSON format as specified.
