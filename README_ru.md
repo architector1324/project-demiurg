@@ -70,7 +70,7 @@ pip install ollama
 #### Онтология фундаментальной физики:
 
 ```bash
-python reality-gen.py --create "Две частицы в вакууме"
+python reality-gen.py --model qwen3:4b --think --create "Две частицы в вакууме"
 ```
 
 Вывод будет структурированным JSON, представляющим сгенерированную реальность, похожим на этот:
@@ -107,7 +107,7 @@ python reality-gen.py --create "Две частицы в вакууме"
 #### Мир высокого фэнтези:
 
 ```bash
-python reality-gen.py --create "Волшебный мир с рыцарями, магией и злодеями"
+python reality-gen.py --model qwen3:4b --think --create "Волшебный мир с рыцарями, магией и злодеями"
 ```
 
 ```json

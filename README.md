@@ -72,7 +72,7 @@ To generate a new world (using the `--create` command):
 #### Fundamental physics ontology:
 
 ```bash
-python reality-gen.py --create "Two particles in a vacuum"
+python reality-gen.py --model qwen3:4b --think --create "Two particles in a vacuum"
 ```
 
 The output will be a structured JSON representing the generated reality, similar to this:
@@ -109,7 +109,7 @@ The output will be a structured JSON representing the generated reality, similar
 #### High-fantasy realm:
 
 ```bash
-python reality-gen.py --create "A magical world with knights, magic, and villains"
+python reality-gen.py --model qwen3:4b --think --create "A magical world with knights, magic, and villains"
 ```
 
 ```json
