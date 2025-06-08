@@ -1,0 +1,18 @@
+Okay, the user wants a JSON summary of the Cyberpunk 2077 world from an intrinsic, objective perspective. Let me start by recalling the key elements of that game. The world is set in a dystopian future, with megacorporations, cybernetic enhancements, and a gritty urban environment. The core elements include Night City, the corporations, the different classes of people, and the various factions.
+
+First, the "world_essence" should capture the fundamental concept. It's a futuristic metropolis dominated by corporate power, with a stratified society and technological advancements. I need to make sure it's concise.
+
+Next, the "primary_constituents". These are the main components of the world. Night City is the main setting. Then there's the megacorporations like NightWing, which control the economy and society. The Undercity is the lower class area. The Hackers and Gangs are the factions. Also, the cybernetics and genetic modifications are key. Maybe include the neon-drenched environment as a constituent. Wait, but the user said to avoid real-world references. Neon is part of the setting, so that's okay.
+
+For the "governing_framework", the rules would be the corporate dominance, the social stratification, the technological reliance, and the law enforcement. Need to describe how the system works without external observers. Maybe mention the lack of a central government, the role of the corporations in law and order, and the influence of technology on society.
+
+The "driving_forces_and_potential" would be the corporate greed, the struggle for power, the technological evolution, and the social unrest. These are the forces that drive the world's events.
+
+The "foundational_state" should describe the initial conditions. Night City as a sprawling metropolis, corporate control, the Undercity's conditions, and the presence of hackers and gangs. Also, the technological advancements and the societal divisions.
+
+I need to check if all elements are consistent. No external observers, so avoid terms like player or protagonist. Make sure each part is from the world's own perspective. Also, use terms like "proton", "electron" if needed, but in this case, it's more about corporate and tech terms. Wait, the user said to use real-world terms if plausible. So terms like "megacorporation", "cybernetic enhancements", "neon-drenched environment" are okay.
+
+Let me structure the JSON now. Ensure each key is correct and the descriptions are accurate. Avoid any markdown, just plain JSON. Check for any contradictions. For example, the governing framework should align with the primary constituents. The corporations control the city, the Undercity is a lower area, etc. Also, make sure the driving forces are the main themes of the game, like corporate power, tech, and social issues.
+
+I think that's all. Let me put it all together in JSON format.
+

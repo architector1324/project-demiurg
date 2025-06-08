@@ -1,0 +1,17 @@
+Okay, the user wants a world where emotions materialize into physical objects. Let me start by understanding the core concept. So, emotions become tangible things that affect the environment. I need to make sure everything is internally consistent.
+
+First, the world essence. It should be a concise summary. Maybe something like "A world where emotions manifest as physical entities, shaping the environment and influencing the natural order." That captures the main idea.
+
+Next, primary constituents. I need to list different emotional objects. Let's think of common emotions: joy, sorrow, anger, fear, love, etc. Each should have a description. For example, joy could be light or wind, sorrow might be shadows or mist. Anger could be fire or rocks. Fear might be thorns or darkness. Love could be light or flowers. Surprise as light or sparks. Maybe also include something like hope as a light or a breeze. Need to make sure each has a clear physical form and effect.
+
+Governing framework. What rules govern this? Maybe emotions can be shaped or manipulated, but there's a balance. If too much of one emotion, it could cause environmental changes. Also, emotions might decay over time, affecting the environment. Also, maybe the balance between emotions is crucial for the world's stability. So, rules like "Emotions can be shaped or manipulated by those who understand them," "Excess of a single emotion can destabilize the environment," "Emotions decay over time, affecting the environment," and "The balance of emotions maintains the world's stability."
+
+Driving forces and potential. What causes changes? Maybe emotional conflicts, natural occurrences, or interactions between emotions. Also, how emotions interact with each other. For example, love might counteract sorrow, or anger could fuel growth. Also, the potential for creating new objects or altering existing ones through emotional states.
+
+Foundational state. The initial conditions. Maybe the world is in a state of equilibrium, with emotions distributed evenly. But there's a history of imbalance leading to environmental changes. Like, ancient times had more chaos, leading to natural disasters, and now there's a balance maintained by emotional harmony.
+
+Check for consistency. Make sure all elements fit together. No contradictions. For example, if emotions decay, then areas with high emotional activity might have more decay, leading to environmental changes. Also, the governing framework mentions balance, so the foundational state should reflect that.
+
+Avoid real-world references. Don't mention specific real places or things. Use terms like "light," "wind," "shadows," etc. Make sure the descriptions are clear and each emotion's effect is distinct.
+
+Double-check the JSON structure. Ensure all keys are present, arrays are correctly formatted, and no extra text. Keep descriptions high-level and concise. Make sure the output is valid JSON without any syntax errors.
