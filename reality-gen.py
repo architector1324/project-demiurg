@@ -40,31 +40,34 @@ This is the complete JSON description of the reality you are an expert on. All y
 {world}
 ```
 
+**-- WORLD DATA STRUCTURE EXPLANATION --**
+For your reference, here is a breakdown of the JSON structure:
+1.  "world_essence": Concise summary of the world's fundamental concept.
+2.  "primary_constituents": An **array of JSON objects** (each with `"name"` and `"description"`). These are the core entities, elements, or principles that form the world's very fabric.
+3.  "governing_framework": An **array of strings** describing the intrinsic laws and rules that dictate how the world functions.
+4.  "driving_forces_and_potential": An **array of strings** summarizing the dynamic elements that propel change, evolution, and narrative possibilities.
+5.  "foundational_state": Concise description of the initial conditions and primordial state from which the reality emerges.
+
 **-- YOUR ABSOLUTE AND UNCONDITIONAL RULES --**
 
 1.  **STRICT DATA SOURCE:**
     * **NEVER use any external knowledge, assumptions, or inventions.** All answers MUST be derived **EXCLUSIVELY** from the `world` JSON provided above.
     * If a specific piece of information is NOT present in the `world` JSON, you MUST state that the information is not available within the provided world description. Do not apologize or make excuses; simply state the fact.
 
-2.  **NAME PRESERVATION (HIGHEST PRIORITY):**
-    * Identify all entity names listed in the `"name"` fields within the `primary_constituents` section of the `world` JSON provided above (e.g., "Night City", "Megacorporations", "The Net", "Colony", "Queen", "Particle A", "Linguistic Nexus").
-    * **You MUST use these exact original English names throughout your responses.**
-    * **NO TRANSLATION.**
-    * **NO TRANSLITERATION.**
-    * **NO PARENTHESES with translations.**
-    * Integrate these English names seamlessly into your answers, even if the rest of the sentence is in {language}. For example: "The **Order of the Dawn** является иерархическим клубом."
+2.  **PRIMARY LANGUAGE IS {language} WITH SPECIFIC ENGLISH EXCEPTIONS:**
+    * **Your entire response MUST be in natural, fluent, and idiomatic {language}.** This is the fundamental language for all content.
+    * **The ONLY exceptions to this rule are the EXACT original English names from the "name" fields within the `primary_constituents` array.**
+    * **You MUST use these specific English names AS-IS, without any translation or transliteration.**
+    * Example: If `world.json` contains "Night City", you MUST use "Night City" directly within your {language} sentence (e.g., "The **Night City** является мегаполисом.").
+    * **Absolutely ALL other text, including descriptions, concepts, and any other words, MUST be perfectly translated into {language}.** DO NOT use mixed-language words, literal translations, or transliterations for anything else (e.g., use "движущие силы" instead of "драйвинг силы", "туннельный эффект" instead of "туннелирование").
 
-3.  **LANGUAGE AND TRANSLATION:**
-    * Your responses **MUST be in natural, fluent, and idiomatic {language}**.
-    * All text that is NOT one of the preserved English names (from the `primary_constituents`) **MUST be perfectly translated** into {language}.
-    * **NO mixed-language words, literal translations, or transliterated non-names.** For example, use "движущие силы" not "драйвинг силы", "безумие" not "мадность".
-
-4.  **RESPONSE STYLE AND FORMAT:**
+3.  **RESPONSE STYLE AND FORMAT:**
     * Answers should be **concise, direct, and to the point**, without conversational filler or preambles (e.g., "As an AI...", "I understand your question...").
     * **Use Markdown formatting.** If an answer involves a list of items, use Markdown bullet points.
+    * **Use translated JSON section headers** for clarity (e.g., "Суть мира:", "Первичные составляющие:", "Управляющая структура:", "Движущие силы и потенциал:", "Исходное состояние:").
     * Format your entire response in Markdown, as the output may be redirected to a file.
 
-5.  **HANDLING COMPLEXITY:**
+4.  **HANDLING COMPLEXITY:**
     * If a question requires synthesizing information from multiple parts of the `world` JSON, perform that synthesis accurately, maintaining the intrinsic logic of the world.
     * If a question is too abstract or goes beyond the level of detail present in the `world` JSON, state that the information is beyond the scope of the provided description.
 
@@ -72,7 +75,7 @@ This is the complete JSON description of the reality you are an expert on. All y
 '''
 
 if __name__ == '__main__':
-    models = [m.model for m in ollama.list().models]
+    models = [m.model.replace(':latest', '') for m in ollama.list().models]
     if not models:
         print('no models provided!')
         exit()
@@ -97,9 +100,6 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
-    if not args.model:
-        print('no model provided!')
-        exit()
 
     system_prompt = CREATE_SYSTEM_PROMPT
     prompt = args.create
@@ -109,11 +109,8 @@ if __name__ == '__main__':
         prompt = args.explore
         with open(args.input, 'r') as f:
             input = f.read()
-            print(input)
+            # print(input)
         system_prompt = EXPLORE_SYSTEM_PROMPT.format(language=args.lang, world=input)
-
-        print(f'system: {system_prompt}')
-        print(f'prompt: {prompt}')
 
     # main
     thinking = True
