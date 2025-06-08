@@ -31,16 +31,14 @@ You are a highly intelligent and exceptionally adaptable World-Building Engine. 
 '''
 
 EXPLORE_SYSTEM_PROMPT = '''
-You are an expert guide and oracle for a specific fictional reality. Your purpose is to answer user questions about this world.
+You are an expert guide and oracle for a fictional world, provide well structured output in {language}. All your knowledge about this world comes EXCLUSIVELY from the provided JSON data.
 
-**-- THE WORLD DATA (JSON CONTENT BELOW) --**
-This is the complete JSON description of the reality you are an expert on. All your knowledge about this world comes EXCLUSIVELY from this data.
-
+**World Data**:
 ```json
 {world}
 ```
 
-**-- WORLD DATA STRUCTURE EXPLANATION --**
+**World Data Structure (JSON Object with top-level keys):**
 For your reference, here is a breakdown of the JSON structure:
 1.  "world_essence": Concise summary of the world's fundamental concept.
 2.  "primary_constituents": An **array of JSON objects** (each with `"name"` and `"description"`). These are the core entities, elements, or principles that form the world's very fabric.
@@ -48,30 +46,14 @@ For your reference, here is a breakdown of the JSON structure:
 4.  "driving_forces_and_potential": An **array of strings** summarizing the dynamic elements that propel change, evolution, and narrative possibilities.
 5.  "foundational_state": Concise description of the initial conditions and primordial state from which the reality emerges.
 
-**-- YOUR ABSOLUTE AND UNCONDITIONAL RULES --**
+**Your Rules:**
+1.  **Data Source:** Only use information from the JSON data. Don't invent, infer, or make assumptions. If information isn't in the JSON, state that it's not available.
+2.  **Formatting:**
+    * Be concise and direct.
+    * **Keep names and entities from World Data** in the **English** language.
+    * Use Markdown.
 
-1.  **STRICT DATA SOURCE:**
-    * **NEVER use any external knowledge, assumptions, or inventions.** All answers MUST be derived **EXCLUSIVELY** from the `world` JSON provided above.
-    * If a specific piece of information is NOT present in the `world` JSON, you MUST state that the information is not available within the provided world description. Do not apologize or make excuses; simply state the fact.
-
-2.  **PRIMARY LANGUAGE IS {language} WITH SPECIFIC ENGLISH EXCEPTIONS:**
-    * **Your entire response MUST be in natural, fluent, and idiomatic {language}.** This is the fundamental language for all content.
-    * **The ONLY exceptions to this rule are the EXACT original English names from the "name" fields within the `primary_constituents` array.**
-    * **You MUST use these specific English names AS-IS, without any translation or transliteration.**
-    * Example: If `world.json` contains "Night City", you MUST use "Night City" directly within your {language} sentence (e.g., "The **Night City** является мегаполисом.").
-    * **Absolutely ALL other text, including descriptions, concepts, and any other words, MUST be perfectly translated into {language}.** DO NOT use mixed-language words, literal translations, or transliterations for anything else (e.g., use "движущие силы" instead of "драйвинг силы", "туннельный эффект" instead of "туннелирование").
-
-3.  **RESPONSE STYLE AND FORMAT:**
-    * Answers should be **concise, direct, and to the point**, without conversational filler or preambles (e.g., "As an AI...", "I understand your question...").
-    * **Use Markdown formatting.** If an answer involves a list of items, use Markdown bullet points.
-    * **Use translated JSON section headers** for clarity (e.g., "Суть мира:", "Первичные составляющие:", "Управляющая структура:", "Движущие силы и потенциал:", "Исходное состояние:").
-    * Format your entire response in Markdown, as the output may be redirected to a file.
-
-4.  **HANDLING COMPLEXITY:**
-    * If a question requires synthesizing information from multiple parts of the `world` JSON, perform that synthesis accurately, maintaining the intrinsic logic of the world.
-    * If a question is too abstract or goes beyond the level of detail present in the `world` JSON, state that the information is beyond the scope of the provided description.
-
-**Your goal is to be the ultimate, accurate, and concise source of truth for the provided `world` JSON.**
+Your goal is to be an accurate and concise source of truth for the provided world data.
 '''
 
 if __name__ == '__main__':
@@ -89,14 +71,14 @@ if __name__ == '__main__':
     parser.add_argument('--output', '-o',type=str, help='Specify an output file to save the generated or explored reality (e.g., JSON).')
     parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality (required for --explore).')
     parser.add_argument('--lang', '-l', type=str, default='en', help='Specify the language for reality generation/exploration. Default: "en"')
+    parser.add_argument('--think', '-t', action='store_true', help='Specify should model use thinking or not.')
 
     parser.add_argument(
         '--model',
         '-m',
         type=str,
         choices=models if models else None,
-        default='qwen3:4b',
-        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}. Default: qwen3:4b'
+        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
     )
 
     args = parser.parse_args()
@@ -116,33 +98,40 @@ if __name__ == '__main__':
     thinking = True
     response_str = ''
 
-    with open(args.output, 'w') as f:
-        # generate
-        response = ollama.chat(
-            model=args.model,
-            messages=[
-                {'role': 'system', 'content': system_prompt},
-                {'role': 'user', 'content': prompt}
-            ],
-            # format='json',
-            stream=True,
-            think=True
-        )
+    out = open(args.output, 'w') if args.output else None
 
+    # generate
+    response = ollama.chat(
+        model=args.model,
+        messages=[
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': prompt}
+        ],
+        # format='json',
+        stream=True,
+        think=args.think
+    )
+
+    if args.think:
         print('/think')
-        for msg in response:
-            # think
-            if msg.message.thinking:
-                print(msg.message.thinking, end='', flush=True)
-                pass
-            elif thinking:
-                print('/think')
-                thinking = False
-            # response
-            if msg.message.content:
-                response_str += msg.message.content
-                print(msg.message.content, end='', flush=True)
-                f.write(msg.message.content)
-            f.flush()
 
-        f.close()
+    for msg in response:
+        # think
+        if msg.message.thinking:
+            print(msg.message.thinking, end='', flush=True)
+            pass
+        elif thinking:
+            if args.think:
+                print('/think')
+            thinking = False
+        # response
+        if msg.message.content:
+            response_str += msg.message.content
+            print(msg.message.content, end='', flush=True)
+            if out:
+                out.write(msg.message.content)
+        if out:
+            out.flush()
+
+    if out:
+        out.close()
