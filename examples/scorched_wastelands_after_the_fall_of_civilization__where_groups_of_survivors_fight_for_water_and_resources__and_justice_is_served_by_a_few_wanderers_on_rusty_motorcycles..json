@@ -1,0 +1,29 @@
+{
+  "world_essence": "A desolate, resource-scarce world where survival hinges on struggle and the rule of a few.",
+  "primary_constituents": [
+    {
+      "name": "Scorched Expanse",
+      "description": "A vast, arid landscape of cracked earth, ash-choked skies, and remnants of once-thriving cities reduced to smoldering ruins."
+    },
+    {
+      "name": "Scavengers",
+      "description": "Nomadic groups that hunt, scavenge, and barter for survival, often forming temporary alliances to secure scarce resources."
+    },
+    {
+      "name": "Wanderers",
+      "description": "Individuals or small factions who ride rusted motorcycles to enforce a loose code of justice, often resolving conflicts through combat or negotiation."
+    }
+  ],
+  "governing_framework": [
+    "Survival is the primary metric of worth, with strength and resource control dictating social hierarchy.",
+    "The Wanderers act as de facto lawgivers, their rulings enforced through reputation and the threat of physical confrontation.",
+    "The environment is a relentless adversary, with weather, scarcity, and unstable terrain shaping all interactions."
+  ],
+  "driving_forces_and_potential": [
+    "Competition for water, food, and shelter sparks constant conflict between Scavenger groups.",
+    "Wanderers' influence grows as they navigate the fragmented territories, sometimes becoming dominant figures.",
+    "Environmental collapse continues, with periodic eruptions of ash and heat threatening to render regions uninhabitable.",
+    "Rustbound Chariots may be modified or sabotaged, altering the balance of power among factions."
+  ],
+  "foundational_state": "The world was once a civilization but collapsed due to environmental degradation and war. Now, it is divided into contested territories, with the Wanderers as enforcers of a fragile order. The air is thick with ash, and the sun burns with a reddened hue, casting long shadows over the ruins."
+}
