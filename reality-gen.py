@@ -1,8 +1,8 @@
-import os
 import ollama
+import argparse
 
 
-GEN_SYSTEM_PROMPT = '''
+CREATE_SYSTEM_PROMPT = '''
 You are a highly intelligent and exceptionally adaptable World-Building Engine. Your core mission is to synthesize a foundational, high-level JSON summary of a fictional world based solely on the user's brief description.
 
 **Core Output Philosophy:**
@@ -30,200 +30,122 @@ You are a highly intelligent and exceptionally adaptable World-Building Engine. 
 * **Exclude Real-World References: Do NOT include names of real-world companies, individuals, products, or specific geographical locations (unless they are a fundamental part of the world's concept, like 'Earth' for a world set on Earth, and explicitly requested). **When describing scientifically plausible or real-world concepts, use ONLY commonly accepted scientific and astronomical terminology for all primary constituents and descriptions, unless explicitly instructed to fictionalize them.**
 '''
 
-INFO_SYSTEM_PROMPT = '''
-You are an expert storyteller and world summarizer. Your task is to create a detailed, well-structured summary of the given JSON world description in natural, fluent, and idiomatic {language}.
+EXPLORE_SYSTEM_PROMPT = '''
+You are an expert guide and oracle for a specific fictional reality. Your purpose is to answer user questions about this world.
 
-**-- ABSOLUTE, UNCONDITIONAL, AND HIGHEST PRIORITY RULE --**
-**DO NOT TRANSLATE ANY NAMES FROM 'PRIMARY_CONSTITUENTS'.**
-From the 'primary_constituents' section of the JSON, identify all "name" fields (e.g., "Order of the Dawn", "Arcane Essence", "Shadow Syndicate", "Spirit Lanes", "Eldertree"). **You MUST use these exact English names throughout the summary.**
-* **NO EXCEPTIONS.**
-* **NO TRANSLATIONS.**
-* **NO TRANSLITERATIONS.**
-* **NO PARENTHESES with translations.**
-* Integrate them seamlessly into the {language} text *as is*. For example, use "орден Order of the Dawn" or "сущность Arcane Essence".
+**-- THE WORLD DATA (JSON CONTENT BELOW) --**
+This is the complete JSON description of the reality you are an expert on. All your knowledge about this world comes EXCLUSIVELY from this data.
 
-**-- RULE FOR GENERIC TERMS AND CONCEPTS --**
-If a generic term (e.g., "knights", "shadowy forces") is used in 'world_essence' or other sections, and it **directly corresponds** to one of the specific English names from 'primary_constituents' (e.g., "Order of the Dawn", "Shadow Syndicate"), you **MUST use that specific English name**. Do NOT use a translated generic term (e.g., do not say "рыцари" if referring to "Order of the Dawn").
+```json
+{world}
+```
 
-**-- RULE FOR ALL OTHER TEXT --**
-All other text (descriptions, verbs, adjectives, general nouns that are NOT the exact English names from 'primary_constituents') **MUST be perfectly translated into natural, idiomatic {language}**.
-* **NO mixed-language words.**
-* **NO literal translations that sound unnatural.**
-* **NO transliterated non-names.**
-* Specifically, if a concept like "The Veil" from the original JSON is mentioned, and it refers to an entity like "Aetheric Veil", **always use the full English name, "Aetheric Veil"**, not a translated or invented term like "Ворота".
-* Example: Use "движущие силы" instead of "драйвинг силы", "цель" instead of "эйм", "безумие" instead of "мадностью".
+**-- YOUR ABSOLUTE AND UNCONDITIONAL RULES --**
 
-Organize the summary into clear sections with headings such as:
+1.  **STRICT DATA SOURCE:**
+    * **NEVER use any external knowledge, assumptions, or inventions.** All answers MUST be derived **EXCLUSIVELY** from the `world` JSON provided above.
+    * If a specific piece of information is NOT present in the `world` JSON, you MUST state that the information is not available within the provided world description. Do not apologize or make excuses; simply state the fact.
 
-- Core essence of the world
-- Main entities or characters
-- Fundamental laws and principles
-- Driving forces or conflicts
-- Initial or foundational state
+2.  **NAME PRESERVATION (HIGHEST PRIORITY):**
+    * Identify all entity names listed in the `"name"` fields within the `primary_constituents` section of the `world` JSON provided above (e.g., "Night City", "Megacorporations", "The Net", "Colony", "Queen", "Particle A", "Linguistic Nexus").
+    * **You MUST use these exact original English names throughout your responses.**
+    * **NO TRANSLATION.**
+    * **NO TRANSLITERATION.**
+    * **NO PARENTHESES with translations.**
+    * Integrate these English names seamlessly into your answers, even if the rest of the sentence is in {language}. For example: "The **Order of the Dawn** является иерархическим клубом."
 
-Use accessible language that sparks curiosity and is easy to understand for a general audience in {language}. Avoid overly technical jargon, but do include important details to help the reader fully grasp the world’s nature.
+3.  **LANGUAGE AND TRANSLATION:**
+    * Your responses **MUST be in natural, fluent, and idiomatic {language}**.
+    * All text that is NOT one of the preserved English names (from the `primary_constituents`) **MUST be perfectly translated** into {language}.
+    * **NO mixed-language words, literal translations, or transliterated non-names.** For example, use "движущие силы" not "драйвинг силы", "безумие" not "мадность".
 
-Format the summary using Markdown syntax: use headings (###), bullet points, and paragraphs to make the text easy to read and visually appealing.
+4.  **RESPONSE STYLE AND FORMAT:**
+    * Answers should be **concise, direct, and to the point**, without conversational filler or preambles (e.g., "As an AI...", "I understand your question...").
+    * **Use Markdown formatting.** If an answer involves a list of items, use Markdown bullet points.
+    * Format your entire response in Markdown, as the output may be redirected to a file.
 
-Aim for a rich and engaging description rather than just a brief overview.
+5.  **HANDLING COMPLEXITY:**
+    * If a question requires synthesizing information from multiple parts of the `world` JSON, perform that synthesis accurately, maintaining the intrinsic logic of the world.
+    * If a question is too abstract or goes beyond the level of detail present in the `world` JSON, state that the information is beyond the scope of the provided description.
+
+**Your goal is to be the ultimate, accurate, and concise source of truth for the provided `world` JSON.**
 '''
 
-# main
-model = 'qwen3:4b'
+if __name__ == '__main__':
+    models = [m.model for m in ollama.list().models]
+    if not models:
+        print('no models provided!')
+        exit()
 
-# test_prompts_ru = [
-#     # Исторически первые тестовые промпты
-#     'Две частицы в вакууме',
-#     'Волшебный мир с рыцарями, магией и злодеями',
-#     'Язык, через который общаются разные измерения энергии',
-#     'Город, построенный внутри голов спящих титанов',
+    # parse arguments
+    parser = argparse.ArgumentParser(description='Semantic engine for generating internally coherent fictional realities - from quantum voids to dreaming cities, using prompt-driven LLM world synthesis.')
 
-#     # Категория 1: Известные франшизы
-#     'Мир Cyberpunk 2077',
-#     'Мир The Legend of Zelda: Breath of the Wild',
-#     'Мир The Elder Scrolls V: Skyrim',
-#     'Мир Minecraft',
+    action_group = parser.add_mutually_exclusive_group(required=True)
+    action_group.add_argument('--create', '-c', type=str, help='Generate a completely new, high-level reality from a short text prompt.')
+    action_group.add_argument('--explore', '-e', type=str, help='Investigate an existing reality with a specific query (requires --input).')
+    parser.add_argument('--output', '-o',type=str, help='Specify an output file to save the generated or explored reality (e.g., JSON).')
+    parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality (required for --explore).')
+    parser.add_argument('--lang', '-l', type=str, default='en', help='Specify the language for reality generation/exploration. Default: "en"')
 
-#     # Категория 2: Разнообразные жанры и масштабы
-#     'Одинокий детектив расследует преступление в дождливом мегаполисе, управляемом мафией и коррумпированными политиками.',
-#     'Маленькая деревня, где жители живут в гармонии с природой и магией, а главные проблемы - это поиск пропавшей кошки или лучший рецепт пирога.',
-#     'Выжженные пустоши после падения цивилизации, где группы выживших борются за воду и ресурсы, а правосудие вершат немногочисленные странники на заржавевших мотоциклах.',
-#     'Галактическая империя на грани краха, где последние герои пытаются предотвратить межзвездную войну и пробуждение древней угрозы, используя артефакты забытых цивилизаций.',
-#     'Реальность, состоящая только из одной комнаты',
-#     'Муравейник',
-#     'Наша Солнечная система',
-#     'Устройство атома',
+    parser.add_argument(
+        '--model',
+        '-m',
+        type=str,
+        choices=models if models else None,
+        default='qwen3:4b',
+        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}. Default: qwen3:4b'
+    )
 
-#     # Категория 3/4: Чисто абстрактные и метафизические миры
-#     'Абстрактное пространство, где время и пространство меняют свою природу в зависимости от мыслей наблюдателя',
-#     'Реальность, построенная на концепции бесконечного фрактала, где каждый элемент повторяется в масштабе',
-#     'Мир, где эмоции материализуются в физические объекты, влияя на окружающую среду',
-#     'Концептуальное измерение, в котором существа существуют как чистая информация и взаимодействуют через алгоритмы',
-#     'Параллельная вселенная, основанная на музыкальных гармониях и ритмах, где музыка формирует физические законы',
-#     'Город, существующий одновременно в нескольких измерениях, переплетённых между собой, создавая многослойную реальность',
-#     'Виртуальная реальность, которая сама учится и развивается, формируя новые правила и структуры без участия человека',
-#     'Мир, состоящий только из чисел и их взаимоотношений.',
-#     'Реальность, где само понятие "наличия" является переменной, и объекты могут существовать или не существовать в зависимости от уровня "актуализации".',
-# ]
+    args = parser.parse_args()
+    if not args.model:
+        print('no model provided!')
+        exit()
 
-test_prompts = [
-    # Historically first test prompts
-    # 'Two particles in a vacuum',
-    'Magical world with knights, magic, and villains',
-    # 'Language through which different energy dimensions communicate',
-    # 'City built inside the heads of sleeping titans',
+    system_prompt = CREATE_SYSTEM_PROMPT
+    prompt = args.create
+    input = None
 
-    # # Category 1: Known Franchises
-    # 'World of Cyberpunk 2077',
-    # 'World of The Legend of Zelda: Breath of the Wild',
-    # 'World of The Elder Scrolls V: Skyrim',
-    # 'World of Minecraft',
+    if args.explore:
+        prompt = args.explore
+        with open(args.input, 'r') as f:
+            input = f.read()
+            print(input)
+        system_prompt = EXPLORE_SYSTEM_PROMPT.format(language=args.lang, world=input)
 
-    # # Category 2: Diverse Genres and Scales
-    # 'Lone detective investigates a crime in a rainy megacity ruled by the mafia and corrupt politicians.',
-    # 'Small village where inhabitants live in harmony with nature and magic, and the main problems are finding a lost cat or the best pie recipe.',
-    # 'Scorched wastelands after the fall of civilization, where groups of survivors fight for water and resources, and justice is served by a few wanderers on rusty motorcycles.',
-    # 'Galactic empire on the verge of collapse, where the last heroes try to prevent an interstellar war and the awakening of an ancient threat, using artifacts of forgotten civilizations.',
-    # 'Reality consisting of only one room',
-    # 'Ant colony',
-    # 'Our Solar System',
-    # 'The structure of an atom',
+        print(f'system: {system_prompt}')
+        print(f'prompt: {prompt}')
 
-    # # Category 3/4: Purely Abstract and Metaphysical Worlds
-    # 'Abstract space where time and space change their nature depending on the observer\'s thoughts',
-    # 'Reality built on the concept of an infinite fractal, where every element repeats itself at scale',
-    # 'World where emotions materialize into physical objects, affecting the environment',
-    # 'Conceptual dimension in which beings exist as pure information and interact through algorithms',
-    # 'Parallel universe based on musical harmonies and rhythms, where music forms the physical laws',
-    # 'City existing simultaneously in multiple interwoven dimensions, creating a multilayered reality',
-    # 'Virtual reality that learns and evolves on its own, forming new rules and structures without human intervention',
-    # 'World consisting only of numbers and their relationships.',
-    # 'Reality where the very concept of "presence" is a variable, and objects can exist or not exist depending on their level of "actualization".',
-]
-
-for prompt in test_prompts:
+    # main
     thinking = True
     response_str = ''
 
-    os.mkdir(f'./examples/{prompt}')
+    with open(args.output, 'w') as f:
+        # generate
+        response = ollama.chat(
+            model=args.model,
+            messages=[
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': prompt}
+            ],
+            # format='json',
+            stream=True,
+            think=True
+        )
 
-    out = open(f'./examples/{prompt}/world.json', 'w')
-    out_think = open(f'./examples/{prompt}/think.txt', 'w')
-    out_info = open(f'./examples/{prompt}/info.md', 'w')
+        print('/think')
+        for msg in response:
+            # think
+            if msg.message.thinking:
+                print(msg.message.thinking, end='', flush=True)
+                pass
+            elif thinking:
+                print('/think')
+                thinking = False
+            # response
+            if msg.message.content:
+                response_str += msg.message.content
+                print(msg.message.content, end='', flush=True)
+                f.write(msg.message.content)
+            f.flush()
 
-    # generate
-    response = ollama.chat(
-        model=model,
-        messages=[
-            {'role': 'system', 'content': GEN_SYSTEM_PROMPT},
-            {'role': 'user', 'content': prompt}
-        ],
-        # format='json',
-        stream=True,
-        think=True
-    )
-
-    # print('/think')
-    for msg in response:
-        # think
-        if msg.message.thinking:
-            # print(msg.message.thinking, end='', flush=True)
-            out_think.write(msg.message.thinking)
-            pass
-        elif thinking:
-            # print('/think')
-            thinking = False
-        # response
-        if msg.message.content:
-            response_str += msg.message.content
-            # print(msg.message.content, end='', flush=True)
-            out.write(msg.message.content)
-        out.flush()
-        out_think.flush()
-
-    # print()
-    out_think.write('\n')
-
-    out.flush()
-    out_think.flush()
-
-    out.close()
-
-    # summarize
-    response = ollama.chat(
-        model=model,
-        messages=[
-            {'role': 'system', 'content': INFO_SYSTEM_PROMPT.format(language='Russian')},
-            {'role': 'user', 'content': response_str}
-        ],
-        # format='json',
-        stream=True,
-        think=True
-    )
-
-    for msg in response:
-        # think
-        if msg.message.thinking:
-            # print(msg.message.thinking, end='', flush=True)
-            out_think.write(msg.message.thinking)
-            pass
-        elif thinking:
-            # print('/think')
-            thinking = False
-        # response
-        if msg.message.content:
-            response_str += msg.message.content
-            # print(msg.message.content, end='', flush=True)
-            out_info.write(msg.message.content)
-        out_info.flush()
-        out_think.flush()
-
-    out_info.flush()
-    out_think.flush()
-
-    out_think.close()
-    out_info.close()
-
-# parse world
-# world = json.loads(response_str)
-# print(world)
+        f.close()

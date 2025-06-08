@@ -58,8 +58,8 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 
 | Command   | Description                                                                                                                                                             | Status       |
 | :--- | :- | :- |
-| `--new`   | Generate a completely new, high-level reality from a short prompt.                                                                                                      | **Ready** |
-| `--explore` | Investigate the existing reality based on its already generated JSON, allowing Q\&A or factual extraction. **This command does not alter the world's state.** | *In Progress* |
+| `--create`   | Generate a completely new, high-level reality from a short prompt.                                                                                                      | **Ready** |
+| `--explore` | Investigate the existing reality based on its already generated JSON, allowing Q\&A or factual extraction. **This command does not alter the world's state.** | **Ready** |
 | `--deep`  | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | *In Progress* |
 | `--live`  | Experimental: Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                    | *Planned* |
 
@@ -67,12 +67,12 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 
 ## Usage Examples
 
-To generate a new world (using the `--new` command):
+To generate a new world (using the `--create` command):
 
 #### Fundamental physics ontology:
 
 ```bash
-python reality-gen.py --new "Two particles in a vacuum"
+python reality-gen.py --create "Two particles in a vacuum"
 ```
 
 The output will be a structured JSON representing the generated reality, similar to this:
@@ -109,7 +109,7 @@ The output will be a structured JSON representing the generated reality, similar
 #### High-fantasy realm:
 
 ```bash
-python reality-gen.py --new "A magical world with knights, magic, and villains"
+python reality-gen.py --create "A magical world with knights, magic, and villains"
 ```
 
 ```json
