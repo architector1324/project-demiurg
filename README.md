@@ -18,7 +18,7 @@ SRGE offers a powerful set of capabilities designed to bring complex realities t
 
   * **Prompt-Driven Reality Synthesis:** Simply provide a short text prompt, and SRGE will generate a unique, detailed fictional reality, tailored to your vision.
   * **Deep Ontological Structure:** Each generated world comes as a **structured JSON output**, meticulously defining its existence across five core dimensions. This isn't just text; it's a blueprint for a living world:
-      * `world_essence`: The fundamental nature and defining concept of the reality.
+      * `essence`: The fundamental nature and defining concept of the reality.
       * `primary_constituents`: The core entities, elements, or principles that form its very fabric.
       * `governing_framework`: The intrinsic laws and rules that dictate how the world functions.
       * `driving_forces_and_potential`: The dynamic elements that propel change, evolution, and narrative possibilities.
@@ -58,13 +58,43 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 
 ## Commands
 
-| Command   | Description                                                                                                                                                             | Status       |
-| :--- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------- |
-| `--create`   | Generate a completely new, high-level reality from a short prompt.                                                                                                      | **Ready** |
-| `--explore` | Investigate the existing reality based on its already generated JSON, allowing Q&A or factual extraction. **This command does not alter the world's state.** | **Ready** |
-| `--deep`  | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | *In Progress* |
-| `--live`  | Experimental: Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                    | *Planned* |
+| Command     | Description                                                                                                                                                                                       | Status        |
+| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ |
+| `--create`  | Generate a completely new, high-level reality from a short prompt.                                                                                                                                | **Ready**     |
+| `--explore` | Interrogate a generated world through semantic Q\&A. Answers are inferred purely from the world's internal ontology and logic — not guessed or invented.                                          | **Ready**     |
+| `--deep`    | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | *In Progress* |
+| `--live`    | Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                                              | *Planned*     |
 
+### Foundational Genesis
+
+The `--create` command is the genesis engine — a mechanism for **birthing realities** from pure prompt. When invoked, it doesn’t merely invent; it **semantically sculpts** an internally consistent world according to the laws, forces, and states implied by your input.
+
+This world is not textual fluff or narrative scaffolding. It is a **semantic structure**, with five distinct axes of being: essence, constituents, laws, dynamics, and state. You are not "designing" a world — you're **witnessing the crystallization** of a potentiality-space into a logically sealed universe.
+
+> Think of it as speaking a phrase into the void, and having that phrase echo back as a complete, living cosmos.
+
+**Importantly:**
+
+* Output is stored as a **structured JSON**.
+* Every field in the schema holds internal meaning and logical consequence.
+* The resulting reality requires no external lore or exposition to make sense — it is **self-defining**.
+
+> Example:
+> `python reality-gen.py --model qwen3:4b --create "A sentient ocean that dreams of land"`
+
+### Semantic Exploration
+
+The `--explore` command allows you to **ask questions to a fictional world as if it were a logically self-aware construct**. This is not a typical question-and-answer format or a database query. The world, through the semantic engine, **responds using only the internal rules and entities embedded in its structure**.
+
+The engine does not guess or improvise beyond what has already been semantically established. Instead of simply extracting facts, it deductively unfolds meaning, synthesizing detailed and coherent answers based on the information already recorded in the ontology. Thus, responses always strictly rely on the internal structure and data of the world without adding anything external.
+
+> Imagine you are interrogating a pocket universe not as a user, but as a silent observer triggering its internal logic to speak through language.
+
+**Important:**
+
+* `--explore` **never alters** the world or its JSON.
+* All answers strictly comply with the **internal logic and narrative constraints of the world**.
+* This feature embodies SRGE’s core philosophy: **reality as a self-consistent semantic structure**, not a storytelling sandbox.
 
 ## Usage Examples
 
@@ -80,7 +110,7 @@ The output will be a structured JSON representing the generated reality, similar
 
 ```json
 {
-  "world_essence": "A universe defined by the interaction of two fundamental particles within an empty spatial expanse, governed by the laws of quantum mechanics and relativistic physics.",
+  "essence": "A universe defined by the interaction of two fundamental particles within an empty spatial expanse, governed by the laws of quantum mechanics and relativistic physics.",
   "primary_constituents": [
     {
       "name": "Particle A",
@@ -115,7 +145,7 @@ python reality-gen.py --model qwen3:4b --think --create "A magical world with kn
 
 ```json
 {
-  "world_essence": "A realm where magic flows through the fabric of existence, governed by the interplay of light and shadow. Knights serve as guardians of balance, while dark forces seek to unravel the world's harmony.",
+  "essence": "A realm where magic flows through the fabric of existence, governed by the interplay of light and shadow. Knights serve as guardians of balance, while dark forces seek to unravel the world's harmony.",
   "primary_constituents": [
     {
       "name": "Aetherion",
