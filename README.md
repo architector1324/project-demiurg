@@ -25,7 +25,9 @@ SRGE offers a powerful set of capabilities designed to bring complex realities t
       * `foundational_state`: The initial conditions and primordial state from which the reality emerges.
   * **Unparalleled Consistency & Versatility:** SRGE delivers **genre-agnostic** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the gritty depths of cyberpunk, the generated realities will always adhere to their own logical framework.
   * **Pure Intrinsic Logic:** Unlike typical game or narrative engines, SRGE focuses solely on the **intrinsic logic of the world itself**. There's no "player framing" – the reality exists independently, driven by its own internal dynamics.
-  * **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex. However, akin to the principles of quantum mechanics, their details "materialize" only upon observation. The LLM acts as a **"revealer" of inherent complexity**, unfolding subsequent levels of detail within the world that are already intrinsic to its foundational semantic structure, rather than generating new content arbitrarily. This ensures that even with deep exploration, the world remains absolutely internally consistent and true to its initial laws.
+  * **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `--deep` command).
+
+    **Important: This does not contradict the declared independence of the world from an external observer.** The LLM acts as a **"revealer" of inherent complexity**, not its arbitrary generator. The external observer, by requesting a deeper dive, does not **alter** the world or its internal laws, nor does it introduce anything external. It merely **prompts the world to "unfold"** that part of its structure which is already intrinsically embedded in its foundational semantic fabric. This process always occurs **strictly according to the internal rules and logic of the reality itself**. Thus, the observer does not create a new reality, but rather **explores** an already existing one, merely shifting to a deeper level of its manifestation. This guarantees that even with deep exploration, the world remains absolutely internally consistent and true to its initial laws.
   * **Local & Autonomous:** Run SRGE entirely on your machine without an internet connection. Powered by Ollama, it provides a self-contained environment for reality generation and exploration.
 
 
@@ -44,7 +46,7 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 3.  **Clone the SRGE repository:**
 
     ```bash
-    git clone https://github.com/architector1324/semantic-reality-generation-engine
+    git clone [https://github.com/architector1324/semantic-reality-generation-engine](https://github.com/architector1324/semantic-reality-generation-engine)
     ```
 
 4.  **Install Python dependencies (if any)::**
@@ -57,12 +59,11 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 ## Commands
 
 | Command   | Description                                                                                                                                                             | Status       |
-| :--- | :- | :- |
+| :--- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------- |
 | `--create`   | Generate a completely new, high-level reality from a short prompt.                                                                                                      | **Ready** |
-| `--explore` | Investigate the existing reality based on its already generated JSON, allowing Q\&A or factual extraction. **This command does not alter the world's state.** | **Ready** |
+| `--explore` | Investigate the existing reality based on its already generated JSON, allowing Q&A or factual extraction. **This command does not alter the world's state.** | **Ready** |
 | `--deep`  | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | *In Progress* |
 | `--live`  | Experimental: Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                    | *Planned* |
-
 
 
 ## Usage Examples
@@ -152,7 +153,6 @@ python reality-gen.py --model qwen3:4b --think --create "A magical world with kn
   "foundational_state": "The Crystal Spire currently sustains the Aetherial Current, but the Shadow Syndicate has begun to corrupt the void around the Void Nexus, threatening to disrupt the Cycle of Shadows. The Order of the Starlight remains vigilant, preparing for the impending crisis."
 }
 ```
-
 
 ## Manifesto: The Vision Behind SRGE
 
