@@ -16,19 +16,19 @@ SRGE was born from the desire to explore the true capabilities of Large Language
 
 SRGE offers a powerful set of capabilities designed to bring complex realities to life:
 
-  * **Prompt-Driven Reality Synthesis:** Simply provide a short text prompt, and SRGE will generate a unique, detailed fictional reality, tailored to your vision.
-  * **Deep Ontological Structure:** Each generated world comes as a **structured JSON output**, meticulously defining its existence across five core dimensions. This isn't just text; it's a blueprint for a living world:
-      * `essence`: The fundamental nature and defining concept of the reality.
-      * `primary_constituents`: The core entities, elements, or principles that form its very fabric.
-      * `governing_framework`: The intrinsic laws and rules that dictate how the world functions.
-      * `driving_forces_and_potential`: The dynamic elements that propel change, evolution, and narrative possibilities.
-      * `foundational_state`: The initial conditions and primordial state from which the reality emerges.
-  * **Unparalleled Consistency & Versatility:** SRGE delivers **genre-agnostic** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the gritty depths of cyberpunk, the generated realities will always adhere to their own logical framework.
-  * **Pure Intrinsic Logic:** Unlike typical game or narrative engines, SRGE focuses solely on the **intrinsic logic of the world itself**. There's no "player framing" – the reality exists independently, driven by its own internal dynamics.
-  * **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `--deep` command).
+*   **Prompt-Driven Reality Synthesis:** Simply provide a short text prompt, and SRGE will generate a unique, detailed fictional reality, tailored to your vision.
+*   **Deep Ontological Structure:** Each generated world comes as a **structured JSON output**, meticulously defining its existence across five core dimensions. This isn't just text; it's a blueprint for a living world:
+    *   `essence`: The fundamental nature and defining concept of the reality.
+    *   `primary_constituents`: The core entities, elements, or principles that form its very fabric.
+    *   `governing_framework`: The intrinsic laws and rules that dictate how the world functions.
+    *   `driving_forces_and_potential`: The dynamic elements that propel change, evolution, and narrative possibilities.
+    *   `foundational_state`: The initial conditions and primordial state from which the reality emerges.
+*   **Unparalleled Consistency & Versatility:** SRGE delivers **genre-agnostic** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the gritty depths of cyberpunk, the generated realities will always adhere to their own logical framework.
+*   **Pure Intrinsic Logic:** Unlike typical game or narrative engines, SRGE focuses solely on the **intrinsic logic of the world itself**. There's no "player framing" – the reality exists independently, driven by its own internal dynamics.
+*   **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `--deep` command).
 
     **Important: This does not contradict the declared independence of the world from an external observer.** The LLM acts as a **"revealer" of inherent complexity**, not its arbitrary generator. The external observer, by requesting a deeper dive, does not **alter** the world or its internal laws, nor does it introduce anything external. It merely **prompts the world to "unfold"** that part of its structure which is already intrinsically embedded in its foundational semantic fabric. This process always occurs **strictly according to the internal rules and logic of the reality itself**. Thus, the observer does not create a new reality, but rather **explores** an already existing one, merely shifting to a deeper level of its manifestation. This guarantees that even with deep exploration, the world remains absolutely internally consistent and true to its initial laws.
-  * **Local & Autonomous:** Run SRGE entirely on your machine without an internet connection. Powered by Ollama, it provides a self-contained environment for reality generation and exploration.
+*   **Local & Autonomous:** Run SRGE entirely on your machine without an internet connection. Powered by Ollama, it provides a self-contained environment for reality generation and exploration.
 
 
 ## Installation
@@ -62,7 +62,7 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ |
 | `--create`  | Generate a completely new, high-level reality from a short prompt.                                                                                                                                | **Ready**     |
 | `--explore` | Interrogate a generated world through semantic Q\&A. Answers are inferred purely from the world's internal ontology and logic — not guessed or invented.                                          | **Ready**     |
-| `--deep`    | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | *In Progress* |
+| `--deep`    | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | **Ready**     |
 | `--live`    | Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                                              | *Planned*     |
 
 ### Foundational Genesis
@@ -75,9 +75,9 @@ This world is not textual fluff or narrative scaffolding. It is a **semantic str
 
 **Importantly:**
 
-* Output is stored as a **structured JSON**.
-* Every field in the schema holds internal meaning and logical consequence.
-* The resulting reality requires no external lore or exposition to make sense — it is **self-defining**.
+*   Output is stored as a **structured JSON**.
+*   Every field in the schema holds internal meaning and logical consequence.
+*   The resulting reality requires no external lore or exposition to make sense — it is **self-defining**.
 
 > Example:
 > `python reality-gen.py --model qwen3:4b --create "A sentient ocean that dreams of land"`
@@ -92,9 +92,26 @@ The engine does not guess or improvise beyond what has already been semantically
 
 **Important:**
 
-* `--explore` **never alters** the world or its JSON.
-* All answers strictly comply with the **internal logic and narrative constraints of the world**.
-* This feature embodies SRGE’s core philosophy: **reality as a self-consistent semantic structure**, not a storytelling sandbox.
+*   `--explore` **never alters** the world or its JSON.
+*   All answers strictly comply with the **internal logic and narrative constraints of the world**.
+*   This feature embodies SRGE’s core philosophy: **reality as a self-consistent semantic structure**, not a storytelling sandbox.
+
+### Semantic Unveiling (Deepening)
+
+The `--deep` command is the mechanism for **unveiling the intrinsic, granular layers** of an already generated reality. It embodies the principle of **'Reality as Observation'** – where the world's details exist in a state of potentiality and *materialize* upon targeted focus. This is not arbitrary generation, but the **semantic unfolding** of inherent complexity, derived logically from the parent entity and the overarching world's laws.
+
+When invoked, `--deep` targets a specific `primary_constituent` within your world's JSON (e.g., "Stone", "Sand", "Water Droplet"). It then enriches this constituent by adding a new, nested `"manifestation"` object. This `manifestation` adheres to the same **five-dimensional SRGE ontology** (`essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`), but at a *more granular, micro-level*.
+
+**Key Characteristics:**
+
+*   **Hierarchical Consistency:** All elements within the `manifestation` (its internal constituents, laws, forces) are direct, more specific **consequences, mechanisms, or finer-grained expressions** of the parent entity’s description and the parent world’s governing framework.
+*   **Focus-Driven Detail:** For large entities, it intelligently focuses on the most relevant sub-components while aggregating the vast majority of other parts into a single representative constituent (e.g., `"Remaining [Entity Name] Components"`), preventing unnecessary data proliferation.
+*   **Intrinsic & Objective:** Consistent with SRGE's core philosophy, the output is entirely devoid of external observer framing, describing the world purely from within itself.
+
+The command returns the **complete, modified JSON of the world**, with the selected constituent updated to include its new, deeper manifestation. This allows for recursive exploration, building an increasingly detailed ontological map of your fictional reality.
+
+> Example:
+> `python reality-gen.py --model qwen3 --deep 'Sand' --input world.json`
 
 ## Usage Examples
 
@@ -188,8 +205,8 @@ python reality-gen.py --model qwen3:4b --think --create "A magical world with kn
 
 SRGE is more than just a world generator; it's an **engine for creating autonomous, living, self-contained realities**. These worlds exist by their own internal laws, not for the sake of a player or an observer.
 
-  * **Semantic Core:** We use language to forge miniature universes, with the LLM serving as their very breath.
-  * **Ontos, Not Text:** This is not merely text; it's an **ontos** – an ordered collection of entities and their relationships, where "word becomes flesh, and JSON its substance."
-  * **Witness, Not Author:** You are not the author, player, or god; you are a **witness to an alien reality**, observing worlds where events unfold for their own internal reasons, not for or because of us.
-  * **LLM as Law:** The world lives by itself. The LLM acts as the **physical law governing its existence**.
-  * **Challenging Reality:** This is an **ontological experiment in a pocket-sized format**, designed to reveal the true capabilities of language models – even small ones – and to push the boundaries of what constitutes "reality."
+*   **Semantic Core:** We use language to forge miniature universes, with the LLM serving as their very breath.
+*   **Ontos, Not Text:** This is not merely text; it's an **ontos** – an ordered collection of entities and their relationships, where "word becomes flesh, and JSON its substance."
+*   **Witness, Not Author:** You are not the author, player, or god; you are a **witness to an alien reality**, observing worlds where events unfold for their own internal reasons, not for or because of us.
+*   **LLM as Law:** The world lives by itself. The LLM acts as the **physical law governing its existence**.
+*   **Challenging Reality:** This is an **ontological experiment in a pocket-sized format**, designed to reveal the true capabilities of language models – even small ones – and to push the boundaries of what constitutes "reality."

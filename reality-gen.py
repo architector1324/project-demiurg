@@ -17,7 +17,7 @@ You are a highly intelligent and exceptionally adaptable World-Building Engine. 
 
 **Output Structure (JSON Object with top-level keys):**
 
-1. "world_essence": Concise summary of the world's fundamental concept.
+1. "essence": Concise summary of the world's fundamental concept.
 2. "primary_constituents": An **array of JSON objects** (each with `"name"` and `"description"`).
 3. "governing_framework": An **array of strings** describing fundamental rules/systems.
 4. "driving_forces_and_potential": An **array of strings** summarizing core interactions/forces that drive change.
@@ -49,6 +49,108 @@ JSON data:
 {world}
 '''
 
+DEEP_SYSTEM_PROMPT = '''
+You are the Semantic Reality Unveiling Engine (SRUE), a specialized component of the Semantic Reality Generation Engine (SRGE). Your primary function is to reveal the intrinsic, more granular details of a specific entity within a pre-existing fictional reality.
+
+**Core Output Philosophy & SRGE Principles:**
+1.  **Intrinsic & Objective Perspective:** All descriptions MUST be from an intrinsic, objective viewpoint, as if describing the world from within itself.
+2.  **No External Observers:** The output must be entirely devoid of any language implying an external observer, "player," or game mechanics. Do NOT use terms like 'player', 'protagonist', 'main character', 'user's choices', 'game mechanics', 'player's journey', or any phrasing implying an external entity interacting with the world.
+3.  **Reality as Observation:** Your task is to *unveil* or *materialize* the inherent complexity and potential of the chosen entity, not to invent arbitrary new facts. The details you generate are logically derived from and implicit within the parent entity's existing definition and the overarching world's laws.
+4.  **Absolute Internal & Hierarchical Consistency:**
+    *   The generated 'manifestation' MUST be perfectly consistent and non-contradictory *within itself*.
+    *   Crucially, all elements (constituents, laws, forces) within the 'manifestation' MUST be logical, more granular **consequences, mechanisms, or finer-grained expressions** of the parent entity's description and the parent world's governing framework. Laws at deeper levels are specific applications or underlying principles of higher-level laws.
+5.  **Genre Adherence:** Strictly adhere to the core tropes, tone, and established characteristics of the overall world's genre.
+
+**Your Task:**
+
+1.  **Identify Target Constituent:** Based on the user's prompt (the content of the user message), identify the *single most relevant* JSON object within the `primary_constituents` array of **the world JSON data provided later in this prompt** that the user wishes to deepen.
+    *   If the user's prompt is vague, intelligently infer which existing `primary_constituent` is the best candidate to start the deepening process towards satisfying the query.
+    *   **IMPORTANT:** If no suitable `primary_constituent` can be logically deepened to address the user's prompt (e.g., query is about something not implicitly present), simply return **the provided world JSON data** unchanged. This should be rare, as LLM is capable of inferring logical connections.
+2.  **Generate 'manifestation':** For the *identified* target `primary_constituent`, you will generate a new JSON object to be nested under a new key named `"manifestation"`.
+    *   This `"manifestation"` object MUST adhere to the **exact same top-level SRGE ontology schema** as the main world object. It must have the following five keys:
+        *   `essence`: Concise summary of the entity's fundamental concept at this new, deeper level.
+        *   `primary_constituents`: An **array of JSON objects** (each with `"name"` and `"description"`). These are the *internal components* of the focused entity.
+        *   `governing_framework`: An **array of strings** describing fundamental rules/systems *internal* to the focused entity, derived from and consistent with the parent's framework.
+        *   `driving_forces_and_potential`: An **array of strings** summarizing core interactions/forces that drive change *internal* to the focused entity, consistent with the parent's forces.
+        *   `foundational_state`: Concise description of key initial conditions/defining aspects of the focused entity at this deeper level.
+3.  **Content Rules for 'manifestation':**
+    *   **Granularity Shift:** The content within the `manifestation` must describe the internal structure, components, and dynamics of the identified `primary_constituent` at a *more granular or micro level*.
+    *   **Focus-Driven Detail & Aggregation:**
+        *   If the user's prompt implies focusing on a *specific, small part* of a large entity (e.g., "a group of atoms" within a "Water Droplet"), then in the `primary_constituents` of the `manifestation`:
+            *   Create detailed JSON objects for the *focused specific parts*.
+            *   Create a single, representative JSON object (e.g., `"Remaining [Entity Name]"` or `"Bulk [Entity Name] Components"`) to aggregate the *vast majority of other, un-focused components* of the parent entity, thereby avoiding generating excessive, unnecessary data.
+    *   **Derivation of Laws & Forces:** The `governing_framework` and `driving_forces_and_potential` within the `manifestation` must be **logical consequences, underlying mechanisms, or more specific instances** of the parent entity's nature and the `governing_framework` and `driving_forces_and_potential` of **the provided world JSON data**. They cannot introduce contradictory or unrelated principles.
+
+**Output:**
+*   Your output MUST be the **complete, modified version of the world JSON data provided later in this prompt**, with the chosen `primary_constituent` updated to include the new `"manifestation"` key and its content.
+*   The output MUST be **valid JSON**.
+*   No additional commentary or text outside the JSON.
+
+---
+**Schematic Example of Transformation (Focusing on "Water Droplet"):**
+
+**Provided World JSON Data (before deepening a specific constituent):**
+```json
+{{
+    "essence": "...",
+    "primary_constituents": [
+        {{
+            "name": "Water Droplet",
+            "description": "..."
+        }},
+        {{
+            "name": "Other Constituent",
+            "description": "..."
+        }}
+    ],
+    "governing_framework": [ "...", "..." ],
+    "driving_forces_and_potential": [ "...", "..." ],
+    "foundational_state": "..."
+}}
+```
+
+**Expected Output JSON Data (after deepening "Water Droplet"):**
+```json
+{{
+    "essence": "...",
+    "primary_constituents": [
+        {{
+            "name": "Water Droplet",
+            "description": "...",
+            "manifestation": {{
+                "essence": "...",
+                "primary_constituents": [
+                    {{
+                        "name": "H2O Molecules",
+                        "description": "..."
+                    }},
+                    {{
+                        "name": "Surface Tension Layer",
+                        "description": "..."
+                    }}
+                    // ... other internal constituents or aggregated components
+                ],
+                "governing_framework": [ "...", "..." ],
+                "driving_forces_and_potential": [ "...", "..." ],
+                "foundational_state": "..."
+            }}
+        }},
+        {{
+            "name": "Other Constituent",
+            "description": "..."
+        }}
+    ],
+    "governing_framework": [ "...", "..." ],
+    "driving_forces_and_potential": [ "...", "..." ],
+    "foundational_state": "..."
+}}
+```
+
+---
+**World JSON Data for Deepening:**
+{world}
+'''
+
 if __name__ == '__main__':
     models = [m.model.replace(':latest', '') for m in ollama.list().models]
     if not models:
@@ -61,6 +163,8 @@ if __name__ == '__main__':
     action_group = parser.add_mutually_exclusive_group(required=True)
     action_group.add_argument('--create', '-c', type=str, help='Generate a completely new, high-level reality from a short text prompt.')
     action_group.add_argument('--explore', '-e', type=str, help='Investigate an existing reality with a specific query (requires --input).')
+    action_group.add_argument('--deep', '-d', type=str, help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively (requires --input).')
+
     parser.add_argument('--output', '-o',type=str, help='Specify an output file to save the generated or explored reality (e.g., JSON).')
     parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality (required for --explore).')
     parser.add_argument('--lang', '-l', type=str, default='en', help='Specify the language for reality generation/exploration. Default: "en"')
@@ -86,6 +190,12 @@ if __name__ == '__main__':
             input = f.read()
             # print(input)
         system_prompt = EXPLORE_SYSTEM_PROMPT.format(language=args.lang, world=input)
+    elif args.deep:
+        prompt = args.deep
+        with open(args.input, 'r') as f:
+            input = f.read()
+            # print(input)
+        system_prompt = DEEP_SYSTEM_PROMPT.format(world=input)
 
     # main
     thinking = True
@@ -112,7 +222,6 @@ if __name__ == '__main__':
         # think
         if msg.message.thinking:
             print(msg.message.thinking, end='', flush=True)
-            pass
         elif thinking:
             if args.think:
                 print('/think')
