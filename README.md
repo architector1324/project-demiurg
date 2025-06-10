@@ -62,15 +62,15 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 | Command     | Description                                                                                                                                                                                       | Status        |
 | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ |
 | `--create`  | Generate a completely new, high-level reality from a short prompt.                                                                                                                                | **Ready**     |
-| `--explore` | Interrogate a generated world through semantic Q\&A. Answers are inferred purely from the world's internal ontology and logic — not guessed or invented.                                          | **Ready**     |
+| `--explore` | Interrogate a generated world through semantic Q\&A. Answers are inferred purely from the world's internal ontology and logic - not guessed or invented.                                          | **Ready**     |
 | `--deep`    | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | **Ready**     |
 | `--live`    | Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                                              | *Planned*     |
 
 ### Foundational Genesis
 
-The `--create` command is the genesis engine — a mechanism for **birthing realities** from pure prompt. When invoked, it doesn’t merely invent; it **semantically sculpts** an internally consistent world according to the laws, forces, and states implied by your input.
+The `--create` command is the genesis engine - a mechanism for **birthing realities** from pure prompt. When invoked, it doesn’t merely invent; it **semantically sculpts** an internally consistent world according to the laws, forces, and states implied by your input.
 
-This world is not textual fluff or narrative scaffolding. It is a **semantic structure**, with five distinct axes of being: essence, constituents, laws, dynamics, and state. You are not "designing" a world — you're **witnessing the crystallization** of a potentiality-space into a logically sealed universe.
+This world is not textual fluff or narrative scaffolding. It is a **semantic structure**, with five distinct axes of being: essence, constituents, laws, dynamics, and state. You are not "designing" a world - you're **witnessing the crystallization** of a potentiality-space into a logically sealed universe.
 
 > Think of it as speaking a phrase into the void, and having that phrase echo back as a complete, living cosmos.
 
@@ -78,7 +78,7 @@ This world is not textual fluff or narrative scaffolding. It is a **semantic str
 
 *   Output is stored as a **structured JSON**.
 *   Every field in the schema holds internal meaning and logical consequence.
-*   The resulting reality requires no external lore or exposition to make sense — it is **self-defining**.
+*   The resulting reality requires no external lore or exposition to make sense - it is **self-defining**.
 
 > Example:
 > `python reality-gen.py --model qwen3:4b --create "A sentient ocean that dreams of land"`

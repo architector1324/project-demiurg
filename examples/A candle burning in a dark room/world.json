@@ -1,0 +1,32 @@
+{
+  "essence": "Interplay of light and darkness through combustion in an enclosed space",
+  "primary_constituents": [
+    {
+      "name": "Candle",
+      "description": "Solid fuel composed of wax and a wick, capable of undergoing exothermic oxidation when ignited"
+    },
+    {
+      "name": "Room",
+      "description": "Enclosed space with no ambient electromagnetic radiation in the visible spectrum"
+    },
+    {
+      "name": "Flame",
+      "description": "Localized region of sustained exothermic oxidation producing visible electromagnetic radiation"
+    },
+    {
+      "name": "Air",
+      "description": "Mixture of gases including diatomic oxygen (O₂) and nitrogen (N₂), with trace noble gases"
+    }
+  ],
+  "governing_framework": [
+    "Conservation of energy through thermal and radiant energy conversion",
+    "Chemical reaction between hydrocarbon molecules and diatomic oxygen",
+    "Propagation of visible light through scattering in a dark medium"
+  ],
+  "driving_forces_and_potential": [
+    "Thermal gradient driving heat transfer from combustion to surroundings",
+    "Radiant energy diffusion through the room's volume",
+    "Gradual consumption of fuel mass through oxidative decomposition"
+  ],
+  "foundational_state": "Dark room with unlit candle, atmospheric pressure at 101.325 kPa, temperature at 298 K"
+}
