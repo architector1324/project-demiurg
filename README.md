@@ -206,6 +206,102 @@ python reality-gen.py --model qwen3:4b --think --create "A magical world with kn
 }
 ```
 
+#### Deep Multi-Level Materialization: Woman in New York
+
+This example showcases the **true power of Semantic Revelation (Deepening)** - not merely detailing entities, but **recursively building logical hierarchies** in response to a query, and brilliantly embodying the **"Reality as Observation"** principle where world details manifest upon user focus.
+
+**Initial World State (abbreviated, `world.json`):**
+```json
+{
+    "essence": "A bustling metropolis...",
+    "primary_constituents": [
+      {
+        "name": "New York City",
+        "description": "A vast urban landscape spanning five boroughs..."
+      }
+    ],
+    // ... rest
+}
+```
+
+**Deepening Query:**
+```bash
+python reality-gen.py --model qwen3 --deep 'Detailed description of a woman sitting at a table in a restaurant in New York City.' --input world.json
+```
+
+**Result (schematic representation of the unfolded reality, demonstrating the materialization chain):**
+*(Only the key unfolding chain is shown. The full, corrected JSON version with complete details is available [here](./examples/Deep%20Materialization/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant%20in%20New%20York/world.json).)*
+
+```json
+{
+  "essence": "...", // Top-level essence of the metropolis
+  "primary_constituents": [
+    {
+      "name": "New York City",
+      "description": "...",
+      "manifestation": { // New York City unfolds...
+        "essence": "The intricate social and spatial fabric...",
+        "primary_constituents": [
+          {
+            "name": "Restaurant",
+            "description": "A dedicated space for dining...",
+            "manifestation": { // Restaurant unfolds...
+              "essence": "A curated environment...",
+              "primary_constituents": [
+                {
+                  "name": "Table",
+                  "description": "A surface for dining...",
+                  "manifestation": { // Table unfolds...
+                    "essence": "A focal point for social interaction...",
+                    "primary_constituents": [
+                      {
+                        "name": "Woman",
+                        "description": "An individual engaged in the act of dining...",
+                        "manifestation": { // Woman unfolds into her observable and inherent details...
+                          "essence": "A dynamic entity navigating...",
+                          "primary_constituents": [
+                            {
+                              "name": "Physical Form",
+                              "description": "The corporeal structure of the woman...",
+                              "manifestation": { // Physical Form further unfolds into specific physical attributes
+                                "essence": "A manifestation of biological and cultural attributes...",
+                                "primary_constituents": [
+                                  { "name": "Posture", "description": "..." },
+                                  { "name": "Attire", "description": "..." },
+                                  { "name": "Gestures", "description": "..." }
+                                  // ... and other details specific to Gestures, Attire, Posture
+                                ]
+                              }
+                            },
+                            { "name": "Sociocultural Identity", "description": "..." }
+                            // ... and other details specific to Woman
+                          ]
+                        }
+                      }
+                      // ... and other details specific to Table
+                    ]
+                  }
+                }
+                // ... and other details specific to Restaurant
+              ]
+            }
+          }
+          // ... and other details specific to New York City
+        ]
+      }
+    }
+  ]
+  // ... rest
+}
+```
+
+**What this outstanding example demonstrates:**
+*   **Deep Recursion:** The model successfully built the materialization chain `New York City` → `Restaurant` → `Table` → `Woman`, creating the necessary `manifestation` objects at each level. This shows how SRGE reveals nested, logically connected entities.
+*   **Context-Dependent Detailing:** The "Woman" entity was detailed not only to abstract states (`Physical Form`, `Sociocultural Identity`), but also to concrete, observable attributes (`Posture`, `Attire`, `Gestures`). This perfectly aligns with the request for a "detailed description" in this context, demonstrating the model's intelligent understanding of the world.
+*   **Ontological Autonomy:** The model independently determined the relevance and depth of detailing, strictly adhering to the world's internal logic, without external instructions or level constraints. SRGE does not "invent" but rather "manifests" what already semantically exists.
+*   **Confirmation of "Reality as Observation":** The user's query served as an act of "observation" that compelled the world to "unfold" and reveal its internal complexity along the specified path, without creating new entities outside its inherent logic. The world unravels, it is not created.
+
+
 ## Manifesto: The Vision Behind SRGE
 
 SRGE is more than just a world generator; it's an **engine for creating autonomous, living, self-contained realities**. These worlds exist by their own internal laws, not for the sake of a player or an observer.
