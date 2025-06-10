@@ -33,14 +33,15 @@ SRGE offers a powerful set of capabilities designed to bring complex realities t
 
 ## Installation
 
-To run SRGE locally, you'll need **Ollama** installed and configured, along with the `qwen3:4b` model.
+To run SRGE locally, you'll need **Ollama** installed and configured, along with the `qwen3:4b`/`qwen3` models.
 
 1.  **Install Ollama:** Follow the official instructions at [ollama.com](https://ollama.com/) to install Ollama on your system.
 
-2.  **Pull the `qwen3:4b` model:**
+2.  **Pull the models:**
 
     ```bash
     ollama pull qwen3:4b
+    ollama pull qwen3
     ```
 
 3.  **Clone the SRGE repository:**
@@ -96,19 +97,23 @@ The engine does not guess or improvise beyond what has already been semantically
 *   All answers strictly comply with the **internal logic and narrative constraints of the world**.
 *   This feature embodies SRGE’s core philosophy: **reality as a self-consistent semantic structure**, not a storytelling sandbox.
 
-### Semantic Unveiling (Deepening)
+### Semantic Revelation (Deepening)
 
-The `--deep` command is the mechanism for **unveiling the intrinsic, granular layers** of an already generated reality. It embodies the principle of **'Reality as Observation'** – where the world's details exist in a state of potentiality and *materialize* upon targeted focus. This is not arbitrary generation, but the **semantic unfolding** of inherent complexity, derived logically from the parent entity and the overarching world's laws.
+The `--deep` command is a mechanism for **revealing the inherent, granular layers** of an already generated reality. It embodies the principle of **"Reality as Observation"** – where the details of a world exist in a state of potentiality and **materialize** upon focused intent. This is not arbitrary generation, but a **semantic unfolding** of inherent complexity, logically derived from the parent entity and the overarching laws of the world.
 
-When invoked, `--deep` targets a specific `primary_constituent` within your world's JSON (e.g., "Stone", "Sand", "Water Droplet"). It then enriches this constituent by adding a new, nested `"manifestation"` object. This `manifestation` adheres to the same **five-dimensional SRGE ontology** (`essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`), but at a *more granular, micro-level*.
+When invoking `--deep`, the user specifies a concept or entity (e.g., "Water Droplet", "Woman at a table") for deepening. The system (the LLM guided by the system prompt) **intelligently interprets** the user's query, **dynamically materializing a new, more granular entity** (or deepening into an existing one, if the query relates to it). This materialized entity (or the deepened version of an existing one) is added to the world's JSON structure as a new nested `"manifestation"` object.
 
-**Key Characteristics:**
+This `"manifestation"` itself adheres to the same **five-dimensional SRGE ontology** (`essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`), but at a *more granular, micro-level*. The user's requested concept (e.g., "woman at a table") becomes one of the `primary_constituents` within this new, detailed level of reality.
 
-*   **Hierarchical Consistency:** All elements within the `manifestation` (its internal constituents, laws, forces) are direct, more specific **consequences, mechanisms, or finer-grained expressions** of the parent entity’s description and the parent world’s governing framework.
-*   **Focus-Driven Detail:** For large entities, it intelligently focuses on the most relevant sub-components while aggregating the vast majority of other parts into a single representative constituent (e.g., `"Remaining [Entity Name] Components"`), preventing unnecessary data proliferation.
-*   **Intrinsic & Objective:** Consistent with SRGE's core philosophy, the output is entirely devoid of external observer framing, describing the world purely from within itself.
+**Key Features:**
 
-The command returns the **complete, modified JSON of the world**, with the selected constituent updated to include its new, deeper manifestation. This allows for recursive exploration, building an increasingly detailed ontological map of your fictional reality.
+*   **Hierarchical Consistency:** All elements within the `manifestation` (its internal constituents, laws, forces) are direct, more specific **consequences, mechanisms, or more detailed manifestations** of the parent entity's description and the parent world's governing structure.
+*   **Semantic Mapping and Dynamic Materialization:** The LLM does not require an exact name match. It **interprets** the user's query in the context of the existing ontology. If the requested entity is deeply nested, the model **recursively unfolds the entire chain of detailing**, creating the necessary intermediate `manifestation` levels.
+    *   Example: If the user requests `--deep 'woman at a table in a restaurant'` when the world is described down to "New York City", the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
+*   **Focus-Oriented Detailing:** For larger entities, the command intelligently focuses on the most relevant sub-components, aggregating the vast majority of other parts into a single representative entity (e.g., `"Other [Entity Name] Components"`), preventing excessive data proliferation.
+*   **Internal and Objective:** In line with SRGE's core philosophy, the output is entirely devoid of an external observational frame, describing the world purely from within itself.
+
+The command returns the **complete, modified world JSON**, where the selected constituent element is updated or created with its new, deeper manifestation. This allows for recursive exploration, building an increasingly detailed ontological map of your fictional reality.
 
 > Example:
 > `python reality-gen.py --model qwen3 --deep 'Sand' --input world.json`
