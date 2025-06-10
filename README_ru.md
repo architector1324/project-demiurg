@@ -225,7 +225,7 @@ python reality-gen.py --model qwen3:4b --think --create "Волшебный ми
 
 **Запрос на углубление:**
 ```bash
-python reality-gen.py --model qwen3 --deep 'Детальное описание женщины, сидящей за столиком в ресторане в Нью-Йорке.' --input world.json
+python reality-gen.py --model qwen3 --deep 'Женщина, сидящая за столиком в ресторане в Нью-Йорке.' --input world.json
 ```
 
 **Результат (схематичное представление развернутой реальности, демонстрирующее цепочку материализации):**

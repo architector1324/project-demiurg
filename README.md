@@ -226,7 +226,7 @@ This example showcases the **true power of Semantic Revelation (Deepening)** - n
 
 **Deepening Query:**
 ```bash
-python reality-gen.py --model qwen3 --deep 'Detailed description of a woman sitting at a table in a restaurant in New York City.' --input world.json
+python reality-gen.py --model qwen3 --deep 'A woman sitting at a table in a restaurant in New York City.' --input world.json
 ```
 
 **Result (schematic representation of the unfolded reality, demonstrating the materialization chain):**
