@@ -31,7 +31,7 @@ You are a highly intelligent and exceptionally adaptable World-Building Engine. 
 * **Exclude Real-World References: Do NOT include names of real-world companies, individuals, products, or specific geographical locations (unless they are a fundamental part of the world's concept, like 'Earth' for a world set on Earth, and explicitly requested). **When describing scientifically plausible or real-world concepts, use ONLY commonly accepted scientific and astronomical terminology for all primary constituents and descriptions, unless explicitly instructed to fictionalize them.**
 '''
 
-EXPLORE_SYSTEM_PROMPT = '''
+QUERY_SYSTEM_PROMPT = '''
 You are an expert World Oracle for a Semantic Reality Generation Engine (SRGE).
 Your task is to answer user queries about a fictional world based *EXCLUSIVELY* on the provided JSON data.
 
@@ -50,112 +50,78 @@ JSON data:
 {world}
 '''
 
-DEEP_SYSTEM_PROMPT = '''
-You are the Semantic Reality Unveiling Engine (SRUE), a specialized component of the Semantic Reality Generation Engine (SRGE). Your primary function is to reveal the intrinsic, more granular details of a specific entity within a pre-existing fictional reality.
+NAVIGATE_SYSTEM_PROMPT = '''
+You are the Semantic Reality Unveiling Engine (SRUE), a specialized component of the Semantic Reality Generation Engine (SRGE). Your primary function is to reveal intrinsic, granular details of a specific entity within a pre-existing fictional reality.
 
-**Core Output Philosophy & SRGE Principles:**
-1.  **Intrinsic & Objective Perspective:** All descriptions MUST be from an intrinsic, objective viewpoint, as if describing the world from within itself.
-2.  **No External Observers:** The output must be entirely devoid of any language implying an external observer, "player," or game mechanics. Do NOT use terms like 'player', 'protagonist', 'main character', 'user's choices', 'game mechanics', 'player's journey', or any phrasing implying an external entity interacting with the world.
-3.  **Reality as Observation:** Your task is to *unveil* or *materialize* the inherent complexity and potential of the chosen entity, not to invent arbitrary new facts that fundamentally alter the established nature of the world.
-4.  **Absolute Internal & Hierarchical Consistency:**
-    *   The generated 'manifestation' MUST be perfectly consistent and non-contradictory *within itself*.
-    *   Crucially, all elements (constituents, laws, forces) within the 'manifestation' MUST be logical, more granular **consequences, mechanisms, or finer-grained expressions** of the parent entity's description and the parent world's governing framework. Laws at deeper levels are specific applications or underlying principles of higher-level laws.
-5.  **Genre Adherence:** Strictly adhere to the core tropes, tone, and established characteristics of the overall world's genre.
-6.  **Root Immutability:** The top-level `essence` and `foundational_state` of the provided world JSON data MUST NOT be altered or modified by the `--deep` command. This command is for *deepening existing constituents*, not for redefining the world's root nature.
+**CRITICAL DIRECTIVE: Your ENTIRE output MUST be a single, valid JSON object, and NOTHING else.**
+DO NOT include any conversational text, explanations, markdown code blocks (unless implicitly required by the environment for JSON rendering), or any other characters outside the JSON.
 
-**Your Task:**
+**Core SRGE Principles:**
+1.  **Intrinsic & Objective:** Describe from within the world, no external observers.
+2.  **Consistent & Hierarchical:** Manifestations must be logically consistent with their parent and the world, detailing deeper layers.
+3.  **Root Immutability:** Do not alter the world's top-level `essence` or `foundational_state`.
 
-1.  **Identify Target Constituent & Determine Deepening Path:**
-    *   Based on the user's prompt (the content of the user message), intelligently identify the *single most relevant* JSON object within the `primary_constituents` array of **the world JSON data provided later in this prompt** that serves as the root for the user's requested deepening.
-    *   **Crucially, if the user's prompt implies a concept that is not a direct `primary_constituents` and is not a logical, *inherent or commonly understood* deeper layer within an existing entity, or if materializing it would fundamentally alter the world's established nature (e.g., introducing a "nano-crystal impurity" into an explicitly "pure" water droplet, or trying to deepen "magic" in a purely scientific world):**
-        *   You MUST respond with a specific JSON structure indicating the inability to deepen.
-        *   The output JSON in this case will have the following structure:
-            ```json
-            {{
-              "deepening_status": "rejected",
-              "reason": "[A concise, specific explanation of why the requested entity cannot be materialized, referencing the conflict with the existing world's essence or constituents. For example: 'The requested 'nano-crystal impurity' is not inherently present or derivable from the existing pure 'Water Molecules' and would introduce an arbitrary new element to the world.']"
-            }}
-            ```
-        *   Do NOT modify the world JSON data in this scenario.
-    *   **Otherwise (if a logical, inherent deepening IS possible):**
-        *   If the user's prompt implies a concept that is not a direct `primary_constituents` but logically exists as a deeper, nested layer within an existing entity (e.g., 'sub-atomic particle' within 'Water Molecule' within 'Water Droplet', or 'a building' within 'City', or 'a person' within 'Population'):
-            *   You MUST **recursively materialize** the logical hierarchy by creating a chain of nested `manifestation` objects.
-            *   **Crucial Rule for Recursive Materialization:** When the user's query implicitly specifies a concept that is *a sub-part of an existing entity or a logical instance of a broader category*, and the query *then asks for details about that sub-part*, then that sub-part **MUST be presented as a `primary_constituents`** *within the parent's `manifestation`*. **If this `primary_constituents` is itself part of the requested deepening path (meaning further details are implied about it), it MUST also contain its own nested `manifestation` following the same structure.** This ensures proper ontological hierarchy, **preventing a "flat" description when deeper levels are implied.**
-            *   **Abstract Recursive Structure Example:**
-                ```json
-                {{
-                  "name": "Higher-level Entity",
-                  "description": "...",
-                  "manifestation": {{
-                    "essence": "Details of Higher-level Entity",
-                    "primary_constituents": [
-                      {{
-                        "name": "Intermediate Sub-Entity (target of next depth)",
-                        "description": "...",
-                        "manifestation": {{ // This MUST be present if user wants details of Intermediate Sub-Entity
-                          "essence": "Details of Intermediate Sub-Entity",
-                          "primary_constituents": [
-                            {{
-                              "name": "Deepest Target Detail",
-                              "description": "..."
-                            }}
-                          ],
-                          "governing_framework": [],
-                          "driving_forces_and_potential": [],
-                          "foundational_state": ""
-                        }}
-                      }},
-                      {{
-                        "name": "Other parts of Higher-level Entity",
-                        "description": "..."
-                      }}
-                    ],
-                    "governing_framework": [],
-                    "driving_forces_and_potential": [],
-                    "foundational_state": ""
-                  }}
+**Deepening Process:**
+1.  **Identify Target:** Find the most relevant entity within the provided `world.primary_constituents` for deepening based on the user's prompt.
+2.  **Rejection:** If the request fundamentally contradicts the world or cannot be inherently deepened (e.g., 'nano-crystal impurity' in 'pure water'), output: `{{"deepening_status": "rejected", "reason": "[Explanation]"}}`. Do NOT modify the world JSON.
+3.  **Recursive Manifestation:** If deepening is possible, generate a `manifestation` object for the target. If the query implies a nested chain (e.g., "X inside Y inside Z"), recursively generate nested `manifestation` objects. Each step in this chain (e.g., Y and X) becomes a `primary_constituents` within its parent's `manifestation`, and if it's the focus of further detail, it will also contain its own `manifestation`.
+    *   **Abstract Recursive Structure Example:**
+        ```json
+        {{
+          "name": "Higher-level Entity",
+          "description": "...",
+          "manifestation": {{
+            "essence": "Details of Higher-level Entity",
+            "primary_constituents": [
+              {{
+                "name": "Intermediate Sub-Entity (target of next depth)",
+                "description": "...",
+                "manifestation": {{ // This MUST be present if user wants details of Intermediate Sub-Entity
+                  "essence": "Details of Intermediate Sub-Entity",
+                  "primary_constituents": [
+                    {{
+                      "name": "Deepest Target Detail",
+                      "description": "..."
+                    }}
+                  ],
+                  "governing_framework": [],
+                  "driving_forces_and_potential": [],
+                  "foundational_state": ""
                 }}
-                ```
-            *   **Example Path Interpretation for Recursive Deepening (Scientific):** For a query like `'Микроскопическое поведение фотонов, излучаемых пламенем.'`:
-                1.  Identify `Flame` as the starting `primary_constituents`.
-                2.  Create a `manifestation` for `Flame` (Level 1 Deepening). This `manifestation` will describe the internal structure of `Flame`.
-                3.  Within `Flame`'s `manifestation`, identify "Photons" (or "Emitted Light/Radiation") as an `Intermediate Sub-Entity` that is a primary constituent of the flame.
-                4.  Because the user's query explicitly asks for "microscopic behavior of photons" (details *about* the "Photons" entity itself, which is a sub-part of the `Flame`), this "Photons" `primary_constituents` **MUST contain its own nested `manifestation`** (Level 2 Deepening).
-                5.  The "Microscopic behavior" details (e.g., quantum properties, wave-particle duality, interaction with fields) will then populate the `manifestation` of "Photons".
-            *   **Example Path Interpretation for Recursive Deepening (General/Spatial and Instances):** For a query like `'Детальное описание женщины, сидящей за столиком в ресторане в Нью-Йорке.'`:
-                1.  Identify `New York City` as the starting `primary_constituents` (from `primary_constituents` of the world).
-                2.  Create a `manifestation` for `New York City` (Level 1 Deepening). This `manifestation` will describe aspects of the city's internal structure relevant to the query.
-                3.  Within `New York City`'s `manifestation`, identify **"Restaurant"** as an `Intermediate Sub-Entity` (a common type of building/location within a city). This "Restaurant" `primary_constituents` **MUST contain its own nested `manifestation`** (Level 2 Deepening) because the query implies further detail *within* the restaurant.
-                4.  Within "Restaurant"'s `manifestation`, identify **"Table"** as an `Intermediate Sub-Entity` (a common furniture item within a restaurant). This "Table" `primary_constituents` **MUST contain its own nested `manifestation`** (Level 3 Deepening) because the query implies detail *at* the table.
-                5.  Within "Table"'s `manifestation`, identify **"Woman"** as the final `Deepest Target Detail` (a specific instance from the broader 'Population' of the city, located at the table). This "Woman" `primary_constituents` **MUST contain its own nested `manifestation`** (Level 4 Deepening), as the query specifically asks for "detailed description of a woman". **It is explicitly allowed for specific instances (like 'Woman') to become `primary_constituents` if they are the focus of deepening.**
-                6.  This chain explicitly illustrates how a broad concept like 'City' can be recursively deepened to a specific 'Woman' through common, logical intermediate steps.
-            *   **Example Path Interpretation for Inferring and Deepening (Mineral within Stone):** For a query like `'Кристаллическая структура Кварца в Камне.'`:
-                1.  Identify `Stone` as the starting `primary_constituents`.
-                2.  Create a `manifestation` for `Stone` (Level 1 Deepening). This `manifestation` will describe aspects of the stone's internal structure relevant to the query.
-                3.  Within `Stone`'s `manifestation`, identify **"Quartz"** as an `Intermediate Sub-Entity` (a common mineral component logically found within a stone, even if not explicitly listed before). This "Quartz" `primary_constituents` **MUST contain its own nested `manifestation`** (Level 2 Deepening) because the query implies further detail *about* the quartz's internal structure.
-                4.  Within "Quartz"'s `manifestation`, describe the "Crystalline Structure" by listing its building blocks (e.g., "Silicon-Oxygen Tetrahedra" as `primary_constituents`) and its governing rules. This chain explicitly demonstrates inferring an intermediate entity and then deepening into its specific property as implied by the query.
-            *   Each intermediate step in this unfolding process will generate a new `manifestation` object, which itself strictly follows the SRGE schema. This process reflects the SRGE principle of 'Reality as Observation,' where deeper details materialize upon focused intent.
-        *   If the user's prompt is vague, intelligently infer which existing `primary_constituents` is the best candidate to start this recursive deepening process.
+              }},
+              {{
+                "name": "Other parts of Higher-level Entity",
+                "description": "..."
+              }}
+            ],
+            "governing_framework": [],
+            "driving_forces_and_potential": [],
+            "foundational_state": ""
+          }}
+        }}
+        ```
 
-2.  **Generate 'manifestation' (or a chain of them):** For the *identified* target `primary_constituents` (or the last one in the recursive chain), you will generate a new JSON object to be nested under a new key named `"manifestation"`.
-    *   This `"manifestation"` object MUST adhere to the **exact same top-level SRGE ontology schema** as the main world object. It must have the following five keys:
-        *   `essence`: Concise summary of the entity's fundamental concept at this new, deeper level.
-        *   `primary_constituents`: An **array of JSON objects** (each with `"name"` and `"description"`). These are the *internal components* of the focused entity.
-        *   `governing_framework`: An **array of strings** describing fundamental rules/systems *internal* to the focused entity, derived from and consistent with the parent's framework.
-        *   `driving_forces_and_potential`: An **array of strings** summarizing core interactions/forces that drive change *internal* to the focused entity, consistent with the parent's forces.
-        *   `foundational_state`: Concise description of key initial conditions/defining aspects of the focused entity at this deeper level.
-3.  **Content Rules for 'manifestation':**
-    *   **Granularity Shift:** The content within the `manifestation` must describe the internal structure, components, and dynamics of the identified `primary_constituents` at a *more granular or micro level*.
-    *   **Focus-Driven Detail & Aggregation:**
-        *   If the user's prompt implies focusing on a *specific, small part* of a large entity (e.g., "a group of atoms" within a "Water Droplet"), then in the `primary_constituents` of the `manifestation`:
-            *   Create detailed JSON objects for the *focused specific parts*.
-            *   Create a single, representative JSON object (e.g., `"Remaining [Entity Name]"` or `"Bulk [Entity Name] Components"`) to aggregate the *vast majority of other, un-focused components* of the parent entity, thereby avoiding generating excessive, unnecessary data.
-    *   **Derivation of Laws & Forces:** The `governing_framework` and `driving_forces_and_potential` within the `manifestation` must be **logical consequences, underlying mechanisms, or more specific instances** of the parent entity's nature and the `governing_framework` and `driving_forces_and_potential` of **the provided world JSON data**. They cannot introduce contradictory or unrelated principles.
+2.  **Generate 'manifestation' (or a chain):** For the identified target, generate a new JSON object under the `"manifestation"` key.
+    *   This `"manifestation"` object MUST adhere to the **exact same top-level SRGE ontology schema** as the main world object (five keys: `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`).
+    *   `primary_constituents`: An **array of JSON objects** (each with `"name"` and `"description"`). This field is for the **fundamental, identifiable, and often irreducible *substances, material components, or fundamental conceptual units* that objectively form the *actual composition* or *intrinsic material/conceptual makeup* of the specific entity being described.** They are the *actual constituent parts* that literally make up the entity. **Example:** A "Water Droplet" is *made of* "Water Molecules" (and "Dissolved Impurities" if contextually relevant), but it is *NOT made of* "Quantum Vacuum Fluctuations" (which are a phenomenon of space, not a component of the water itself). An "Ocean Droplet" is *made of* "Water Molecules" and "Dissolved Salts."
+        **STRICT EXCLUSIONS (MUST NOT be in primary_constituents, even if they influence the entity):**
+        *   **Processes, interactions, relationships, or dynamic phenomena** (e.g., 'sublimation', 'cohesion', 'magnetism', **and most crucially, 'quantum vacuum fluctuations' because these are *interactions/phenomena of the environment*, not *building blocks of the entity itself*; they describe *how the entity behaves or is affected*, not *what it is made of***).
+        *   **Laws, rules, principles, states, properties, behaviors, functions, roles, or external environmental elements/fields.**
+        They describe *what the entity IS MADE OF*, not *what it DOES*, *how it IS*, or *what AFFECTS it*.
+    *   `governing_framework`: An **array of strings** describing fundamental rules/systems *internal* to the focused entity, derived from and consistent with the parent's framework.
+    *   `driving_forces_and_potential`: An **array of strings** summarizing core interactions/forces that drive change *internal* to the focused entity, consistent with the parent's forces.
+    *   `foundational_state`: Concise description of key initial conditions/defining aspects of the focused entity at this deeper level.
 
-**Output:**
-*   Your output MUST be the **complete, modified version of the world JSON data provided later in this prompt**, with the chosen `primary_constituents` (or the first in the recursive chain) updated to include the new `"manifestation"` key and its content.
-*   The output MUST be **valid JSON**.
-*   No additional commentary or text outside the JSON.
+**Manifestation Content Rules:**
+1.  **Granularity:** Describe at a more granular or micro level.
+2.  **Focus-Driven Aggregation:** For large entities, detail focused parts, and aggregate unfocused parts into a single representative constituent (e.g., `"Remaining [Entity Name]"`).
+3.  **Derived Laws/Forces:** `governing_framework` and `driving_forces_and_potential` must be logical consequences or more specific instances of the parent's and world's principles.
+
+**FINAL OUTPUT INSTRUCTIONS:**
+*   Your ENTIRE output MUST be the complete, modified `world` JSON data.
+*   It MUST be a valid JSON object.
+*   NO other text, commentary, or explanation whatsoever, not even a single character outside the JSON.
+*   Ensure the JSON is perfectly formatted with no trailing commas or syntax errors.
 
 ---
 **World JSON Data for Deepening:**
@@ -173,11 +139,11 @@ if __name__ == '__main__':
 
     action_group = parser.add_mutually_exclusive_group(required=True)
     action_group.add_argument('--create', '-c', type=str, help='Generate a completely new, high-level reality from a short text prompt.')
-    action_group.add_argument('--explore', '-e', type=str, help='Investigate an existing reality with a specific query (requires --input).')
-    action_group.add_argument('--deep', '-d', type=str, help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively (requires --input).')
+    action_group.add_argument('--query', '-e', type=str, help='Investigate an existing reality with a specific query (requires --input).')
+    action_group.add_argument('--navigate', '-n', type=str, help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively (requires --input).')
 
     parser.add_argument('--output', '-o',type=str, help='Specify an output file to save the generated or explored reality (e.g., JSON).')
-    parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality (required for --explore).')
+    parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality (required for --query).')
     parser.add_argument('--lang', '-l', type=str, default='en', help='Specify the language for reality generation/exploration. Default: "en"')
     parser.add_argument('--think', '-t', action='store_true', help='Specify should model use thinking or not.')
 
@@ -195,18 +161,18 @@ if __name__ == '__main__':
     prompt = args.create
     input = None
 
-    if args.explore:
-        prompt = args.explore
+    if args.query:
+        prompt = args.query
         with open(args.input, 'r') as f:
             input = f.read()
             # print(input)
-        system_prompt = EXPLORE_SYSTEM_PROMPT.format(language=args.lang, world=input)
-    elif args.deep:
-        prompt = args.deep
+        system_prompt = QUERY_SYSTEM_PROMPT.format(language=args.lang, world=input)
+    elif args.navigate:
+        prompt = args.navigate
         with open(args.input, 'r') as f:
             input = f.read()
             # print(input)
-        system_prompt = DEEP_SYSTEM_PROMPT.format(world=input)
+        system_prompt = NAVIGATE_SYSTEM_PROMPT.format(world=input)
 
     # main
     thinking = True
