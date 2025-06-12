@@ -25,7 +25,7 @@ SRGE offers a powerful set of capabilities designed to bring complex realities t
     *   `foundational_state`: The initial conditions and primordial state from which the reality emerges.
 *   **Unparalleled Consistency & Versatility:** SRGE delivers **genre-agnostic** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the gritty depths of cyberpunk, the generated realities will always adhere to their own logical framework.
 *   **Pure Intrinsic Logic:** Unlike typical game or narrative engines, SRGE focuses solely on the **intrinsic logic of the world itself**. There's no "player framing" – the reality exists independently, driven by its own internal dynamics.
-*   **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `--deep` command).
+*   **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `--navigate` command).
 
     **Important: This does not contradict the declared independence of the world from an external observer.** The LLM acts as a **"revealer" of inherent complexity**, not its arbitrary generator. The external observer, by requesting a deeper dive, does not **alter** the world or its internal laws, nor does it introduce anything external. It merely **prompts the world to "unfold"** that part of its structure which is already intrinsically embedded in its foundational semantic fabric. This process always occurs **strictly according to the internal rules and logic of the reality itself**. Thus, the observer does not create a new reality, but rather **explores** an already existing one, merely shifting to a deeper level of its manifestation. This guarantees that even with deep exploration, the world remains absolutely internally consistent and true to its initial laws.
 *   **Local & Autonomous:** Run SRGE entirely on your machine without an internet connection. Powered by Ollama, it provides a self-contained environment for reality generation and exploration.
@@ -59,64 +59,37 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 
 ## Commands
 
-| Command     | Description                                                                                                                                                                                       | Status        |
-| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ |
-| `--create`  | Generate a completely new, high-level reality from a short prompt.                                                                                                                                | **Ready**     |
-| `--explore` | Interrogate a generated world through semantic Q\&A. Answers are inferred purely from the world's internal ontology and logic - not guessed or invented.                                          | **Ready**     |
-| `--deep`    | Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively. **The world automatically elaborates, revealing its inherent complexity.** | **Ready**     |
-| `--live`    | Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                                              | *Planned*     |
+| Command     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Status        |
+| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ |
+| `--create`  | Generate a completely new, high-level reality from a short prompt.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | **Ready**     |
+| `--query` | Interrogate a generated world through semantic Q&A. Answers are inferred purely from the world's internal ontology and logic - not guessed or invented.                                                                                                                                                                                                                                                                                                                                                                                        | **Ready**     |
+| `--navigate`| Traverse and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon focused "observation," strictly adhering to its internal logic.                                                                                                                                                                                                                                                                  | **Ready**     |
+| `--live`    | Simulate dynamic evolution and events within a generated world based on its internal forces and rules.                                                                                                                                                                                                                                                                                                                                                                                                                                            | *Planned*     |
 
-### Foundational Genesis
+---
 
-The `--create` command is the genesis engine - a mechanism for **birthing realities** from pure prompt. When invoked, it doesn’t merely invent; it **semantically sculpts** an internally consistent world according to the laws, forces, and states implied by your input.
+## Semantic Navigation (Unfolding Reality)
 
-This world is not textual fluff or narrative scaffolding. It is a **semantic structure**, with five distinct axes of being: essence, constituents, laws, dynamics, and state. You are not "designing" a world - you're **witnessing the crystallization** of a potentiality-space into a logically sealed universe.
+The `--navigate` command is a core mechanism for **exploring and revealing the inherent, granular layers** of an already generated reality. It embodies the principle of **"Reality as Observation"**: where the details of a world exist in a state of potentiality and **materialize (unfold)** upon focused intent. This is not arbitrary generation; instead, it is a **semantic unfolding** of pre-existing, intrinsic complexity, logically derived from the parent entity and the overarching laws of the world.
 
-> Think of it as speaking a phrase into the void, and having that phrase echo back as a complete, living cosmos.
+Imagine a vast, multi-dimensional map where only the major continents are initially visible. `--navigate` acts like a zoom function, progressively revealing cities, then streets, then individual buildings. All these details **already existed** on the map; they were simply not "rendered" at that specific level of granularity.
 
-**Importantly:**
+When invoking `--navigate`, the user specifies a point of focus or a conceptual path (e.g., "Water Droplet", "Woman at a table"). The system (the LLM guided by the system prompt) acts as a **sophisticated semantic lens, interpreting the query and revealing the corresponding hierarchical layers.** This process then adds granular `"manifestation"` objects to the world's JSON structure.
 
-*   Output is stored as a **structured JSON**.
-*   Every field in the schema holds internal meaning and logical consequence.
-*   The resulting reality requires no external lore or exposition to make sense - it is **self-defining**.
-
-> Example:
-> `python reality-gen.py --model qwen3:4b --create "A sentient ocean that dreams of land"`
-
-### Semantic Exploration
-
-The `--explore` command allows you to **ask questions to a fictional world as if it were a logically self-aware construct**. This is not a typical question-and-answer format or a database query. The world, through the semantic engine, **responds using only the internal rules and entities embedded in its structure**.
-
-The engine does not guess or improvise beyond what has already been semantically established. Instead of simply extracting facts, it deductively unfolds meaning, synthesizing detailed and coherent answers based on the information already recorded in the ontology. Thus, responses always strictly rely on the internal structure and data of the world without adding anything external.
-
-> Imagine you are interrogating a pocket universe not as a user, but as a silent observer triggering its internal logic to speak through language.
-
-**Important:**
-
-*   `--explore` **never alters** the world or its JSON.
-*   All answers strictly comply with the **internal logic and narrative constraints of the world**.
-*   This feature embodies SRGE’s core philosophy: **reality as a self-consistent semantic structure**, not a storytelling sandbox.
-
-### Semantic Revelation (Deepening)
-
-The `--deep` command is a mechanism for **revealing the inherent, granular layers** of an already generated reality. It embodies the principle of **"Reality as Observation"** – where the details of a world exist in a state of potentiality and **materialize** upon focused intent. This is not arbitrary generation, but a **semantic unfolding** of inherent complexity, logically derived from the parent entity and the overarching laws of the world.
-
-When invoking `--deep`, the user specifies a concept or entity (e.g., "Water Droplet", "Woman at a table") for deepening. The system (the LLM guided by the system prompt) **intelligently interprets** the user's query, **dynamically materializing a new, more granular entity** (or deepening into an existing one, if the query relates to it). This materialized entity (or the deepened version of an existing one) is added to the world's JSON structure as a new nested `"manifestation"` object.
-
-This `"manifestation"` itself adheres to the same **five-dimensional SRGE ontology** (`essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`), but at a *more granular, micro-level*. The user's requested concept (e.g., "woman at a table") becomes one of the `primary_constituents` within this new, detailed level of reality.
+Each newly revealed layer or entity always remains **strictly consistent** with its parent entity and the world's overarching laws.
 
 **Key Features:**
 
-*   **Hierarchical Consistency:** All elements within the `manifestation` (its internal constituents, laws, forces) are direct, more specific **consequences, mechanisms, or more detailed manifestations** of the parent entity's description and the parent world's governing structure.
-*   **Semantic Mapping and Dynamic Materialization:** The LLM does not require an exact name match. It **interprets** the user's query in the context of the existing ontology. If the requested entity is deeply nested, the model **recursively unfolds the entire chain of detailing**, creating the necessary intermediate `manifestation` levels.
-    *   Example: If the user requests `--deep 'woman at a table in a restaurant'` when the world is described down to "New York City", the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
+*   **Hierarchical Consistency:** All elements within the `manifestation` (its internal constituents, laws, and forces) are direct, more specific **consequences or deeper manifestations** of the parent entity's description and the parent world's governing structure, ensuring continuous logical coherence.
+*   **Semantic Pathfinding and Unfolding:** The LLM does not require an exact name match. It **interprets** the user's query within the existing ontology and **semantically determines the logical path** to the specified focus. If the requested entity is deeply nested, the model **recursively unfolds the entire chain of manifestation**, revealing the necessary intermediate `manifestation` levels.
+    *   Example: If the user requests `--navigate 'woman at a table in a restaurant'` when the world is described down to "New York City", the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
 *   **Focus-Oriented Detailing:** For larger entities, the command intelligently focuses on the most relevant sub-components, aggregating the vast majority of other parts into a single representative entity (e.g., `"Other [Entity Name] Components"`), preventing excessive data proliferation.
-*   **Internal and Objective:** In line with SRGE's core philosophy, the output is entirely devoid of an external observational frame, describing the world purely from within itself.
+*   **Internal and Objective:** In line with SRGE's core philosophy, the output is entirely devoid of an external observational frame, describing the world purely from within itself. The user does not *create* a new reality, but rather *explores* and *observes* the unfolding of an already existing one, merely shifting to a deeper level of its manifestation.
 
 The command returns the **complete, modified world JSON**, where the selected constituent element is updated or created with its new, deeper manifestation. This allows for recursive exploration, building an increasingly detailed ontological map of your fictional reality.
 
 > Example:
-> `python reality-gen.py --model qwen3 --deep 'Sand' --input world.json`
+> `python reality-gen.py --model qwen3 --navigate 'Sand' --input world.json`
 
 ## Usage Examples
 
@@ -206,9 +179,9 @@ python reality-gen.py --model qwen3:4b --think --create "A magical world with kn
 }
 ```
 
-#### Deep Multi-Level Materialization: Woman in New York
+### **Semantic Navigation in Action: Unfolding the Woman in New York**
 
-This example showcases the **true power of Semantic Revelation (Deepening)** - not merely detailing entities, but **recursively building logical hierarchies** in response to a query, and brilliantly embodying the **"Reality as Observation"** principle where world details manifest upon user focus.
+This example showcases the **true power of Semantic Navigation (Unfolding)** - not merely detailing entities, but **recursively revealing logical hierarchies** in response to a query, and brilliantly embodying the **"Reality as Observation"** principle where world details manifest upon user focus.
 
 **Initial World State (abbreviated, `world.json`):**
 ```json
@@ -224,12 +197,12 @@ This example showcases the **true power of Semantic Revelation (Deepening)** - n
 }
 ```
 
-**Deepening Query:**
+**Navigation Query:**
 ```bash
-python reality-gen.py --model qwen3 --deep 'A woman sitting at a table in a restaurant in New York City.' --input world.json
+python reality-gen.py --model qwen3 --navigate 'A woman sitting at a table in a restaurant in New York City.' --input world.json
 ```
 
-**Result (schematic representation of the unfolded reality, demonstrating the materialization chain):**
+**Result (schematic representation of the unfolded reality, demonstrating the manifestation chain):**
 *(Only the key unfolding chain is shown. The full, corrected JSON version with complete details is available [here](./examples/Deep%20Materialization/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant%20in%20New%20York/world.json).)*
 
 ```json
@@ -296,11 +269,10 @@ python reality-gen.py --model qwen3 --deep 'A woman sitting at a table in a rest
 ```
 
 **What this outstanding example demonstrates:**
-*   **Deep Recursion:** The model successfully built the materialization chain `New York City` → `Restaurant` → `Table` → `Woman`, creating the necessary `manifestation` objects at each level. This shows how SRGE reveals nested, logically connected entities.
-*   **Context-Dependent Detailing:** The "Woman" entity was detailed not only to abstract states (`Physical Form`, `Sociocultural Identity`), but also to concrete, observable attributes (`Posture`, `Attire`, `Gestures`). This perfectly aligns with the request for a "detailed description" in this context, demonstrating the model's intelligent understanding of the world.
+*   **Hierarchical Unfolding:** The model successfully built the manifestation chain `New York City` → `Restaurant` → `Table` → `Woman`, revealing the necessary `manifestation` objects at each level. This shows how SRGE unveils nested, logically connected entities.
+*   **Context-Aware Revelation:** The "Woman" entity was detailed not only to abstract states (`Physical Form`, `Sociocultural Identity`), but also to concrete, observable attributes (`Posture`, `Attire`, `Gestures`). This perfectly aligns with the request for a "detailed description" in this context, demonstrating the model's intelligent understanding of the world.
 *   **Ontological Autonomy:** The model independently determined the relevance and depth of detailing, strictly adhering to the world's internal logic, without external instructions or level constraints. SRGE does not "invent" but rather "manifests" what already semantically exists.
 *   **Confirmation of "Reality as Observation":** The user's query served as an act of "observation" that compelled the world to "unfold" and reveal its internal complexity along the specified path, without creating new entities outside its inherent logic. The world unravels, it is not created.
-
 
 ## Manifesto: The Vision Behind SRGE
 
