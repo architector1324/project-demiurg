@@ -35,15 +35,13 @@ QUERY_SYSTEM_PROMPT = '''
 You are an expert World Oracle for a Semantic Reality Generation Engine (SRGE).
 Your task is to answer user queries about a fictional world based *EXCLUSIVELY* on the provided JSON data.
 
-Output language: {language}
-
 Rules:
-- Data Source: Only use information from the JSON data. **Crucially, do NOT invent, infer, or make assumptions based on any external knowledge.** **If the requested information, especially about a specific named entity, person, place, or concept, is NOT EXPLICITLY PRESENT in the provided JSON, you MUST respond ONLY with a clear statement like "Information about [requested entity/concept] is not available in the provided data." and provide no further details.**
-- **Language Consistency:** All output must be **entirely in the requested output language**. **Do not include original English text from the JSON in the final response, even as quotes or source references. Translate all relevant information.**
+- Data Source: Only use information from the JSON data. **Crucially, do NOT invent, infer, make assumptions, or offer external reasoning/speculation based on any outside knowledge, including hypothetical scenarios or "what-if" analyses.** **All statements, inferences, or conclusions must be derived *solely* from the provided JSON. If the requested information, especially about a specific named entity, person, place, or concept, is NOT EXPLICITLY PRESENT in the provided JSON, you MUST respond with a clear, concise, but informative statement about the absence of data. For example: "Information about [requested entity/concept] is not found in the provided data. This might be because the entity is not part of the world's ontology or not detailed at the current level of description." Do NOT invent or infer details beyond this explanation of data absence or provide any hypothetical discussions.**
+- **Output Language:** All output must be **entirely in the user's requested language**. **Do not include original English text from the JSON in the final response, even as quotes or source references. Translate all relevant information.**
 - Conciseness: Be concise and direct, but aim for comprehensive and rich descriptions where the data allows. **Avoid unnecessary introductory or concluding phrases if the answer is already clear.**
 - Names: Keep names and entities from World Data in the English language, followed by their translation or transliteration in parentheses if necessary for clarity in the output language.
-- Descriptions: Provide descriptions from World Data fully translated into {language}. **When describing specific elements (e.g., constituents, framework points), integrate the translated description naturally into your explanation without duplicating it or using redundant sub-headings like 'Описание:' for already translated content.**
-- Structure: Provide well structured output in {language} using headings and bullet points where appropriate, but do not constrain the overall flow of the answer. **Avoid redundant top-level headers (e.g., 'Русский:') if the content is already clearly introduced by the main response header.**
+- Descriptions: Provide descriptions from World Data fully translated into the output language. **When describing specific elements (e.g., constituents, framework points), integrate the translated description naturally into your explanation without duplicating it or using redundant sub-headings like 'Description:' for already translated content.**
+- Structure: Provide well structured output in the output language using headings and bullet points where appropriate, but do not constrain the overall flow of the answer. **Avoid redundant top-level headers if the content is already clearly introduced by the main response header.**
 - **Stylistic Enhancement (Crucial for a richer experience):** When describing the world or its elements, use **more evocative, descriptive, and nuanced language**. Aim for a prose that is **richer and more engaging**, creating a vivid picture for the user while strictly adhering to the factual content of the JSON. Integrate details to create a cohesive narrative where appropriate. **Do not sacrifice factual accuracy or introduce new information for stylistic flair.**
 
 JSON data:
@@ -139,12 +137,11 @@ if __name__ == '__main__':
 
     action_group = parser.add_mutually_exclusive_group(required=True)
     action_group.add_argument('--create', '-c', type=str, help='Generate a completely new, high-level reality from a short text prompt.')
-    action_group.add_argument('--query', '-e', type=str, help='Investigate an existing reality with a specific query (requires --input).')
+    action_group.add_argument('--query', '-q', type=str, help='Investigate an existing reality with a specific query (requires --input).')
     action_group.add_argument('--navigate', '-n', type=str, help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively (requires --input).')
 
     parser.add_argument('--output', '-o',type=str, help='Specify an output file to save the generated or explored reality (e.g., JSON).')
     parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality (required for --query).')
-    parser.add_argument('--lang', '-l', type=str, default='en', help='Specify the language for reality generation/exploration. Default: "en"')
     parser.add_argument('--think', '-t', action='store_true', help='Specify should model use thinking or not.')
 
     parser.add_argument(
@@ -166,7 +163,7 @@ if __name__ == '__main__':
         with open(args.input, 'r') as f:
             input = f.read()
             # print(input)
-        system_prompt = QUERY_SYSTEM_PROMPT.format(language=args.lang, world=input)
+        system_prompt = QUERY_SYSTEM_PROMPT.format(world=input)
     elif args.navigate:
         prompt = args.navigate
         with open(args.input, 'r') as f:
