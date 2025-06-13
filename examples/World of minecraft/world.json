@@ -1,5 +1,5 @@
 {
-  "world_essence": "A voxel-based universe generated through random algorithms, featuring terrain composed of discrete cubic blocks and a diverse array of entities.",
+  "essence": "A voxel-based universe generated through random algorithms, featuring terrain composed of discrete cubic blocks and a diverse array of entities.",
   "primary_constituents": [
     {
       "name": "Player",

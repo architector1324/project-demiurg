@@ -203,7 +203,7 @@ python reality-gen.py --model qwen3 --navigate 'A woman sitting at a table in a 
 ```
 
 **Result (schematic representation of the unfolded reality, demonstrating the manifestation chain):**
-*(Only the key unfolding chain is shown. The full, corrected JSON version with complete details is available [here](./examples/Deep%20Materialization/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant%20in%20New%20York/world.json).)*
+*(Only the key unfolding chain is shown. The full, corrected JSON version with complete details is available [here](./examples/New%20York/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant%20in%20New%20York/world.json).)*
 
 ```json
 {

@@ -1,5 +1,5 @@
 {
-  "world_essence": "A gravitationally bound system of celestial bodies orbiting the Sun, encompassing a star, planetary bodies, and various smaller objects.",
+  "essence": "A gravitationally bound system of celestial bodies orbiting the Sun, encompassing a star, planetary bodies, and various smaller objects.",
   "primary_constituents": [
     {
       "name": "Sun",
