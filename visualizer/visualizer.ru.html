@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRGE Reality Visualizer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- D3.js CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent body scroll, D3 handles its own scroll/zoom */
+        }
+        .node circle {
+            /* Stroke color will be set dynamically in JS */
+            stroke-width: 1.5px;
+            cursor: pointer; /* Indicate clickable nodes */
+        }
+        .node text {
+            font-size: 10px;
+            text-anchor: middle;
+            fill: #D4D4D4; /* editor.foreground for node text */
+            pointer-events: none; /* Make text non-interactive to allow clicking on circle */
+            user-select: none; /* Prevent text selection */
+        }
+        .link {
+            stroke: #787878; /* Custom gray color for links */
+            stroke-opacity: 0.6;
+            stroke-width: 1.5px;
+        }
+        .tooltip { /* Kept for reference but likely replaced by info-panel for node details */
+            position: absolute;
+            background-color: rgba(37, 37, 38, 0.95); /* sideBar.background with opacity */
+            border: 1px solid #4B5563; /* Darker border */
+            border-radius: 8px;
+            padding: 10px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            max-width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Darker shadow */
+            color: #D4D4D4; /* editor.foreground for tooltip text */
+            font-size: 12px;
+            line-height: 1.4;
+            z-index: 1000;
+        }
+        .tooltip strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #9CDCFE; /* VS Code variable color for strong text */
+        }
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(37, 37, 38, 0.95); /* sideBar.background with opacity */
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Darker shadow */
+            max-width: 350px;
+            color: #D4D4D4; /* editor.foreground for info panel text */
+            font-size: 13px;
+            line-height: 1.5;
+            z-index: 999;
+            max-height: 80%;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .info-panel.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .info-panel strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #9CDCFE; /* VS Code variable color for strong text */
+        }
+    </style>
+</head>
+<body class="bg-[#1E1E1E] flex h-screen">
+
+    <!-- Left Panel: JSON Input -->
+    <div class="w-1/3 p-6 flex flex-col bg-[#252526] shadow-lg rounded-r-lg">
+        <h1 class="text-2xl font-bold text-[#D4D4D4] mb-6 text-center">Визуализатор Реальностей SRGE</h1>
+        <label for="json-input" class="block text-[#D4D4D4] text-sm font-medium mb-2">Введите JSON мира:</label>
+        <textarea id="json-input" class="flex-grow p-4 border border-[#444444] bg-[#1E1E1E] text-[#D4D4D4] rounded-lg shadow-sm focus:ring-[#007ACC] focus:border-[#007ACC] resize-none" placeholder="Вставьте ваш JSON здесь...">
+{
+  "essence": "Абстрактная реальность двух взаимосвязанных сущностей",
+  "primary_constituents": [
+    {
+      "name": "Сущность А",
+      "description": "Первая абстрактная сущность, инициатор изменений."
+    },
+    {
+      "name": "Сущность Б",
+      "description": "Вторая абстрактная сущность, реагирующая на изменения Сущности А.",
+      "manifestation": {
+        "essence": "Глубокое проявление Сущности Б, раскрывающее её адаптивные механизмы.",
+        "primary_constituents": [
+          {
+            "name": "Адаптивное Ядро",
+            "description": "Фундаментальный структурный компонент, обеспечивающий физическую и концептуальную адаптацию Сущности Б."
+          },
+          {
+            "name": "Реактивный Слой",
+            "description": "Внешний слой, отвечающий за восприятие и обработку внешних стимулов."
+          }
+        ],
+        "governing_framework": [
+          "Принцип Адаптивных Изменений: Сущность Б постоянно изменяет свою внутреннюю структуру на основе внешних стимулов.",
+          "Правило Пропорциональной Реакции: Интенсивность реакции Сущности Б прямо пропорциональна величине входящего воздействия.",
+          "Протокол Интеграции Механизмов: Механизмы адаптации интегрируются и оптимизируются на основе обратных связей."
+        ],
+        "driving_forces_and_potential": [
+          "Движущая Сила: Внутренний импульс Сущности А к расширению.",
+          "Потенциал: Способность Сущности Б к адаптации и мутации в неограниченное число форм."
+        ],
+        "foundational_state": "Начальная конфигурация адаптивных механизмов Сущности Б."
+      }
+    }
+  ],
+  "governing_framework": [
+    "Правило 1: Взаимодействие между А и Б всегда ведет к новому состоянию.",
+    "Правило 2: Сохранение абстрактной энергии в системе А-Б."
+  ],
+  "driving_forces_and_potential": [
+    "Движущая Сила: Внутренний импульс Сущности А к расширению.",
+    "Потенциал: Способность Сущности Б к адаптации и мутации."
+  ],
+  "foundational_state": "Начальное состояние А и Б в равновесии, готовые к первому взаимодействию."
+}
+        </textarea>
+        <button id="visualize-button" class="mt-4 px-6 py-3 bg-[#007ACC] text-white font-semibold rounded-lg shadow-md hover:bg-[#3794FF] transition duration-300 ease-in-out transform hover:scale-105">
+            Визуализировать Мир
+        </button>
+        <div id="error-message" class="text-[#F14C4C] mt-3 text-sm hidden"></div>
+        <div class="mt-4 text-xs text-[#D4D4D4]">
+            Нажмите на узел, чтобы просмотреть его детали. Нажмите вне узла, чтобы скрыть детали.
+            <br>
+            Нажмите на большой узел "World", чтобы начать исследование!
+        </div>
+    </div>
+
+    <!-- Right Panel: D3 Visualization -->
+    <div class="relative flex-grow bg-[#1E1E1E] rounded-l-lg shadow-lg">
+        <svg id="world-graph" class="w-full h-full"></svg>
+        <div id="info-panel" class="info-panel hidden">
+            <button class="absolute top-2 right-2 text-[#D4D4D4] hover:text-[#F0F0F0] focus:outline-none" onclick="document.getElementById('info-panel').classList.remove('visible'); document.getElementById('info-panel').classList.add('hidden');">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="info-content"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const jsonInput = document.getElementById('json-input');
+            const visualizeButton = document.getElementById('visualize-button');
+            const errorMessageDiv = document.getElementById('error-message');
+            const svg = d3.select("#world-graph");
+            const infoPanel = document.getElementById('info-panel');
+            const infoContent = document.getElementById('info-content');
+
+            // D3 Global Variables
+            let simulation;
+            let g; // Main group for nodes and links for zoom/pan
+            let linksGroup, nodesGroup; // Separate groups for Z-index control
+            let width, height;
+            let allNodes = []; // Nodes currently visible in the simulation
+            let allLinks = []; // Links currently visible in the simulation
+            let fullWorldData = null; // Stores the complete parsed JSON data
+            let nodeIdCounter = 0; // Unique ID counter for nodes
+
+            // Define colors for different node types (VS Code theme inspired)
+            const nodeColors = {
+                'world-root': '#1E1E1E', // editor.background
+                'container': '#252526', // sideBar.background
+                'essence': '#333333', // activityBar.background
+                'constituent': '#606060', // Custom mid-light gray
+                'constituent-expandable': '#404040', // Custom darker gray
+                'manifestation-root': '#F14C4C', // editorError.foreground (Vibrant Red)
+                'framework': '#4A4A4A', // Custom mid-gray
+                'driving_force': '#505050', // Custom mid-light gray
+                'foundational_state': '#5A5A5A', // Custom light gray
+                'detail-item': '#808080', // Custom light gray
+                'default': '#9E9E9E', // Gray-400 (Fallback)
+                'expanded-highlight': '#73c991' // New Pastel Green for expanded nodes
+            };
+
+            // Helper function to lighten a hex color
+            function lightenColor(hex, percent) {
+                let f = parseInt(hex.slice(1), 16),
+                    t = percent < 0 ? 0 : 255,
+                    p = percent < 0 ? percent * -1 : percent,
+                    R = f >> 16,
+                    G = (f >> 8) & 0x00FF,
+                    B = f & 0x0000FF;
+                return "#" + (
+                    0x1000000 +
+                    (Math.round((t - R) * p) + R) * 0x10000 +
+                    (Math.round((t - G) * p) + G) * 0x100 +
+                    (Math.round((t - B) * p) + B)
+                ).toString(16).slice(1);
+            }
+
+            // Helper function to format array descriptions
+            const formatArrayDescription = (arr) => {
+                return Array.isArray(arr) ? arr.join('\n') : arr;
+            };
+
+            // Drag functions for D3 nodes
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+
+            // Function to display node information in the info panel
+            function displayInfoPanel(d) {
+                infoContent.innerHTML = `
+                    <strong>${d.name}</strong>
+                    ${d.description ? `<p>${d.description.replace(/\n/g, '<br>')}</p>` : ''}
+                `;
+                infoPanel.classList.remove('hidden');
+                infoPanel.classList.add('visible');
+            }
+
+            // Helper to add a new node and link to the allNodes/allLinks arrays
+            function addNode(parentNode, name, description, type, originalObject) {
+                const newNode = {
+                    id: nodeIdCounter++,
+                    name: name,
+                    description: description,
+                    type: type,
+                    parentId: parentNode.id,
+                    originalObject: originalObject, // Store original JSON fragment for further expansion
+                    isExpanded: false, // Newly added nodes are not expanded by default
+                    level: parentNode.level + 1 // Track depth for potential styling/logic
+                };
+                allNodes.push(newNode);
+                allLinks.push({ source: parentNode.id, target: newNode.id, type: 'hierarchy' }); // Default link type
+                return newNode; // Return the newly created node
+            }
+
+            // Function to handle node expansion/collapse logic
+            function toggleNodeExpansion(d) {
+                // If the node is currently expanded, collapse it
+                if (d.isExpanded) {
+                    const childrenIdsToRemove = new Set();
+                    // Recursively find all descendants of d to remove them
+                    function findDescendants(nodeId) {
+                        // Find links where the current nodeId is the source
+                        allLinks.filter(link => link.source.id === nodeId).forEach(link => {
+                            const childNode = allNodes.find(n => n.id === link.target.id);
+                            if (childNode && !childrenIdsToRemove.has(childNode.id)) {
+                                childrenIdsToRemove.add(childNode.id);
+                                findDescendants(childNode.id); // Recurse for deeper descendants
+                            }
+                        });
+                    }
+                    findDescendants(d.id); // Start from the clicked node's ID
+
+                    // Filter out nodes and links that are descendants (or refer to descendants)
+                    allNodes = allNodes.filter(node => !childrenIdsToRemove.has(node.id));
+                    allLinks = allLinks.filter(link => !(childrenIdsToRemove.has(link.source.id) || childrenIdsToRemove.has(link.target.id)));
+
+                    d.isExpanded = false; // Mark parent as collapsed
+                    console.log(`Collapsed ${d.name}. Remaining nodes: ${allNodes.length}, links: ${allLinks.length}`);
+
+                } else {
+                    // If the node is currently collapsed, expand it
+                    console.log(`Expanding ${d.name}...`);
+                    if (d.type === 'world-root') {
+                        const rootData = d.originalObject;
+                        if (rootData.essence) { addNode(d, "Сущность", rootData.essence, 'essence', rootData.essence); }
+                        if (rootData.primary_constituents) { addNode(d, "Первичные Составляющие", "Основные составляющие элементы мира", 'container', rootData.primary_constituents); }
+                        if (rootData.governing_framework) { addNode(d, "Управляющая Структура", formatArrayDescription(rootData.governing_framework), 'framework', rootData.governing_framework); }
+                        if (rootData.driving_forces_and_potential) { addNode(d, "Движущие Силы и Потенциал", formatArrayDescription(rootData.driving_forces_and_potential), 'driving_force', rootData.driving_forces_and_potential); }
+                        if (rootData.foundational_state) { addNode(d, "Фундаментальное Состояние", rootData.foundational_state, 'foundational_state', rootData.foundational_state); }
+
+                    } else if (d.type === 'container' && d.originalObject && Array.isArray(d.originalObject)) {
+                        // Expand Primary Constituents or Manifestation Constituents containers
+                        d.originalObject.forEach(childObj => {
+                            const type = childObj.manifestation ? 'constituent-expandable' : 'constituent';
+                            addNode(d, childObj.name || childObj.essence || "Без имени", childObj.description || childObj.essence || "", type, childObj);
+                        });
+
+                    } else if (d.type === 'constituent-expandable' && d.originalObject && d.originalObject.manifestation) {
+                        // Expand a constituent's manifestation
+                        const manifestationObj = d.originalObject.manifestation;
+                        // Changed: just use the constituent's name for the manifestation root
+                        const manifestRootNode = addNode(d, d.name, manifestationObj.essence || 'Более глубокое проявление', 'manifestation-root', manifestationObj);
+
+                        // Add the elements *within* the manifestation to the new manifestRootNode
+                        if (manifestationObj.primary_constituents) { addNode(manifestRootNode, "Первичные Составляющие", "Составляющие проявленной сущности", 'container', manifestationObj.primary_constituents); }
+                        // Changed: Removed "(Manifestation)" from these names
+                        if (manifestationObj.governing_framework) { addNode(manifestRootNode, "Управляющая Структура", formatArrayDescription(manifestationObj.governing_framework), 'framework', manifestationObj.governing_framework); }
+                        if (manifestationObj.driving_forces_and_potential) { addNode(manifestRootNode, "Движущие Силы и Потенциал", formatArrayDescription(manifestationObj.driving_forces_and_potential), 'driving_force', manifestationObj.driving_forces_and_potential); }
+                        if (manifestationObj.foundational_state) { addNode(manifestRootNode, "Фундаментальное Состояние", manifestationObj.foundational_state, 'foundational_state', manifestationObj.foundational_state); }
+
+                    } else if (d.type === 'manifestation-root' && d.originalObject) {
+                         // If a manifestation-root itself has primary_constituents, etc., allow expanding them
+                        const currentManifestation = d.originalObject;
+                        if (currentManifestation.primary_constituents) { addNode(d, "Первичные Составляющие", "Составляющие проявленной сущности", 'container', currentManifestation.primary_constituents); }
+                        // Changed: Removed "(Manifestation)" from these names
+                        if (currentManifestation.governing_framework) { addNode(d, "Управляющая Структура", formatArrayDescription(currentManifestation.governing_framework), 'framework', currentManifestation.governing_framework); }
+                        if (currentManifestation.driving_forces_and_potential) { addNode(d, "Движущие Силы и Потенциал", formatArrayDescription(currentManifestation.driving_forces_and_potential), 'driving_force', currentManifestation.driving_forces_and_potential); }
+                        if (currentManifestation.foundational_state) { addNode(d, "Фундаментальное Состояние", currentManifestation.foundational_state, 'foundational_state', currentManifestation.foundational_state); }
+                    } else if ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject)) {
+                        // NEW LOGIC: Expand framework or driving_force arrays into detail items
+                        d.originalObject.forEach((item, index) => {
+                            let namePrefix = d.type === 'framework' ? "Правило" : "Движущая Сила";
+                            addNode(d, `${namePrefix} ${index + 1}`, item, 'detail-item', item);
+                        });
+                    }
+                    d.isExpanded = true; // Mark parent as expanded
+                }
+                renderGraph(); // Rerender after changes to nodes/links
+                displayInfoPanel(d); // Always show info for the clicked node
+            }
+
+            // Main rendering function (responsible for updating D3 elements)
+            function renderGraph() {
+                console.log("renderGraph called. Current allNodes:", allNodes);
+                console.log("renderGraph called. Current allLinks:", allLinks);
+
+                // Update the simulation data
+                simulation.nodes(allNodes);
+                simulation.force("link").links(allLinks);
+
+                // --- Update Links ---
+                // Select links from the specific linksGroup to control Z-index
+                let link = linksGroup.selectAll(".link")
+                    .data(allLinks, d => `${d.source.id}-${d.target.id}`); // Key for object constancy
+
+                link.exit().remove(); // Remove old links
+                link = link.enter().append("line")
+                    .attr("class", "link")
+                    .merge(link); // Merge new and existing links
+
+                // --- Update Nodes ---
+                // Select nodes from the specific nodesGroup to control Z-index
+                let node = nodesGroup.selectAll(".node")
+                    .data(allNodes, d => d.id); // Key for object constancy
+
+                node.exit().remove(); // Remove old nodes
+
+                const newNode = node.enter().append("g")
+                    .attr("class", "node")
+                    .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended));
+
+                // Helper to get node radius based on type
+                const getNodeRadius = (d) => {
+                    if (d.type === 'world-root') return 20;
+                    if (d.type === 'constituent' || d.type === 'constituent-expandable' || d.type === 'manifestation-root') return 12; // Larger for entities and manifestation roots
+                    return 8; // Default for others
+                };
+
+                // Append circle to new nodes
+                newNode.append("circle")
+                    .attr("r", getNodeRadius) // Dynamically set radius
+                    .attr("fill", d => {
+                        const fillColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
+                        d.currentFillColor = fillColor; // Store the fill color for stroke
+                        return fillColor;
+                    })
+                    .attr("stroke", d => {
+                        // Lighten the current fill color for the stroke
+                        const baseColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
+                        return lightenColor(baseColor, 0.2); // Lighten by 20%
+                    });
+
+
+                // Append text to new nodes
+                newNode.append("text")
+                    .attr("dy", d => d.type === 'world-root' ? -25 : (getNodeRadius(d) + 4)) // Adjust text position based on radius
+                    .text(d => d.name);
+
+                // Apply click handler to both new and existing nodes (circle element)
+                newNode.merge(node)
+                    .select("circle")
+                    .attr("fill", d => {
+                        const fillColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
+                        d.currentFillColor = fillColor; // Store the fill color for stroke
+                        return fillColor;
+                    }) // Update fill on merge too
+                    .attr("stroke", d => {
+                        // Lighten the current fill color for the stroke
+                        const baseColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
+                        return lightenColor(baseColor, 0.2); // Lighten by 20%
+                    })
+                    .on("click", (event, d) => {
+                        event.stopPropagation(); // Prevent click from propagating to SVG and closing panel
+                        // Determine if node is expandable based on its type and whether it has originalObject for children
+                        const isExpandable = ['world-root', 'container', 'constituent-expandable', 'manifestation-root'].includes(d.type) ||
+                                             ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject));
+
+                        if (isExpandable) {
+                            toggleNodeExpansion(d);
+                        } else {
+                            displayInfoPanel(d); // Show info for leaf nodes
+                        }
+                    });
+
+                // Ensure text is updated on existing nodes as well
+                newNode.merge(node)
+                    .select("text")
+                    .attr("dy", d => d.type === 'world-root' ? -25 : (getNodeRadius(d) + 4)) // Update text position on merge too
+                    .text(d => d.name);
+
+                simulation.alpha(1).restart(); // Restart simulation to recalculate positions
+
+                // Update tick function for merged nodes (D3's merge handles applying to all current elements)
+                simulation.on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node.merge(newNode)
+                        .attr("transform", d => `translate(${d.x},${d.y})`);
+                });
+            }
+
+            // Function to create the initial "World" node and kick off the visualization
+            function createInitialWorldNode(data) {
+                nodeIdCounter = 0; // Reset ID counter for a new world
+                allNodes = [];
+                allLinks = [];
+                fullWorldData = data; // Store the complete parsed JSON
+
+                const worldNode = {
+                    id: nodeIdCounter++,
+                    name: "World",
+                    description: data.essence || "Загруженная Реальность SRGE", // Updated description
+                    type: 'world-root',
+                    originalObject: data, // The full JSON object
+                    isExpanded: false, // Start collapsed
+                    level: 0
+                };
+                allNodes.push(worldNode);
+                
+                renderGraph(); // Initial render with just the world node
+                displayInfoPanel(worldNode); // Show info for the world node on load
+            }
+
+
+            // --- Initial D3 Setup (runs once on DOMContentLoaded) ---
+            width = svg.node().clientWidth;
+            height = svg.node().clientHeight;
+
+            simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id(d => d.id).distance(100).strength(0.7))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("center", d3.forceCenter(width / 2, height / 2));
+
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 10])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                });
+            svg.call(zoom);
+
+            g = svg.append("g"); // Main group for zoom/pan
+
+            // Append links group first (will be drawn underneath)
+            linksGroup = g.append("g").attr("class", "links-group");
+
+            // Append nodes group second (will be drawn on top)
+            nodesGroup = g.append("g").attr("class", "nodes-group");
+
+            // --- Event Listeners ---
+            visualizeButton.addEventListener('click', () => {
+                console.log("Visualize button clicked!");
+                try {
+                    const jsonData = JSON.parse(jsonInput.value);
+                    console.log("JSON parsed successfully.");
+                    createInitialWorldNode(jsonData); // Start with only the World node, collapsed
+                } catch (e) {
+                    console.error("JSON parsing error:", e);
+                    errorMessageDiv.textContent = `Ошибка синтаксиса JSON: ${e.message}. Пожалуйста, проверьте ваш JSON.`; // Updated error message
+                    errorMessageDiv.classList.remove('hidden');
+                }
+            });
+
+            // Handle click on SVG background to hide info panel
+            svg.on("click", () => {
+                infoPanel.classList.remove('visible');
+                infoPanel.classList.add('hidden');
+            });
+
+            // --- Initial visualization on load with the default JSON ---
+            if (jsonInput.value) {
+                try {
+                    const jsonData = JSON.parse(jsonInput.value);
+                    createInitialWorldNode(jsonData);
+                } catch (e) {
+                    console.error("Error on initial JSON load:", e);
+                    errorMessageDiv.textContent = `Ошибка синтаксиса JSON при загрузке: ${e.message}. Пожалуйста, проверьте ваш JSON.`; // Updated error message
+                    errorMessageDiv.classList.remove('hidden');
+                }
+            }
+
+            // --- Make the SVG responsive to window resize ---
+            window.addEventListener('resize', () => {
+                width = svg.node().clientWidth;
+                height = svg.node().clientHeight;
+                simulation.force("center", d3.forceCenter(width / 2, height / 2));
+                simulation.alpha(0.3).restart();
+            });
+        });
+    </script>
+</body>
+</html>

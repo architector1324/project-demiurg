@@ -28,5 +28,5 @@
     "Radiant energy diffusion through the room's volume",
     "Gradual consumption of fuel mass through oxidative decomposition"
   ],
-  "foundational_state": "Dark room with unlit candle, atmospheric pressure at 101.325 kPa, temperature at 298 K"
+  "foundational_state": "Dark room with lit candle, atmospheric pressure at 101.325 kPa, temperature at 298 K"
 }
