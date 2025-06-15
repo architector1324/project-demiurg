@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SRGE Reality Visualizer</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN with custom color config -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-purple': '#8028c9',
+                        'custom-purple-dark': '#6f23ae', // Slightly darker for hover
+                    }
+                }
+            }
+        }
+    </script>
     <!-- D3.js CDN -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
@@ -138,6 +150,11 @@
   "foundational_state": "Initial state of A and B in equilibrium, ready for their first interaction."
 }
         </textarea>
+        <!-- New button to load JSON from file -->
+        <input type="file" id="json-file-input" accept=".json" class="hidden">
+        <button id="load-json-button" class="mt-4 px-6 py-3 bg-custom-purple text-white font-semibold rounded-lg shadow-md hover:bg-custom-purple-dark transition duration-300 ease-in-out transform hover:scale-105">
+            Load JSON from file
+        </button>
         <button id="visualize-button" class="mt-4 px-6 py-3 bg-[#007ACC] text-white font-semibold rounded-lg shadow-md hover:bg-[#3794FF] transition duration-300 ease-in-out transform hover:scale-105">
             Visualize World
         </button>
@@ -169,6 +186,8 @@
             const svg = d3.select("#world-graph");
             const infoPanel = document.getElementById('info-panel');
             const infoContent = document.getElementById('info-content');
+            const loadJsonButton = document.getElementById('load-json-button'); // New
+            const jsonFileInput = document.getElementById('json-file-input');   // New
 
             // D3 Global Variables
             let simulation;
@@ -184,10 +203,10 @@
             const nodeColors = {
                 'world-root': '#1E1E1E', // editor.background
                 'container': '#252526', // sideBar.background
-                'essence': '#333333', // activityBar.background
+                'essence': '#5A5A5A', // Darker gray for Essence
                 'constituent': '#606060', // Custom mid-light gray
                 'constituent-expandable': '#404040', // Custom darker gray
-                'manifestation-root': '#F14C4C', // editorError.foreground (Vibrant Red)
+                'manifestation-root': '#F14C4C', // This color will no longer be used for a distinct 'manifestation-root' node type
                 'framework': '#4A4A4A', // Custom mid-gray
                 'driving_force': '#505050', // Custom mid-light gray
                 'foundational_state': '#5A5A5A', // Custom light gray
@@ -306,27 +325,18 @@
                         });
 
                     } else if (d.type === 'constituent-expandable' && d.originalObject && d.originalObject.manifestation) {
-                        // Expand a constituent's manifestation
+                        // Directly add the manifestation's properties as children of the constituent node
                         const manifestationObj = d.originalObject.manifestation;
-                        // Changed: just use the constituent's name for the manifestation root
-                        const manifestRootNode = addNode(d, d.name, manifestationObj.essence || 'Deeper manifestation', 'manifestation-root', manifestationObj);
+                        if (manifestationObj.essence) { addNode(d, "Essence", manifestationObj.essence, 'essence', manifestationObj.essence); }
+                        if (manifestationObj.primary_constituents) { addNode(d, "Primary Constituents", "Constituent elements of this manifestation", 'container', manifestationObj.primary_constituents); }
+                        if (manifestationObj.governing_framework) { addNode(d, "Governing Framework", formatArrayDescription(manifestationObj.governing_framework), 'framework', manifestationObj.governing_framework); }
+                        if (manifestationObj.driving_forces_and_potential) { addNode(d, "Driving Forces & Potential", formatArrayDescription(manifestationObj.driving_forces_and_potential), 'driving_force', manifestationObj.driving_forces_and_potential); }
+                        if (manifestationObj.foundational_state) { addNode(d, "Foundational State", manifestationObj.foundational_state, 'foundational_state', manifestationObj.foundational_state); }
 
-                        // Add the elements *within* the manifestation to the new manifestRootNode
-                        if (manifestationObj.primary_constituents) { addNode(manifestRootNode, "Manifestation Constituents", "Constituents of the manifested entity", 'container', manifestationObj.primary_constituents); }
-                        // Removed "(Manifestation)" from these names
-                        if (manifestationObj.governing_framework) { addNode(manifestRootNode, "Governing Framework", formatArrayDescription(manifestationObj.governing_framework), 'framework', manifestationObj.governing_framework); }
-                        if (manifestationObj.driving_forces_and_potential) { addNode(manifestRootNode, "Driving Forces & Potential", formatArrayDescription(manifestationObj.driving_forces_and_potential), 'driving_force', manifestationObj.driving_forces_and_potential); }
-                        if (manifestationObj.foundational_state) { addNode(manifestRootNode, "Foundational State", manifestationObj.foundational_state, 'foundational_state', manifestationObj.foundational_state); }
+                    }
+                    // Removed the 'manifestation-root' handling here as it's no longer a distinct expansion type
 
-                    } else if (d.type === 'manifestation-root' && d.originalObject) {
-                         // If a manifestation-root itself has primary_constituents, etc., allow expanding them
-                        const currentManifestation = d.originalObject;
-                        if (currentManifestation.primary_constituents) { addNode(d, "Manifestation Constituents", "Constituents of the manifested entity", 'container', currentManifestation.primary_constituents); }
-                        // Removed "(Manifestation)" from these names
-                        if (currentManifestation.governing_framework) { addNode(d, "Governing Framework", formatArrayDescription(currentManifestation.governing_framework), 'framework', currentManifestation.governing_framework); }
-                        if (currentManifestation.driving_forces_and_potential) { addNode(d, "Driving Forces & Potential", formatArrayDescription(currentManifestation.driving_forces_and_potential), 'driving_force', currentManifestation.driving_forces_and_potential); }
-                        if (currentManifestation.foundational_state) { addNode(d, "Foundational State", currentManifestation.foundational_state, 'foundational_state', currentManifestation.foundational_state); }
-                    } else if ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject)) {
+                    else if ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject)) {
                         // NEW LOGIC: Expand framework or driving_force arrays into detail items
                         d.originalObject.forEach((item, index) => {
                             let namePrefix = d.type === 'framework' ? "Rule" : "Driving Force";
@@ -383,14 +393,17 @@
                 newNode.append("circle")
                     .attr("r", getNodeRadius) // Dynamically set radius
                     .attr("fill", d => {
-                        const fillColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        d.currentFillColor = fillColor; // Store the fill color for stroke
-                        return fillColor;
+                        // Conditional fill color: apply expanded-highlight to world-root, container, framework, driving_force, AND constituent-expandable when expanded
+                        if (d.isExpanded && (d.type === 'world-root' || d.type === 'container' || d.type === 'framework' || d.type === 'driving_force' || d.type === 'constituent-expandable')) {
+                            d.currentFillColor = nodeColors['expanded-highlight'];
+                        } else {
+                            d.currentFillColor = nodeColors[d.type] || nodeColors.default;
+                        }
+                        return d.currentFillColor;
                     })
                     .attr("stroke", d => {
                         // Lighten the current fill color for the stroke
-                        const baseColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        return lightenColor(baseColor, 0.2); // Lighten by 20%
+                        return lightenColor(d.currentFillColor, 0.2); // Lighten by 20%
                     });
 
 
@@ -403,19 +416,22 @@
                 newNode.merge(node)
                     .select("circle")
                     .attr("fill", d => {
-                        const fillColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        d.currentFillColor = fillColor; // Store the fill color for stroke
-                        return fillColor;
+                        // Conditional fill color: apply expanded-highlight to world-root, container, framework, driving_force, AND constituent-expandable when expanded
+                        if (d.isExpanded && (d.type === 'world-root' || d.type === 'container' || d.type === 'framework' || d.type === 'driving_force' || d.type === 'constituent-expandable')) {
+                            d.currentFillColor = nodeColors['expanded-highlight'];
+                        } else {
+                            d.currentFillColor = nodeColors[d.type] || nodeColors.default;
+                        }
+                        return d.currentFillColor;
                     }) // Update fill on merge too
                     .attr("stroke", d => {
                         // Lighten the current fill color for the stroke
-                        const baseColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        return lightenColor(baseColor, 0.2); // Lighten by 20%
+                        return lightenColor(d.currentFillColor, 0.2); // Lighten by 20%
                     })
                     .on("click", (event, d) => {
                         event.stopPropagation(); // Prevent click from propagating to SVG and closing panel
                         // Determine if node is expandable based on its type and whether it has originalObject for children
-                        const isExpandable = ['world-root', 'container', 'constituent-expandable', 'manifestation-root'].includes(d.type) ||
+                        const isExpandable = ['world-root', 'container', 'constituent-expandable'].includes(d.type) || // Removed 'manifestation-root'
                                              ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject));
 
                         if (isExpandable) {
@@ -506,6 +522,37 @@
                     errorMessageDiv.classList.remove('hidden');
                 }
             });
+
+            // New: Event listener for the "Load JSON from file" button
+            loadJsonButton.addEventListener('click', () => {
+                jsonFileInput.click(); // Programmatically click the hidden file input
+            });
+
+            // New: Event listener for when a file is selected
+            jsonFileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const fileContent = e.target.result;
+                            jsonInput.value = fileContent; // Set textarea value to file content
+                            errorMessageDiv.classList.add('hidden'); // Hide any previous errors
+                            // Optionally, automatically visualize the loaded JSON
+                            // visualizeButton.click(); 
+                        } catch (readError) {
+                            errorMessageDiv.textContent = `Error reading file: ${readError.message}`;
+                            errorMessageDiv.classList.remove('hidden');
+                        }
+                    };
+                    reader.onerror = (readError) => {
+                        errorMessageDiv.textContent = `Error reading file: ${readError.message}`;
+                        errorMessageDiv.classList.remove('hidden');
+                    };
+                    reader.readAsText(file); // Read file as text
+                }
+            });
+
 
             // Handle click on SVG background to hide info panel
             svg.on("click", () => {

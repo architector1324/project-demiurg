@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru"> <!-- Изменено с 'en' на 'ru' для указания русского языка -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SRGE Reality Visualizer</title>
-    <!-- Tailwind CSS CDN -->
+    <title>SRGE: Визуализатор Реальностей</title> <!-- Перевод заголовка вкладки -->
+    <!-- Tailwind CSS CDN with custom color config -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Ваши новые настройки Tailwind CSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-purple': '#8028c9',
+                        'custom-purple-dark': '#6f23ae', // Slightly darker for hover
+                    }
+                }
+            }
+        }
+    </script>
     <!-- D3.js CDN -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
@@ -89,63 +102,68 @@
 
     <!-- Left Panel: JSON Input -->
     <div class="w-1/3 p-6 flex flex-col bg-[#252526] shadow-lg rounded-r-lg">
-        <h1 class="text-2xl font-bold text-[#D4D4D4] mb-6 text-center">Визуализатор Реальностей SRGE</h1>
-        <label for="json-input" class="block text-[#D4D4D4] text-sm font-medium mb-2">Введите JSON мира:</label>
-        <textarea id="json-input" class="flex-grow p-4 border border-[#444444] bg-[#1E1E1E] text-[#D4D4D4] rounded-lg shadow-sm focus:ring-[#007ACC] focus:border-[#007ACC] resize-none" placeholder="Вставьте ваш JSON здесь...">
+        <h1 id="main-title" class="text-2xl font-bold text-[#D4D4D4] mb-6 text-center">SRGE Reality Visualizer</h1>
+        <label for="json-input" id="json-input-label" class="block text-[#D4D4D4] text-sm font-medium mb-2">Enter World JSON:</label>
+        <textarea id="json-input" class="flex-grow p-4 border border-[#444444] bg-[#1E1E1E] text-[#D4D4D4] rounded-lg shadow-sm focus:ring-[#007ACC] focus:border-[#007ACC] resize-none" placeholder="Paste your JSON here...">
 {
-  "essence": "Абстрактная реальность двух взаимосвязанных сущностей",
+  "essence": "An abstract reality of two interconnected entities",
   "primary_constituents": [
     {
-      "name": "Сущность А",
-      "description": "Первая абстрактная сущность, инициатор изменений."
+      "name": "Entity A",
+      "description": "The first abstract entity, initiator of changes."
     },
     {
-      "name": "Сущность Б",
-      "description": "Вторая абстрактная сущность, реагирующая на изменения Сущности А.",
+      "name": "Entity B",
+      "description": "The second abstract entity, responding to changes in Entity A.",
       "manifestation": {
-        "essence": "Глубокое проявление Сущности Б, раскрывающее её адаптивные механизмы.",
+        "essence": "A deep manifestation of Entity B, revealing its adaptive mechanisms.",
         "primary_constituents": [
           {
-            "name": "Адаптивное Ядро",
-            "description": "Фундаментальный структурный компонент, обеспечивающий физическую и концептуальную адаптацию Сущности Б."
+            "name": "Adaptive Core",
+            "description": "The fundamental structural component enabling Entity B's physical and conceptual adaptation."
           },
           {
-            "name": "Реактивный Слой",
-            "description": "Внешний слой, отвечающий за восприятие и обработку внешних стимулов."
+            "name": "Reactive Layer",
+            "description": "The outer layer responsible for sensing and processing external stimuli."
           }
         ],
         "governing_framework": [
-          "Принцип Адаптивных Изменений: Сущность Б постоянно изменяет свою внутреннюю структуру на основе внешних стимулов.",
-          "Правило Пропорциональной Реакции: Интенсивность реакции Сущности Б прямо пропорциональна величине входящего воздействия.",
-          "Протокол Интеграции Механизмов: Механизмы адаптации интегрируются и оптимизируются на основе обратных связей."
+          "Principle of Adaptive Change: Entity B continuously modifies its internal structure based on external stimuli.",
+          "Rule of Proportional Reaction: The intensity of Entity B's reaction is directly proportional to the magnitude of the incoming impact.",
+          "Protocol for Mechanism Integration: Adaptation mechanisms are integrated and optimized based on feedback loops."
         ],
         "driving_forces_and_potential": [
-          "Движущая Сила: Внутренний импульс Сущности А к расширению.",
-          "Потенциал: Способность Сущности Б к адаптации и мутации в неограниченное число форм."
+          "Driving Force: Internal drive for equilibrium maintenance.",
+          "Potential: Capacity for emergent complex behaviors."
         ],
-        "foundational_state": "Начальная конфигурация адаптивных механизмов Сущности Б."
+        "foundational_state": "Initial configuration of Entity B's adaptive mechanisms."
       }
     }
   ],
   "governing_framework": [
-    "Правило 1: Взаимодействие между А и Б всегда ведет к новому состоянию.",
-    "Правило 2: Сохранение абстрактной энергии в системе А-Б."
+    "Rule 1: Interaction between A and B always leads to a new state.",
+    "Rule 2: Conservation of abstract energy in the A-B system."
   ],
   "driving_forces_and_potential": [
-    "Движущая Сила: Внутренний импульс Сущности А к расширению.",
-    "Потенциал: Способность Сущности Б к адаптации и мутации."
+    "Driving Force: An internal impulse of Entity A towards expansion.",
+    "Potential: The ability of Entity B for adaptation and mutation."
   ],
-  "foundational_state": "Начальное состояние А и Б в равновесии, готовые к первому взаимодействию."
+  "foundational_state": "Initial state of A and B in equilibrium, ready for their first interaction."
 }
         </textarea>
+        <!-- New button to load JSON from file -->
+        <input type="file" id="json-file-input" accept=".json" class="hidden">
+        <button id="load-json-button" class="mt-4 px-6 py-3 bg-custom-purple text-white font-semibold rounded-lg shadow-md hover:bg-custom-purple-dark transition duration-300 ease-in-out transform hover:scale-105">
+            Загрузить JSON из файла
+        </button>
         <button id="visualize-button" class="mt-4 px-6 py-3 bg-[#007ACC] text-white font-semibold rounded-lg shadow-md hover:bg-[#3794FF] transition duration-300 ease-in-out transform hover:scale-105">
             Визуализировать Мир
         </button>
         <div id="error-message" class="text-[#F14C4C] mt-3 text-sm hidden"></div>
-        <div class="mt-4 text-xs text-[#D4D4D4]">
+        <div id="instructions-text" class="mt-4 text-xs text-[#D4D4D4]">
             Нажмите на узел, чтобы просмотреть его детали. Нажмите вне узла, чтобы скрыть детали.
             <br>
-            Нажмите на большой узел "World", чтобы начать исследование!
+            Нажмите на большой узел 'Мир', чтобы начать исследование!
         </div>
     </div>
 
@@ -162,6 +180,53 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Объект для локализации ---
+            const translations = {
+                title: "SRGE: Визуализатор Реальностей",
+                enterJsonLabel: "Введите JSON Мира:",
+                pasteJsonPlaceholder: "Вставьте ваш JSON здесь...",
+                loadFileButton: "Загрузить JSON из файла",
+                visualizeButton: "Визуализировать Мир",
+                clickNodeInstructions1: "Нажмите на узел, чтобы просмотреть его детали.",
+                clickNodeInstructions2: "Нажмите вне узла, чтобы скрыть детали.",
+                clickWorldNodeInstruction: "Нажмите на большой узел 'Мир', чтобы начать исследование!",
+                // Node labels (имена узлов на графе)
+                world: "Мир",
+                essence: "Сущность",
+                primaryConstituents: "Первичные Составляющие",
+                governingFramework: "Основополагающие Принципы",
+                drivingForcesAndPotential: "Движущие Силы и Потенциал",
+                foundationalState: "Фундаментальное Состояние",
+                // Node descriptions (описания, которые появляются в инфо-панели)
+                coreConstituentsDesc: "Ключевые составляющие элементы мира",
+                manifestationConstituentsDesc: "Составляющие элементы данной манифестации",
+                unnamed: "Безымянный",
+                // Prefixes для элементов списков (например, Правило 1, Движущая Сила 2)
+                rulePrefix: "Правило",
+                drivingForcePrefix: "Движущая Сила",
+                // Начальное описание для корневого узла "Мир"
+                loadedRealityDesc: "Загруженная Реальность SRGE",
+                // Сообщения об ошибках
+                jsonParseError: "Ошибка синтаксического анализа JSON: ",
+                checkJson: ". Пожалуйста, проверьте ваш JSON.",
+                fileReadError: "Ошибка чтения файла: ",
+                jsonParseErrorOnLoad: "Ошибка синтаксического анализа JSON при загрузке: "
+            };
+
+            // --- Локализация статических DOM-элементов при загрузке ---
+            document.title = translations.title;
+            document.getElementById('main-title').textContent = translations.title;
+            document.getElementById('json-input-label').textContent = translations.enterJsonLabel;
+            document.getElementById('json-input').placeholder = translations.pasteJsonPlaceholder;
+            document.getElementById('load-json-button').textContent = translations.loadFileButton;
+            document.getElementById('visualize-button').textContent = translations.visualizeButton;
+            document.getElementById('instructions-text').innerHTML = `
+                ${translations.clickNodeInstructions1} ${translations.clickNodeInstructions2}
+                <br>
+                ${translations.clickWorldNodeInstruction}
+            `;
+
+
             // DOM Elements
             const jsonInput = document.getElementById('json-input');
             const visualizeButton = document.getElementById('visualize-button');
@@ -169,6 +234,8 @@
             const svg = d3.select("#world-graph");
             const infoPanel = document.getElementById('info-panel');
             const infoContent = document.getElementById('info-content');
+            const loadJsonButton = document.getElementById('load-json-button');
+            const jsonFileInput = document.getElementById('json-file-input');
 
             // D3 Global Variables
             let simulation;
@@ -184,10 +251,10 @@
             const nodeColors = {
                 'world-root': '#1E1E1E', // editor.background
                 'container': '#252526', // sideBar.background
-                'essence': '#333333', // activityBar.background
+                'essence': '#5A5A5A', // Darker gray for Essence (ОБНОВЛЕНО СООТВЕТСТВУЮЩЕ ВАШИМ ИЗМЕНЕНИЯМ)
                 'constituent': '#606060', // Custom mid-light gray
                 'constituent-expandable': '#404040', // Custom darker gray
-                'manifestation-root': '#F14C4C', // editorError.foreground (Vibrant Red)
+                'manifestation-root': '#F14C4C', // This color will no longer be used for a distinct 'manifestation-root' node type
                 'framework': '#4A4A4A', // Custom mid-gray
                 'driving_force': '#505050', // Custom mid-light gray
                 'foundational_state': '#5A5A5A', // Custom light gray
@@ -292,44 +359,35 @@
                     console.log(`Expanding ${d.name}...`);
                     if (d.type === 'world-root') {
                         const rootData = d.originalObject;
-                        if (rootData.essence) { addNode(d, "Сущность", rootData.essence, 'essence', rootData.essence); }
-                        if (rootData.primary_constituents) { addNode(d, "Первичные Составляющие", "Основные составляющие элементы мира", 'container', rootData.primary_constituents); }
-                        if (rootData.governing_framework) { addNode(d, "Управляющая Структура", formatArrayDescription(rootData.governing_framework), 'framework', rootData.governing_framework); }
-                        if (rootData.driving_forces_and_potential) { addNode(d, "Движущие Силы и Потенциал", formatArrayDescription(rootData.driving_forces_and_potential), 'driving_force', rootData.driving_forces_and_potential); }
-                        if (rootData.foundational_state) { addNode(d, "Фундаментальное Состояние", rootData.foundational_state, 'foundational_state', rootData.foundational_state); }
+                        if (rootData.essence) { addNode(d, translations.essence, rootData.essence, 'essence', rootData.essence); }
+                        if (rootData.primary_constituents) { addNode(d, translations.primaryConstituents, translations.coreConstituentsDesc, 'container', rootData.primary_constituents); }
+                        if (rootData.governing_framework) { addNode(d, translations.governingFramework, formatArrayDescription(rootData.governing_framework), 'framework', rootData.governing_framework); }
+                        if (rootData.driving_forces_and_potential) { addNode(d, translations.drivingForcesAndPotential, formatArrayDescription(rootData.driving_forces_and_potential), 'driving_force', rootData.driving_forces_and_potential); }
+                        if (rootData.foundational_state) { addNode(d, translations.foundationalState, rootData.foundational_state, 'foundational_state', rootData.foundational_state); }
 
                     } else if (d.type === 'container' && d.originalObject && Array.isArray(d.originalObject)) {
                         // Expand Primary Constituents or Manifestation Constituents containers
                         d.originalObject.forEach(childObj => {
                             const type = childObj.manifestation ? 'constituent-expandable' : 'constituent';
-                            addNode(d, childObj.name || childObj.essence || "Без имени", childObj.description || childObj.essence || "", type, childObj);
+                            addNode(d, childObj.name || childObj.essence || translations.unnamed, childObj.description || childObj.essence || "", type, childObj);
                         });
 
                     } else if (d.type === 'constituent-expandable' && d.originalObject && d.originalObject.manifestation) {
-                        // Expand a constituent's manifestation
+                        // Directly add the manifestation's properties as children of the constituent node
                         const manifestationObj = d.originalObject.manifestation;
-                        // Changed: just use the constituent's name for the manifestation root
-                        const manifestRootNode = addNode(d, d.name, manifestationObj.essence || 'Более глубокое проявление', 'manifestation-root', manifestationObj);
+                        if (manifestationObj.essence) { addNode(d, translations.essence, manifestationObj.essence, 'essence', manifestationObj.essence); }
+                        if (manifestationObj.primary_constituents) { addNode(d, translations.primaryConstituents, translations.manifestationConstituentsDesc, 'container', manifestationObj.primary_constituents); }
+                        if (manifestationObj.governing_framework) { addNode(d, translations.governingFramework, formatArrayDescription(manifestationObj.governing_framework), 'framework', manifestationObj.governing_framework); }
+                        if (manifestationObj.driving_forces_and_potential) { addNode(d, translations.drivingForcesAndPotential, formatArrayDescription(manifestationObj.driving_forces_and_potential), 'driving_force', manifestationObj.driving_forces_and_potential); }
+                        if (manifestationObj.foundational_state) { addNode(d, translations.foundationalState, manifestationObj.foundational_state, 'foundational_state', manifestationObj.foundational_state); }
 
-                        // Add the elements *within* the manifestation to the new manifestRootNode
-                        if (manifestationObj.primary_constituents) { addNode(manifestRootNode, "Первичные Составляющие", "Составляющие проявленной сущности", 'container', manifestationObj.primary_constituents); }
-                        // Changed: Removed "(Manifestation)" from these names
-                        if (manifestationObj.governing_framework) { addNode(manifestRootNode, "Управляющая Структура", formatArrayDescription(manifestationObj.governing_framework), 'framework', manifestationObj.governing_framework); }
-                        if (manifestationObj.driving_forces_and_potential) { addNode(manifestRootNode, "Движущие Силы и Потенциал", formatArrayDescription(manifestationObj.driving_forces_and_potential), 'driving_force', manifestationObj.driving_forces_and_potential); }
-                        if (manifestationObj.foundational_state) { addNode(manifestRootNode, "Фундаментальное Состояние", manifestationObj.foundational_state, 'foundational_state', manifestationObj.foundational_state); }
+                    }
+                    // Removed the 'manifestation-root' handling here as it's no longer a distinct expansion type
 
-                    } else if (d.type === 'manifestation-root' && d.originalObject) {
-                         // If a manifestation-root itself has primary_constituents, etc., allow expanding them
-                        const currentManifestation = d.originalObject;
-                        if (currentManifestation.primary_constituents) { addNode(d, "Первичные Составляющие", "Составляющие проявленной сущности", 'container', currentManifestation.primary_constituents); }
-                        // Changed: Removed "(Manifestation)" from these names
-                        if (currentManifestation.governing_framework) { addNode(d, "Управляющая Структура", formatArrayDescription(currentManifestation.governing_framework), 'framework', currentManifestation.governing_framework); }
-                        if (currentManifestation.driving_forces_and_potential) { addNode(d, "Движущие Силы и Потенциал", formatArrayDescription(currentManifestation.driving_forces_and_potential), 'driving_force', currentManifestation.driving_forces_and_potential); }
-                        if (currentManifestation.foundational_state) { addNode(d, "Фундаментальное Состояние", currentManifestation.foundational_state, 'foundational_state', currentManifestation.foundational_state); }
-                    } else if ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject)) {
+                    else if ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject)) {
                         // NEW LOGIC: Expand framework or driving_force arrays into detail items
                         d.originalObject.forEach((item, index) => {
-                            let namePrefix = d.type === 'framework' ? "Правило" : "Движущая Сила";
+                            let namePrefix = d.type === 'framework' ? translations.rulePrefix : translations.drivingForcePrefix;
                             addNode(d, `${namePrefix} ${index + 1}`, item, 'detail-item', item);
                         });
                     }
@@ -383,14 +441,17 @@
                 newNode.append("circle")
                     .attr("r", getNodeRadius) // Dynamically set radius
                     .attr("fill", d => {
-                        const fillColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        d.currentFillColor = fillColor; // Store the fill color for stroke
-                        return fillColor;
+                        // Conditional fill color: apply expanded-highlight to world-root, container, framework, driving_force, AND constituent-expandable when expanded
+                        if (d.isExpanded && (d.type === 'world-root' || d.type === 'container' || d.type === 'framework' || d.type === 'driving_force' || d.type === 'constituent-expandable')) {
+                            d.currentFillColor = nodeColors['expanded-highlight'];
+                        } else {
+                            d.currentFillColor = nodeColors[d.type] || nodeColors.default;
+                        }
+                        return d.currentFillColor;
                     })
                     .attr("stroke", d => {
                         // Lighten the current fill color for the stroke
-                        const baseColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        return lightenColor(baseColor, 0.2); // Lighten by 20%
+                        return lightenColor(d.currentFillColor, 0.2); // Lighten by 20%
                     });
 
 
@@ -403,19 +464,22 @@
                 newNode.merge(node)
                     .select("circle")
                     .attr("fill", d => {
-                        const fillColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        d.currentFillColor = fillColor; // Store the fill color for stroke
-                        return fillColor;
+                        // Conditional fill color: apply expanded-highlight to world-root, container, framework, driving_force, AND constituent-expandable when expanded
+                        if (d.isExpanded && (d.type === 'world-root' || d.type === 'container' || d.type === 'framework' || d.type === 'driving_force' || d.type === 'constituent-expandable')) {
+                            d.currentFillColor = nodeColors['expanded-highlight'];
+                        } else {
+                            d.currentFillColor = nodeColors[d.type] || nodeColors.default;
+                        }
+                        return d.currentFillColor;
                     }) // Update fill on merge too
                     .attr("stroke", d => {
                         // Lighten the current fill color for the stroke
-                        const baseColor = d.isExpanded && d.type !== 'manifestation-root' ? nodeColors['expanded-highlight'] : (nodeColors[d.type] || nodeColors.default);
-                        return lightenColor(baseColor, 0.2); // Lighten by 20%
+                        return lightenColor(d.currentFillColor, 0.2); // Lighten by 20%
                     })
                     .on("click", (event, d) => {
                         event.stopPropagation(); // Prevent click from propagating to SVG and closing panel
                         // Determine if node is expandable based on its type and whether it has originalObject for children
-                        const isExpandable = ['world-root', 'container', 'constituent-expandable', 'manifestation-root'].includes(d.type) ||
+                        const isExpandable = ['world-root', 'container', 'constituent-expandable'].includes(d.type) || // Removed 'manifestation-root'
                                              ((d.type === 'framework' || d.type === 'driving_force') && Array.isArray(d.originalObject));
 
                         if (isExpandable) {
@@ -455,8 +519,8 @@
 
                 const worldNode = {
                     id: nodeIdCounter++,
-                    name: "World",
-                    description: data.essence || "Загруженная Реальность SRGE", // Updated description
+                    name: translations.world, // Используем локализованное имя
+                    description: data.essence || translations.loadedRealityDesc, // Используем локализованное описание
                     type: 'world-root',
                     originalObject: data, // The full JSON object
                     isExpanded: false, // Start collapsed
@@ -502,10 +566,41 @@
                     createInitialWorldNode(jsonData); // Start with only the World node, collapsed
                 } catch (e) {
                     console.error("JSON parsing error:", e);
-                    errorMessageDiv.textContent = `Ошибка синтаксиса JSON: ${e.message}. Пожалуйста, проверьте ваш JSON.`; // Updated error message
+                    errorMessageDiv.textContent = `${translations.jsonParseError} ${e.message}${translations.checkJson}`;
                     errorMessageDiv.classList.remove('hidden');
                 }
             });
+
+            // New: Event listener for the "Load JSON from file" button
+            loadJsonButton.addEventListener('click', () => {
+                jsonFileInput.click(); // Programmatically click the hidden file input
+            });
+
+            // New: Event listener for when a file is selected
+            jsonFileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        try {
+                            const fileContent = e.target.result;
+                            jsonInput.value = fileContent; // Set textarea value to file content
+                            errorMessageDiv.classList.add('hidden'); // Hide any previous errors
+                            // Optionally, automatically visualize the loaded JSON
+                            // visualizeButton.click(); 
+                        } catch (readError) {
+                            errorMessageDiv.textContent = `${translations.fileReadError} ${readError.message}`;
+                            errorMessageDiv.classList.remove('hidden');
+                        }
+                    };
+                    reader.onerror = (readError) => {
+                        errorMessageDiv.textContent = `${translations.fileReadError} ${readError.message}`;
+                        errorMessageDiv.classList.remove('hidden');
+                    };
+                    reader.readAsText(file); // Read file as text
+                }
+            });
+
 
             // Handle click on SVG background to hide info panel
             svg.on("click", () => {
@@ -520,7 +615,7 @@
                     createInitialWorldNode(jsonData);
                 } catch (e) {
                     console.error("Error on initial JSON load:", e);
-                    errorMessageDiv.textContent = `Ошибка синтаксиса JSON при загрузке: ${e.message}. Пожалуйста, проверьте ваш JSON.`; // Updated error message
+                    errorMessageDiv.textContent = `${translations.jsonParseErrorOnLoad} ${e.message}${translations.checkJson}`;
                     errorMessageDiv.classList.remove('hidden');
                 }
             }
