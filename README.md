@@ -47,10 +47,10 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 3.  **Clone the SRGE repository:**
 
     ```bash
-    git clone [https://github.com/architector1324/semantic-reality-generation-engine](https://github.com/architector1324/semantic-reality-generation-engine)
+    git clone https://github.com/architector1324/semantic-reality-generation-engine
     ```
 
-4.  **Install Python dependencies (if any)::**
+4.  **Install Python dependencies (if any):**
 
     ```bash
     pip install ollama
@@ -76,7 +76,7 @@ Imagine a vast, multi-dimensional map where only the major continents are initia
 
 When invoking `--navigate`, the user specifies a point of focus or a conceptual path (e.g., "Water Droplet", "Woman at a table"). The system (the LLM guided by the system prompt) acts as a **sophisticated semantic lens, interpreting the query and revealing the corresponding hierarchical layers.** This process then adds granular `"manifestation"` objects to the world's JSON structure.
 
-Each newly revealed layer or entity always remains **strictly consistent** with its parent entity and the world's overarching laws.
+**Crucially, when an entity manifests, it reveals not only its `primary_constituents` but also its own internal `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`**, all strictly derived from its parent entity and the overarching world logic. This ensures that every unveiled detail maintains the full ontological coherence of the reality.
 
 **Key Features:**
 
@@ -179,99 +179,139 @@ python reality-gen.py --model qwen3:4b --think --create "A magical world with kn
 }
 ```
 
-### **Semantic Navigation in Action: Unfolding the Woman in New York**
+### **Semantic Navigation in Action: Unfolding a Woman in a Metropolis**
 
-This example showcases the **true power of Semantic Navigation (Unfolding)** - not merely detailing entities, but **recursively revealing logical hierarchies** in response to a query, and brilliantly embodying the **"Reality as Observation"** principle where world details manifest upon user focus.
+This example showcases the **true power of Semantic Navigation (Unfolding)** - not merely detailing entities, but **recursively revealing logical hierarchies and their full ontological definitions** in response to a query, and brilliantly embodying the **"Reality as Observation"** principle where world details manifest upon user focus.
 
 **Initial World State (abbreviated, `world.json`):**
 ```json
 {
-    "essence": "A bustling metropolis...",
-    "primary_constituents": [
-      {
-        "name": "New York City",
-        "description": "A vast urban landscape spanning five boroughs..."
-      }
-    ],
-    // ... rest
+  "essence": "A sprawling, interconnected urban center defined by its dense population, complex infrastructure...",
+  "primary_constituents": [
+    {
+      "name": "Urban Core",
+      "description": "The central business district characterized by skyscrapers..."
+    },
+    // ... rest of primary constituents
+  ],
+  // ... rest of the world's dimensions
 }
 ```
 
 **Navigation Query:**
 ```bash
-python reality-gen.py --model qwen3 --navigate 'A woman sitting at a table in a restaurant in New York City.' --input world.json
+python reality-gen.py --model qwen3 --think --input world.json --navigate 'A woman sitting at a table in a restaurant'
 ```
 
-**Result (schematic representation of the unfolded reality, demonstrating the manifestation chain):**
-*(Only the key unfolding chain is shown. The full, corrected JSON version with complete details is available [here](./examples/New%20York/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant%20in%20New%20York/world.json).)*
+**Result (schematic representation of the unfolded reality, demonstrating the full manifestation chain with expanded ontological depth):**
+*(Only the key unfolding chain is shown for brevity. The full, corrected JSON version with complete details is available [here](./examples/Typical%20metropolis/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant/world.json).)*
 
 ```json
 {
-  "essence": "...", // Top-level essence of the metropolis
+  "essence": "A sprawling, interconnected urban center...",
   "primary_constituents": [
     {
-      "name": "New York City",
-      "description": "...",
-      "manifestation": { // New York City unfolds...
-        "essence": "The intricate social and spatial fabric...",
+      "name": "Urban Core",
+      "description": "The central business district...",
+      "manifestation": { // Urban Core unfolds...
+        "essence": "A dense commercial hub hosting diverse establishments...",
         "primary_constituents": [
           {
             "name": "Restaurant",
-            "description": "A dedicated space for dining...",
+            "description": "A venue offering food and beverage services...",
             "manifestation": { // Restaurant unfolds...
-              "essence": "A curated environment...",
+              "essence": "A social and economic node providing sustenance and interaction.",
               "primary_constituents": [
                 {
                   "name": "Table",
-                  "description": "A surface for dining...",
+                  "description": "A surface for placing food and drinks...",
                   "manifestation": { // Table unfolds...
-                    "essence": "A focal point for social interaction...",
+                    "essence": "A functional unit facilitating dining experiences.",
                     "primary_constituents": [
                       {
                         "name": "Woman",
-                        "description": "An individual engaged in the act of dining...",
+                        "description": "An adult human female engaged in dining activities.",
                         "manifestation": { // Woman unfolds into her observable and inherent details...
-                          "essence": "A dynamic entity navigating...",
+                          "essence": "A complex biological and social entity undergoing a dining interaction.",
                           "primary_constituents": [
                             {
                               "name": "Physical Form",
-                              "description": "The corporeal structure of the woman...",
-                              "manifestation": { // Physical Form further unfolds into specific physical attributes
-                                "essence": "A manifestation of biological and cultural attributes...",
-                                "primary_constituents": [
-                                  { "name": "Posture", "description": "..." },
-                                  { "name": "Attire", "description": "..." },
-                                  { "name": "Gestures", "description": "..." }
-                                  // ... and other details specific to Gestures, Attire, Posture
-                                ]
-                              }
+                              "description": "A composite of organic tissues..."
                             },
-                            { "name": "Sociocultural Identity", "description": "..." }
-                            // ... and other details specific to Woman
-                          ]
+                            {
+                              "name": "Consciousness",
+                              "description": "A self-awareness capable of decision-making..."
+                            },
+                            {
+                              "name": "Social Identity",
+                              "description": "A constructed sense of self within cultural contexts."
+                            }
+                          ],
+                          "governing_framework": [ // Laws governing the Woman's existence
+                            "Biological processes regulating physiological states.",
+                            "Social norms guiding interpersonal behavior.",
+                            "Cultural expectations shaping dining etiquette."
+                          ],
+                          "driving_forces_and_potential": [ // Dynamics affecting the Woman
+                            "Nutritional needs influencing food selection.",
+                            "Emotional states affecting interaction dynamics.",
+                            "Social obligations determining dining duration and behavior."
+                          ],
+                          "foundational_state": "A human female in the act of dining, engaged with food, utensils, and an environment of shared social space."
                         }
+                      },
+                      {
+                        "name": "Other Table Contents",
+                        "description": "Items placed on the table..."
                       }
-                      // ... and other details specific to Table
-                    ]
+                    ],
+                    "governing_framework": [ // Laws governing the Table
+                      "Spatial arrangement principles for dining functionality.",
+                      "Hygiene and safety protocols for food handling."
+                    ],
+                    "driving_forces_and_potential": [ // Dynamics affecting the Table context
+                      "Social interaction dynamics between diners.",
+                      "Economic exchange through food consumption."
+                    ],
+                    "foundational_state": "A dining surface with food, utensils, and a seated human occupant."
                   }
-                }
-                // ... and other details specific to Restaurant
-              ]
+                },
+                // ... other restaurant components (Kitchen, Other Dining Areas)
+              ],
+              "governing_framework": [ // Laws governing the Restaurant
+                "Operational protocols for service delivery.",
+                "Health and safety regulations for food preparation."
+              ],
+              "driving_forces_and_potential": [ // Dynamics affecting the Restaurant
+                "Economic transactions between patrons and staff.",
+                "Culinary innovation influencing menu offerings."
+              ],
+              "foundational_state": "A commercial establishment with dining areas, service infrastructure, and food preparation facilities."
             }
-          }
-          // ... and other details specific to New York City
-        ]
+          },
+          // ... other urban core components (Other Commercial Establishments)
+        ],
+        "governing_framework": [ // Laws governing the Urban Core
+          "Zoning laws regulating commercial activity.",
+          "Economic policies influencing business operations."
+        ],
+        "driving_forces_and_potential": [ // Dynamics affecting the Urban Core
+          "Consumer demand shaping retail and service offerings.",
+          "Technological advancements affecting business models."
+        ],
+        "foundational_state": "A commercial district hosting diverse businesses and services."
       }
-    }
-  ]
-  // ... rest
+    },
+    // ... other top-level primary constituents (Residential Zones, Industrial Districts, etc.)
+  ],
+  // ... rest of the top-level world's dimensions
 }
 ```
 
 **What this outstanding example demonstrates:**
-*   **Hierarchical Unfolding:** The model successfully built the manifestation chain `New York City` → `Restaurant` → `Table` → `Woman`, revealing the necessary `manifestation` objects at each level. This shows how SRGE unveils nested, logically connected entities.
-*   **Context-Aware Revelation:** The "Woman" entity was detailed not only to abstract states (`Physical Form`, `Sociocultural Identity`), but also to concrete, observable attributes (`Posture`, `Attire`, `Gestures`). This perfectly aligns with the request for a "detailed description" in this context, demonstrating the model's intelligent understanding of the world.
-*   **Ontological Autonomy:** The model independently determined the relevance and depth of detailing, strictly adhering to the world's internal logic, without external instructions or level constraints. SRGE does not "invent" but rather "manifests" what already semantically exists.
+*   **Deep Ontological Unfolding at Every Level:** The model successfully built the manifestation chain `Metropolis (implicitly) -> Urban Core -> Restaurant -> Table -> Woman`. More importantly, at *each* new `manifestation` level, the LLM not only revealed new `primary_constituents` but also its specific `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`. This is crucial as it shows the world revealing its own nested intrinsic logic, not just its components.
+*   **Context-Aware Revelation & Philosophical Alignment:** The "Woman" entity was detailed not only to abstract states (`Physical Form`, `Consciousness`, `Sociocultural Identity`), but her unfolding also included her *own* specific biological, social, and cultural governing frameworks and driving forces. This perfectly aligns with the project's philosophy of the world revealing *itself* and its inherent logic.
+*   **Ontological Autonomy:** The model independently determined the relevance and depth of detailing, strictly adhering to the world's internal logic, without external instructions or level constraints. SRGE does not "invent" but rather "manifests" what already semantically exists within its foundational principles.
 *   **Confirmation of "Reality as Observation":** The user's query served as an act of "observation" that compelled the world to "unfold" and reveal its internal complexity along the specified path, without creating new entities outside its inherent logic. The world unravels, it is not created.
 
 ## Manifesto: The Vision Behind SRGE
