@@ -1,0 +1,264 @@
+/* VS Code Theme Colors - Adjusted to match visualizer's palette */
+:root {
+    --vscode-bg: #1E1E1E;
+    --vscode-bg-light: #252526;
+    --vscode-bg-dark: #121212;
+
+    --vscode-text: #D4D4D4;
+    --vscode-heading: #9CDCFE;
+    --vscode-link: #007ACC;
+    --vscode-link-hover: #3794FF;
+
+    --vscode-border: #444444;
+    --vscode-accent-purple: #8028c9;
+    --vscode-accent-purple-hover: #6f23ae;
+    --vscode-accent-green-highlight: #73c991;
+    --vscode-error: #F14C4C;
+    --vscode-code: #d7ba7d;
+}
+
+/* General Body and Container Styles */
+body {
+    font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--vscode-bg);
+    color: var(--vscode-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 25px;
+    box-sizing: border-box;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--vscode-bg-dark);
+    padding: 40px 0 30px;
+    text-align: center;
+    border-bottom: 1px solid var(--vscode-border);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative; /* Добавляем для позиционирования кнопки языка */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3.2em;
+    letter-spacing: -0.5px;
+    font-weight: 600;
+    color: var(--vscode-text); /* Белый цвет для заголовка */
+}
+
+header .tagline {
+    font-size: 1.3em;
+    opacity: 0.85;
+    margin-top: 15px;
+    color: var(--vscode-text);
+}
+
+/* Language Switcher Styles */
+.language-switcher {
+    position: absolute;
+    top: 20px; /* Отступ сверху */
+    right: 25px; /* Отступ справа, соответствует padding контейнера */
+    z-index: 100; /* Чтобы кнопка была поверх других элементов */
+}
+
+.lang-button {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: var(--vscode-bg-light); /* Фон как у секций */
+    color: var(--vscode-text);
+    border: 1px solid var(--vscode-border);
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.lang-button:hover {
+    background-color: #333333; /* Чуть темнее на ховере */
+    border-color: var(--vscode-link);
+    color: var(--vscode-link);
+    text-decoration: none; /* Убираем подчеркивание при наведении */
+}
+
+
+/* Main Content Styles */
+main {
+    flex-grow: 1;
+}
+
+/* Section Styles */
+section {
+    background-color: var(--vscode-bg-light);
+    padding: 30px 40px;
+    margin-bottom: 25px;
+    border-radius: 6px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--vscode-border);
+}
+
+section h2 {
+    color: var(--vscode-heading);
+    border-bottom: 1px solid var(--vscode-border);
+    padding-bottom: 12px;
+    margin-top: 0;
+    font-size: 2.2em;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+section p, section ul {
+    font-size: 1.05em;
+    margin-bottom: 15px;
+}
+
+section ul {
+    list-style-type: '› ';
+    padding-left: 20px;
+}
+
+section ul li {
+    margin-bottom: 10px;
+}
+
+/* Link Styles */
+a {
+    color: var(--vscode-link);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--vscode-link-hover);
+    text-decoration: underline;
+}
+
+.link-group a {
+    display: inline-block;
+    margin-right: 15px;
+    background-color: transparent;
+    border: 1px solid var(--vscode-link);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.link-group a:hover {
+    background-color: rgba(0, 122, 204, 0.2);
+    text-decoration: none;
+    border-color: var(--vscode-link-hover);
+}
+
+
+/* Code Snippet Styles */
+code {
+    background-color: #333333;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+    color: var(--vscode-code);
+    font-size: 0.95em;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--vscode-bg-dark);
+    color: #888888;
+    text-align: center;
+    padding: 25px 0;
+    margin-top: 40px;
+    font-size: 0.9em;
+    border-top: 1px solid var(--vscode-border);
+}
+
+/* --- Visualizer Specific Styles (for the iframe container) --- */
+#visualizer-section {
+    padding: 0;
+    background-color: var(--vscode-bg-light);
+}
+
+#visualizer-section h2,
+#visualizer-section p {
+    padding: 30px 40px 10px;
+}
+#visualizer-section p {
+    padding-bottom: 20px;
+}
+
+
+.visualizer-container {
+    background-color: var(--vscode-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    height: 800px;
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid var(--vscode-border);
+    box-sizing: border-box;
+}
+
+#srge-visualizer-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .container {
+        padding: 0 15px;
+    }
+    header h1 {
+        font-size: 2.5em;
+    }
+    header .tagline {
+        font-size: 1.1em;
+    }
+    section {
+        padding: 25px 20px;
+    }
+    section h2 {
+        font-size: 1.8em;
+    }
+    section p, section ul {
+        font-size: 1em;
+    }
+    .visualizer-container {
+        height: 600px;
+    }
+    .language-switcher {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+    header .tagline {
+        font-size: 0.9em;
+    }
+    section {
+        padding: 20px 15px;
+    }
+    section h2 {
+        font-size: 1.5em;
+        padding-bottom: 8px;
+    }
+    .visualizer-container {
+        height: 500px;
+    }
+}

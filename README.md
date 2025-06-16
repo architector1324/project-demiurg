@@ -8,6 +8,24 @@
 
 Whether you're building a simulation, a narrative universe, or an abstract conceptual model, SRGE provides a foundational structure grounded in pure semantic meaning.
 
+## Interactive Exploration
+
+To provide a more intuitive understanding of SRGE's structured outputs, we offer tools for visualizing generated realities:
+
+### Local Visualizer
+
+An interactive graph visualizer is available for local use, allowing you to explore the ontological structure of SRGE worlds directly on your machine.
+
+*   **Location:** Find the standalone visualizer at [`visualizer/visualizer.html`](./visualizer/visualizer.html) in this repository.
+*   **Usage:** Open `visualizer.html` in your web browser. You can paste any SRGE-generated JSON output into the provided text area or load an example to see its internal structure as a dynamic, expandable graph.
+
+### Online Project Hub
+
+For a broader overview of SRGE and an integrated experience, a dedicated project website is available.
+
+*   **Access the Website:** [architector1324.github.io/semantic-reality-generation-engine](https://architector1324.github.io/semantic-reality-generation-engine/)
+
+
 ## First Steps & Core Philosophy: An Introductory Dialogue
 
 Curious about SRGE's unique approach to reality generation and how it handles seemingly impossible concepts like infinite detail within a finite file? We've captured a real conversation that serves as an accessible introduction to SRGE's core ideas, philosophy, and practical applications.
