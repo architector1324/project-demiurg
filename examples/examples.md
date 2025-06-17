@@ -1,6 +1,6 @@
 # SRGE World Generation Examples Catalog
 
-This catalog showcases the capabilities of the Semantic Reality Generation Engine (SRGE) in creating rich, internally consistent ontologies for a wide variety of concepts—from scientifically accurate physical systems to fictional universes and even abstract ideas. Each example includes the command used, the demonstration goal, and the generated JSON world object.
+This catalog showcases the capabilities of the Semantic Reality Generation Engine (SRGE) in creating rich, internally consistent **realities structured by SRGC** for a wide variety of concepts-from scientifically accurate physical systems to fictional universes and even abstract ideas. Each example includes the command used, the demonstration goal, and the generated JSON world object.
 
 ## Table of Contents
 
@@ -42,11 +42,11 @@ python reality-gen.py --model qwen3 --think --navigate 'Flame' --input initial_c
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example demonstrates SRGE's ability to create **deep, scientifically accurate ontologies** even for seemingly simple scenarios. It showcases:
+This example demonstrates SRGE's ability to create **deep, scientifically accurate realities with underlying SRGC principles** even for seemingly simple scenarios. It showcases:
 *   **Deep Scientific Understanding:** The use of specific physical laws (First and Second Laws of Thermodynamics, Planck's Law) and quantitative data (flame temperature, light wavelength, room temperature).
-*   **Semantic Navigation (`--navigate`) and the "Reality as Observation" Principle:** The crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Flame" led to a precise scientific "unfolding" of its intricate composition and dynamics, demonstrating hierarchical consistency, the internal ontological structure of the "manifestation," and focused detailing strictly derived from its inherent nature.
+*   **Semantic Navigation (`--navigate`) and the "Reality as Observation" Principle:** The crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Flame" led to a precise scientific "unfolding" of its intricate composition and dynamics, demonstrating hierarchical consistency, the internal **SRGC-driven structure** of the "manifestation," and focused detailing strictly derived from its inherent nature.
 *   **Atomic/Molecular Level Detail:** The breakdown of the candle into `Wax` and `Wick` with detailed descriptions of their composition and functions.
-*   **Philosophical and Metaphysical Layering:** SRGE's ability to autonomously interpret and elevate a simple physical scene into a deeper, philosophical ontology, where phenomena like light become fundamental dynamics of existence.
+*   **Philosophical and Metaphysical Layering:** SRGE's ability to autonomously interpret and elevate a simple physical scene into a deeper, philosophical structure **consistent with SRGC**, where phenomena like light become fundamental dynamics of existence.
 *   **High Internal Consistency:** All elements and laws are logically connected and complement each other.
 
 #### **3. Generated JSON Worlds**
@@ -192,8 +192,8 @@ python reality-gen.py --model qwen3 --think --navigate 'Atom of a water molecule
 
 #### **2. Demonstration Goal / What was intended to be shown**
 This example demonstrates two key capabilities of SRGE:
-*   **Generation of Scientifically Accurate Ontologies:** SRGE's ability to create worlds describing complex physical phenomena (a water droplet in a vacuum) using precise scientific terminology and a deep understanding of relevant physics and chemistry laws.
-*   **Semantic Navigation (`--navigate`) and the "Reality as Observation" Principle:** The most crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Atom of a water molecule" led to a sequential "unfolding" of hierarchical layers: `Water Droplet` -> `Water Molecule` -> `Hydrogen Atom` / `Oxygen Atom`. This demonstrates hierarchical consistency, the internal ontological structure of each "manifestation," and focused detailing.
+*   **Generation of Scientifically Accurate Realities based on SRGC principles:** SRGE's ability to create worlds describing complex physical phenomena (a water droplet in a vacuum) using precise scientific terminology and a deep understanding of relevant physics and chemistry laws.
+*   **Semantic Navigation (`--navigate`) and the "Reality as Observation" Principle:** The most crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Atom of a water molecule" led to a sequential "unfolding" of hierarchical layers: `Water Droplet` -> `Water Molecule` -> `Hydrogen Atom` / `Oxygen Atom`. This demonstrates hierarchical consistency and the internal **SRGC-driven structure** of each "manifestation."
 
 #### **3. Generated JSON Worlds**
 
@@ -319,7 +319,7 @@ python reality-gen.py --model qwen3:4b --think --create "Our Solar System"
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example demonstrates SRGE's ability to create **large-scale, recognizable ontologies based on widely known concepts**, encapsulating a vast amount of astronomical knowledge and maintaining scientific accuracy (Kepler's Laws, Newtonian gravity).
+This example demonstrates SRGE's ability to create **large-scale, recognizable realities based on widely known concepts, structured by SRGC**, encapsulating a vast amount of astronomical knowledge and maintaining scientific accuracy (Kepler's Laws, Newtonian gravity).
 
 #### **3. Generated JSON World**
 
@@ -410,7 +410,7 @@ python reality-gen.py --model qwen3:4b --think --create "Ant colony"
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example vividly demonstrates **SRGE's outstanding ability for autonomous interpretation and conceptualization, often extending beyond a direct query in unexpected ways**. Using the simple prompt "Ant colony," SRGE independently synthesized the concept of a "superorganism of collective intelligence," elevating it to the level of a complex systemic entity governed by symbiotic specialization and hierarchical task allocation. This showcases SRGE's profound capacity for abstract conceptualization and deep ontology enrichment from minimal input.
+This example vividly demonstrates **SRGE's outstanding ability for autonomous interpretation and conceptualization, often extending beyond a direct query in unexpected ways**. Using the simple prompt "Ant colony," SRGE independently synthesized the concept of a "superorganism of collective intelligence," elevating it to the level of a complex systemic entity governed by symbiotic specialization and hierarchical task allocation. This showcases SRGE's profound capacity for abstract conceptualization and deep **SRGC-driven enrichment** from minimal input.
 
 #### **3. Generated JSON World**
 
@@ -459,7 +459,7 @@ This example vividly demonstrates **SRGE's outstanding ability for autonomous in
 
 ### **III. Fictional Universes & Media IPs**
 
-This section demonstrates SRGE's versatility in generating rich ontologies for imagined worlds, ranging from classic fantasy settings to established science fiction franchises.
+This section demonstrates SRGE's versatility in generating rich **realities for imagined worlds, structured by SRGC**, ranging from classic fantasy settings to established science fiction franchises.
 
 ---
 
@@ -471,7 +471,7 @@ python reality-gen.py --model qwen3:4b --think --create "Magical world with knig
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example demonstrates SRGE's versatility and its ability to create **rich, internally coherent ontologies for fantasy worlds**, transforming general concepts into unique systems with their own mythology and rules of magic.
+This example demonstrates SRGE's versatility and its ability to create **rich, internally coherent fantasy worlds, adhering to SRGC principles**, transforming general concepts into unique systems with their own mythology and rules of magic.
 
 #### **3. Generated JSON World**
 
@@ -528,7 +528,7 @@ python reality-gen.py --model qwen3:4b --think --create "World of Cyberpunk 2077
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example vividly demonstrates SRGE's ability to **generate ontologies for specific fictional universes**, as well as to model complex socio-technological systems, capturing the "atmosphere" and key themes of the original world.
+This example vividly demonstrates SRGE's ability to **generate realities for specific fictional universes, guided by SRGC**, as well as to model complex socio-technological systems, capturing the "atmosphere" and key themes of the original world.
 
 #### **3. Generated JSON World**
 
@@ -583,7 +583,7 @@ python reality-gen.py --model qwen3:4b --think --create "World of The Elder Scro
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example continues to demonstrate SRGE's versatility by creating a deep ontology for **another popular and complex fictional universe (fantasy)**, encapsulating extensive lore and mythology, and describing the world's dynamics and current state.
+This example continues to demonstrate SRGE's versatility by creating a deep **reality structure for another popular and complex fictional universe (fantasy), built on SRGC principles**, encapsulating extensive lore and mythology, and describing the world's dynamics and current state.
 
 #### **3. Generated JSON World**
 
@@ -632,7 +632,7 @@ This example continues to demonstrate SRGE's versatility by creating a deep onto
 
 ### **IV. Abstract & Conceptual Worlds**
 
-This category highlights SRGE's unique ability to ontologize highly abstract, metaphorical, and even purely conceptual ideas, transcending the boundaries of physical reality.
+This category highlights SRGE's unique ability to **model highly abstract, metaphorical, and even purely conceptual ideas using SRGC**, transcending the boundaries of physical reality.
 
 ---
 
@@ -644,7 +644,7 @@ python reality-gen.py --model qwen3:4b --think --create "City built inside the h
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example is a vivid illustration of **SRGE's remarkable creativity and autonomous imagination**, showcasing its ability to ontologize highly metaphysical and surreal concepts. From a single phrase, it creates a unique and complex world, modeling abstract connections and defining truly unusual 'laws' that govern its existence.
+This example is a vivid illustration of **SRGE's remarkable creativity and autonomous imagination**, showcasing its ability to **model highly metaphysical and surreal concepts with the SRGC framework**. From a single phrase, it creates a unique and complex world, modeling abstract connections and defining truly unusual 'laws' that govern its existence.
 
 #### **3. Generated JSON World**
 
@@ -689,7 +689,7 @@ python reality-gen.py --model qwen3:4b --think --create "World consisting only o
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example stands as the culmination of demonstrating **SRGE's unparalleled universality and its profound ability to ontologize the most abstract, conceptual, and even purely metaphysical ideas.** It shows how SRGE can transcend physical reality, creating worlds from pure mathematical abstractions, defining 'laws' for them (e.g., 'The Law of Numerical Equivalence', 'The Principle of Mathematical Harmony'), and encapsulating deep philosophical concepts within its structure. This truly stretches the very definition of a 'reality' that SRGE can generate.
+This example stands as the culmination of demonstrating **SRGE's unparalleled universality and its profound ability to model the most abstract, conceptual, and even purely metaphysical ideas through SRGC.** It shows how SRGE can transcend physical reality, creating worlds from pure mathematical abstractions, defining 'laws' for them (e.g., 'The Law of Numerical Equivalence', 'The Principle of Mathematical Harmony'), and encapsulating deep philosophical concepts within its structure. This truly stretches the very definition of a 'reality' that SRGE can generate.
 
 #### **3. Generated JSON World**
 
