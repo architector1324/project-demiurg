@@ -12,12 +12,14 @@ Whether you're building a simulation, a narrative universe, or an abstract conce
 
 ## Key Concepts: SRGE (The Engine) and SRGC (The Reality Model)
 
-To fully understand SRGE, it's crucial to distinguish between the engine itself and the unique reality model it employs and generates:
+To fully understand SRGE, it's crucial to distinguish between the engine itself, the unique reality model it employs, and the emergent world that arises from their interaction:
 
 *   **SRGE (Semantic Reality Generation Engine):** This is the **active system, engine, or tool**. SRGE is the software (a combination of the LLM, your scripts, the specialized system prompt, and commands) that **executes the process of generating, unfolding (manifesting), and querying** worlds. It takes user prompts as input and, using the LLM, creates or modifies world structures. SRGE is the **mechanism** that allows you to interact with a reality.
 
 *   **SRGC (Semantic Reality with Gradient Concretization):** This is the **unique conceptual model, metaphysical structure, or "nature" of the reality itself** that SRGE generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality where entities exist on a **gradient spectrum of concretization** - from abstract concepts and undifferentiated groups to precisely manifested components.
     *   **The core idea of SRGC:** World details initially exist in a state of **potentiality and indeterminacy**, and they **"materialize" (manifest)** upon request, without violating the world's internal logic. This allows a world to contain, for example, both **concrete, fully manifested entities** and **undefined groups** (e.g., "a single apple" and "remaining apples in a basket" can coexist correctly within an SRGC structure, where "remaining apples" is an entity with the potential for further concretization, rather than an error). SRGC allows a reality to be **partially concretized** until the moment of "observation."
+
+*   **The Emergent World:** The world in SRGE is an **emergent reality** that arises from the synergy between the structured map (JSON, created by the SRGC model) and the language model (LLM). The JSON is not the world itself but its **potential**, containing meanings and rules. The LLM is not merely a text generator but an **engine** that reveals this potential. Together, they create a **micro-dimension** - a dynamic, logically coherent system that you can explore through commands like `--navigate`, and `--query`. This is neither static text nor imagination but a living informational reality that exists in the process of interaction.
 
 ---
 
