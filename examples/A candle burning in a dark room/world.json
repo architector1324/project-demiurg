@@ -10,16 +10,8 @@
       "description": "A spatial void devoid of external light sources, characterized by the absence of visible electromagnetic radiation and a vacuum state of thermal equilibrium."
     },
     {
-      "name": "Wax",
-      "description": "A semi-solid hydrocarbon polymer composed of hydrogen, carbon, and oxygen, serving as the fuel reservoir for the candle's combustion process."
-    },
-    {
       "name": "Flame",
       "description": "A gaseous combustion product consisting of ionized particles, unburned hydrocarbons, and reactive oxygen species, emitting visible light and infrared radiation."
-    },
-    {
-      "name": "Wick",
-      "description": "A fibrous material composed of carbonized plant fibers, acting as a conductor to sustain the flame's thermodynamic reaction through vaporization and oxidation."
     },
     {
       "name": "Air",
