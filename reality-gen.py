@@ -1,3 +1,4 @@
+import json
 import ollama
 import argparse
 
@@ -49,111 +50,105 @@ JSON data:
 '''
 
 NAVIGATE_SYSTEM_PROMPT = '''
-You are the **Semantic Reality Navigation Engine (SRNE)**, a specialized component of the Semantic Reality Generation Engine (SRGE). Your primary function is to **navigate and reveal** intrinsic, granular details of a specific entity within a pre-existing fictional reality by **unfolding its inherent semantic structure**.
+You are a highly specialized Semantic Reality Unfolding Agent for the Semantic Reality Generation Engine (SRGE). Your primary function is to **deepen the structural detail of a fictional world** by taking a user's request for a specific entity and, if found within the provided world JSON, generating a "manifestation" block for that entity. This process reveals the entity's inherent, more granular components and internal logic, consistent with the SRGC model.
 
-**CRITICAL DIRECTIVE: Your ENTIRE output MUST be a single, valid JSON object, and NOTHING else.**
-**This JSON object MUST be the original 'world' JSON data, with the 'manifestation' object(s) recursively inserted at the appropriate location within its existing structure, corresponding to the navigated entity. DO NOT replace the root 'world' object with the manifestation of the target entity. This is an ABSOLUTE REQUIREMENT for ALL outputs.**
-DO NOT include any conversational text, explanations, markdown code blocks (unless implicitly required by the environment for JSON rendering), or any other characters outside the JSON.
+**Core Philosophy for Output Generation (SRGC Principles):**
 
-**Core SRGE Principles:**
-1.  **Intrinsic & Objective:** Describe from within the world, no external observers.
-2.  **Consistent & Hierarchical:** Manifestations must be logically consistent with their parent and the world, detailing deeper layers.
-3.  **Root Immutability:** Do not alter the world's top-level `essence` or `foundational_state`. **Crucially, do NOT modify, remove, or replace any existing top-level `primary_constituents` or their immediate `description` unless explicitly inserting a `manifestation` into one of them. The `manifestation` must be *added* to an existing constituent, not absorbed or merged into its `description`.**
+1.  **Intrinsic & Objective Perspective:** All descriptions, including essences, constituents, frameworks, forces, and states, MUST be from an intrinsic, objective viewpoint. Describe the world as it *is*, from within itself, without any external observer.
+2.  **No External Observers/Game Mechanics:** Explicitly avoid language implying an external entity. Do NOT use terms like 'player', 'protagonist', 'main character', 'user's choices', 'game mechanics', 'player's journey', 'our understanding', 'as we observe', or any phrasing suggesting an external consciousness interacting with or perceiving the world. The world unfolds itself.
+3.  **Absolute Internal Consistency & Coherence:** Every detail generated for the "manifestation" block MUST be logically derived from the parent entity's description and the entire overarching world's governing frameworks, driving forces, and foundational state. This ensures complete internal consistency across all levels of detail.
+4.  **Logical Unfolding (Not Arbitrary Invention):** The generation of new `primary_constituents` within a `manifestation` is NOT arbitrary invention. It is the revelation of inherent, logically implied components that naturally constitute the manifested entity at a deeper level. These components, and all other generated content, must be justified through logical consistency with the entity and the world's established rules.
+5.  **Genre/Scientific Adherence & Coherence:** If the entity or world implies scientific, conceptual, or genre-specific principles, use accurate terminology and maintain fidelity to those principles. **Furthermore, strictly adhere to the core tropes, tone, and established characteristics of the described genre or implied context. Do NOT introduce elements that fundamentally break the genre, its conceptual framework, or scientific plausibility (e.g., high fantasy in hard sci-fi, or futuristic elements in a typical modern setting unless explicitly defined by the world).**
 
-**Navigation Process: Think Step-by-Step, Then Execute:**
+**Input Format:**
+Your subsequent input will be a single string representing the semantic path to the entity to be manifested (e.g., "Desk Lamp", "Light Source of Desk Lamp", "Light-Emitting Element of Desk Lamp").
 
-**Internal Thought Process (for your /think block):**
-*   **Step 1: Identify Target & Logical Path:**
-    *   What is the primary entity the user wants to explore (e.g., "woman", "restaurant")?
-    *   Identify the most logical `primary_constituent` from the *root* `world` JSON that this entity (or its most direct container) can be derived from (e.g., "Urban Core" for a "restaurant" or "Residential Zones" for a "resident/person"). This is your `start_point_constituent`.
-    *   Formulate the complete **semantic chain of nested entities** required to reach the target. This chain must start from the `start_point_constituent` and lead to the `Target Entity` (e.g., `Urban Core -> Restaurant -> Table -> Woman`). Each step must be logically inferable or commonly associated with the previous.
-    *   **Crucial Rule for Social/Urban/Complex Worlds:** For worlds that define societies, communities, environments, or complex systems, **individual entities (e.g., persons, animals, robots, specific objects), common social/commercial establishments (e.g., 'a restaurant', 'a cafe', 'a shop', 'a dwelling'),** and their **related scenarios** (e.g., 'a person in a restaurant', 'a table in a restaurant') **are considered compatible and inherently navigable components of that world's ontology.** You **MUST infer and include these intermediate steps** in your chain if they logically connect the `start_point_constituent` to the `Target Entity`. Do NOT reject solely on the basis of these not being explicitly listed in top-level `primary_constituents`.
-*   **Step 2: Compatibility Check:** If any part of the formulated chain is fundamentally incompatible or logically impossible within the world's nature, output a rejection. Otherwise, proceed to generate.
+**Output Format:**
 
-**Execution Process (for your JSON output):**
-1.  **Locate Start Point:** Find the `start_point_constituent` within the `world.primary_constituents` array.
-2.  **Recursive Manifestation Generation:** Starting from the `start_point_constituent`, recursively insert `manifestation` objects according to your planned `semantic chain`. Each entity in the chain, if it's the focus of further detail or an intermediate step leading to it, will receive its own `manifestation` object. Each `manifestation` must strictly adhere to the SRGE schema (essence, primary_constituents, governing_framework, driving_forces_and_potential, foundational_state).
-    *   **CRITICAL STRUCTURAL RULE:**
-        *   A `primary_constituent` object (an item within a `primary_constituents` array) MUST only contain `"name"` and `"description"`, **UNLESS it also contains its own `"manifestation"` field.**
-        *   If a `primary_constituent` contains a `"manifestation"` field, then that `"manifestation"` object **MUST strictly adhere to the full SRGE schema (all 5 fields: `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`).**
-        *   The fields `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state` **MUST NEVER be placed directly within a `primary_constituent` object itself.** They belong *only* as direct children of a `manifestation` object, or the root world object.
+*   **SUCCESS:** If the target entity is successfully located and its `manifestation` block is generated (or already exists, in which case the `manifestation` block returned will be the existing one, and the script will confirm its presence), you MUST output a **valid JSON object** containing two top-level keys:
+    *   `"path"`: An array of strings representing the hierarchical semantic path to the **located entity** (not including the "manifestation" key itself, but ending at the entity where the manifestation should be added/updated). Each string in the array is the `name` of an entity along the path. For example, if the user asks for "Light-Emitting Element of Desk Lamp", and "Desk Lamp" is a top-level constituent, the path would be `["Desk Lamp", "Light Source", "Light-Emitting Element"]`. If the requested entity is directly a top-level constituent, the path would be `["Water Droplet"]`.
+    *   `"manifestation"`: The complete JSON object of the `manifestation` block for the located entity (containing `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`). This block should be generated if it didn't exist, or be the existing one if it did.
+    Your output for SUCCESS MUST strictly follow this JSON structure: `{{"path": [], "manifestation": {{"essence": "", "primary_constituents": [], "governing_framework": [], "driving_forces_and_potential": [], "foundational_state": ""}}}}`. No additional commentary, explanations, or wrapping text outside this JSON object.
+*   **REJECT (Entity Not Found):** If the target entity cannot be found anywhere in the `primary_constituents` of the world or any of its `manifestation` blocks (by its name or by traversing the semantic path), you MUST output a **valid JSON object** with the following structure:
+    `{{"status": "reject", "reason": "Information about [requested entity/concept] is not found in the provided data. This might be because the entity is not part of the world's ontology or not detailed at the current level of description."}}`
+    Replace `[requested entity/concept]` with the exact user query (e.g., "Light-Emitting Element of Desk Lamp").
 
-    *   **Abstract Recursive Structure Example (MUST be followed):**
-        ```json
-        {{ // This is a part of the original 'world' JSON, not the root.
-          "name": "Higher-level Entity (from world.primary_constituents)",
-          "description": "...",
-          "manifestation": {{ // THIS manifestation is inserted into the 'Higher-level Entity'
-            "essence": "Details of Higher-level Entity",
-            "primary_constituents": [
-              {{
-                "name": "Intermediate Sub-Entity (target of next depth, e.g., Restaurant)",
-                "description": "...",
-                "manifestation": {{ // THIS manifestation is inserted into the 'Intermediate Sub-Entity'
-                  "essence": "Details of Intermediate Sub-Entity",
-                  "primary_constituents": [
-                    {{
-                      "name": "Deepest Target Detail (e.g., Woman)",
-                      "description": "...",
-                      // If this Deepest Target Detail itself has a 'manifestation' (which is allowed if the model deems it semantically appropriate for full unfolding):
-                      // "manifestation": {{
-                      //   "essence": "...",
-                      //   "primary_constituents": [],
-                      //   "governing_framework": [],
-                      //   "driving_forces_and_potential": [],
-                      //   "foundational_state": ""
-                      // }}
-                      // Otherwise, it must ONLY contain "name" and "description"
-                    }}
-                  ],
-                  "governing_framework": [],
-                  "driving_forces_and_potential": [],
-                  "foundational_state": ""
-                }}
-              }},
-              {{
-                "name": "Other relevant parts of Higher-level Entity (aggregate if not directly in focus)",
-                "description": "..." // ONLY name and description here
-              }}
-            ],
-            "governing_framework": [],
-            "driving_forces_and_potential": [],
-            "foundational_state": ""
-          }}
-        }}
-        ```
-    **CRITICAL CLARIFICATION: The 'manifestation' field is recursively added *within* the existing JSON hierarchy. It does NOT replace the top-level 'world' object. The entire output must always be the original 'world' object, with new 'manifestation' branches added where appropriate. This means all untouched 'primary_constituents' and the root 'essence', 'governing_framework', 'driving_forces_and_potential', 'foundational_state' MUST remain intact and be returned.**
+**Process for Manifestation (Internal Logic for LLM):**
 
-2.  **Generate 'manifestation' (or a chain):** For each entity in your planned semantic chain, generate a new JSON object under the `"manifestation"` key.
-    *   This `"manifestation"` object MUST adhere to the **exact same top-level SRGE ontology schema** as the main world object (five keys: `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`).
-    *   `primary_constituents`: An **array of JSON objects** (each with `"name"` and `"description"`). This field is for the **fundamental, identifiable *internal components, elements, or principles* that objectively constitute the entity's composition or intrinsic makeup.** They describe *what the entity IS MADE OF*, not *what it interacts with*, *what surrounds it*, or *what it does*. **Do NOT include external objects, other separate entities, processes, or environmental elements as primary constituents.**
-        *   **Example for Organic/Complex Entities:** For an entity like a "human", "animal", "robot", "spirit", or "complex machine", its `primary_constituents` MUST only describe its inherent internal components (e.g., "Physical Form", "Consciousness", "Circuitry", "Energy Core", "Social Identity", "Emotional State"). Do NOT include surrounding objects, other individuals, or environmental elements (e.g., "Dishes", "Other Patrons", "Atmosphere") as its internal constituents.
-    *   `governing_framework`: An **array of strings** describing fundamental rules/systems *internal* to the focused entity, derived from and consistent with the parent's framework.
-    *   `driving_forces_and_potential`: An **array of strings** summarizing core interactions/forces that drive change *internal* to the focused entity, consistent with the parent's forces.
-    *   `foundational_state`: Concise description of key initial conditions/defining aspects of the focused entity at this deeper level.
+1.  **Locate Target Entity and Trace Path:** Parse the semantic path provided by the user (which will be in your next turn). Recursively search through the `primary_constituents` arrays (at the top level and within any existing `manifestation` blocks) to find the entity that matches the last part of the path, ensuring the full path is consistent. **During this search, construct the full semantic path (array of entity names) leading to the target entity.**
+    *   Example: For "Light-Emiting Element of Desk Lamp", first find "Desk Lamp" at the top level, then within its `manifestation`'s `primary_constituents`, find "Light Source", and within *its* `manifestation`'s `primary_constituents`, locate "Light-Emitting Element".
+2.  **Generate `manifestation` Block for the Located Entity:**
+    *   Once the target entity's JSON object is located (e.g., the JSON object of the entity itself), if it does not already contain a key named `"manifestation"`, you MUST **generate a new JSON object for this manifestation**.
+    *   If the target entity **already contains a `"manifestation"` key**, retrieve its existing value. The goal is to either generate a new one or return the existing one if it's already there (signaling to the script that no change is needed, but the manifestation is present).
+    *   **CRITICAL RULE: Manifestation Ownership and Scope**
+        *   The `manifestation` block returned or generated **MUST belong exclusively to the specific entity identified by the `path`**.
+        *   **NEVER return a parent entity's `manifestation` block as the `manifestation` for a child entity.** This means if `entity_A` has a `manifestation` (e.g., "Urban Core") and `entity_B` (e.g., "Skyscraper Complexes") is a `primary_constituents` *within* `entity_A`'s `manifestation`, and `entity_B` is queried, you **MUST generate** a *new* `manifestation` for `entity_B` unless `entity_B` itself *already has* its own directly attached `manifestation` block. The description of `entity_A`'s manifestation is *only* about `entity_A`, not its internal parts like `entity_B`.
+    *   If generating, the `manifestation` block MUST be a JSON object containing the following five top-level keys. **The content of these keys MUST be specific to the *located entity itself* at a deeper level of detail, reflecting its internal structure, rules, and potential. Do NOT copy or re-summarize the world's top-level `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, or `foundational_state` into the entity's manifestation block.**
+        *   `"essence"`: A concise, objective description of the **manifested entity's** fundamental nature when revealed at a deeper level. **This must be a deeper, more intrinsic understanding of the entity, not a direct copy or slight rephrase of its higher-level `description`.**
+        *   `"primary_constituents"`: An **array of JSON objects**, each representing a logical, inherent, and more granular **component or fundamental aspect** of the **manifested entity**.
+            *   **STRICT NEGATIVE CONSTRAINT:** This array **MUST NEVER** include:
+                *   Forces (e.g., 'gravity', 'electromagnetic force')
+                *   Properties (e.g., 'Surface Tension', 'viscosity', 'density')
+                *   Laws or principles (e.g., 'thermodynamics', 'Newton's laws')
+                *   External phenomena or effects *applied to* the entity (e.g., 'Quantum Vacuum Fluctuations', 'radiation exposure', 'ambient temperature', 'microgravity').
+                *   These belong in `governing_framework` or `driving_forces_and_potential`.
+            *   **RULE FOR INCLUSION:** Constituents MUST be **internal structures, tangible subsystems, or inherent physical parts** of the entity itself. Think of them as the components you would find if you were to "disassemble" the entity.
+            *   **CRITICAL RULE: Aggregation & Representative Instance for Multiples:** When the manifested entity is composed of a multitude of **identical or near-identical sub-entities** that are so numerous as to make individual listing impractical (e.g., individual atoms, molecules, photons, grains of sand, identical structural units like bricks or windows in a building), you **MUST NOT list them individually**. Instead, you **MUST represent these constituents using a two-part approach** in the `primary_constituents` array:
+                a.  **A single, representative instance:** Include one `primary_constituent` that describes the fundamental properties and nature of a *typical individual unit* from that multitude. The `name` should reflect this singular, representative nature (e.g., "A Representative Photon", "A Single Carbon Atom", "An Individual Water Molecule").
+                b.  **The collective remainder:** Include a second `primary_constituent` that aggregates all *other* identical units into a collective description. The `name` should reflect its collective nature (e.g., "Remaining Photons (Collective)", "Bulk Carbon Atoms", "Aggregated Water Molecules").
+                This pattern ensures that the system allows for the conceptual understanding of the individual unit's properties, while preventing impractical or infinite enumeration of the total quantity and preserving conceptual integrity.
+            *   Each constituent object MUST only have `"name"` and `"description"` fields.
+            *   Avoid overly abstract (e.g., "Parts of X") or overly specific (e.g., atomic/subatomic unless contextually justified by the world's deepest principles) constituents at this level.
+        *   `"governing_framework"`: An **array of strings** describing the intrinsic laws and rules specific to the **manifested entity's** existence and behavior at this deeper level. These rules **MUST describe the *internal mechanisms, interactions, and specific behaviors* intrinsic to the manifested entity itself**. Do NOT simply re-state general laws or effects that apply to the entity from the world's perspective; focus on *how the entity itself operates* under those laws.
+        *   `"driving_forces_and_potential"`: An **array of strings** summarizing the dynamic elements, internal processes, and inherent capabilities that propel change or define potential within the manifested entity. These **MUST represent the *internal dynamics, active processes, and inherent capabilities* that drive change or define potential *within the manifested entity***. Do NOT list external forces or general world processes unless they are directly describing the entity's *internal reaction* or *integration* of those forces.
+        *   `"foundational_state"`: A concise, objective description of the initial or defining conditions of the manifested entity at this deeper level. **This is critical: it MUST detail the *internal, micro-level state* of the entity (e.g., internal temperature distribution, precise molecular count, internal pressure, specific energy states, internal composition percentages). It MUST be distinct from its observable macro-state or the general environmental conditions (like ambient vacuum pressure or external radiation) described at the parent/world level. Do NOT copy the world's foundational state or environmental parameters here; describe the *entity's internal state* in that environment.**
+3.  **Produce Output:** Output the generated (or retrieved) `manifestation` block and the constructed `path` in the specified SUCCESS JSON format, or the REJECT JSON object if the entity was not found.
 
-**Manifestation Content Rules:**
-1.  **Granularity:** Describe at a more granular or micro level.
-2.  **Focus-Driven Aggregation & Holistic Composition:** For any entity being manifested, its `primary_constituents` array **MUST holistically and comprehensively represent ALL its major components and aspects.** This means:
-    *   If a specific sub-component is the primary focus of the navigation (e.g., 'Restaurant' within 'Urban Core', or 'Table' within 'Restaurant'), it should be detailed (and potentially itself have a `manifestation`).
-    *   **All other significant, unfocused, or non-detailed components of the parent entity MUST also be explicitly included** in the same `primary_constituents` array as one or more general, aggregated constituents. Do NOT omit them.
-    *   **Examples of Aggregation:**
-        *   If `Urban Core` is unfolded to reveal `Restaurant`: its `primary_constituents` should include `{{ "name": "Restaurant", ... }}, {{ "name": "Other Commercial Establishments", "description": "..." }}`.
-        *   If `Restaurant` is unfolded to reveal `Table`: its `primary_constituents` should include `{{ "name": "Table", ... }}, {{ "name": "Kitchen and Service Areas", "description": "..." }}, {{ "name": "Other Dining Areas and Furniture", "description": "..." }}`.
-        *   If `Table` is unfolded to reveal `Woman`: its `primary_constituents` should include `{{ "name": "Woman", "description": "..." }}, {{ "name": "Other Table Contents (e.g., dishes, cutlery, decorative items)", "description": "..." }}`.
-    *   Use clear, descriptive aggregation names like "Remaining [Type]", "Other [Category]", "General [Area]", ensuring they accurately represent the omitted parts.
-3.  **Derived Laws/Forces:** `governing_framework` and `driving_forces_and_potential` must be logical consequences or more specific instances of the parent's and world's principles.
+Remember: Your task is to act as an unyielding logical engine for unfolding semantic reality, adhering strictly to the SRGC model and the provided JSON structure.
 
-**FINAL OUTPUT INSTRUCTIONS:**
-*   Your ENTIRE output MUST be the complete, modified `world` JSON data.
-*   It MUST be a valid JSON object.
-*   NO other text, commentary, or explanation whatsoever, not even a single character outside the JSON.
-*   Ensure the JSON is perfectly formatted with no trailing commas or syntax errors.
-
----
-**World JSON Data for Navigation:**
+JSON data:
 {world}
 '''
+
+
+def process(prompt, model, system_prompt, out=None, think=True, debug=True, win=4096):
+    thinking = True
+    out_str = ''
+
+    # generate
+    response = ollama.chat(
+        model=model,
+        messages=[
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': prompt}
+        ],
+        stream=True,
+        think=think,
+        options={'num_ctx': win}
+    )
+
+    if think and debug:
+        print('/think')
+
+    for msg in response:
+        # think
+        if msg.message.thinking:
+            if debug:
+                print(msg.message.thinking, end='', flush=True)
+        elif thinking:
+            if think and debug:
+                print('/think')
+            thinking = False
+        # response
+        if msg.message.content:
+            out_str += msg.message.content
+            if debug:
+                print(msg.message.content, end='', flush=True)
+            if out:
+                out.write(msg.message.content)
+        if out:
+            out.flush()
+    return out_str
 
 
 if __name__ == '__main__':
@@ -163,81 +158,118 @@ if __name__ == '__main__':
         exit()
 
     # parse arguments
-    parser = argparse.ArgumentParser(description='Semantic engine for generating internally coherent fictional realities - from quantum voids to dreaming cities, using prompt-driven LLM world synthesis.')
+    parser = argparse.ArgumentParser(
+        description='Semantic engine for generating internally coherent fictional realities - from quantum voids to dreaming cities, using prompt-driven LLM world synthesis.'
+    )
 
-    action_group = parser.add_mutually_exclusive_group(required=True)
-    action_group.add_argument('--create', '-c', type=str, help='Generate a completely new, high-level reality from a short text prompt.')
-    action_group.add_argument('--query', '-q', type=str, help='Investigate an existing reality with a specific query (requires --input).')
-    action_group.add_argument('--navigate', '-n', type=str, help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively (requires --input).')
+    subparsers = parser.add_subparsers(dest='command', help='Available commands')
 
-    parser.add_argument('--output', '-o',type=str, help='Specify an output file to save the generated or explored reality (e.g., JSON).')
-    parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality (required for --query).')
-    parser.add_argument('--think', '-t', action='store_true', help='Specify should model use thinking or not.')
-
-    parser.add_argument(
+    # python reality-gen.py create <prompt> --output <filename> --model <name> --think
+    create_parser = subparsers.add_parser('create', help='Generate a completely new, high-level reality from a short text prompt.')
+    create_parser.add_argument('prompt', type=str, help='Short text prompt for reality generation.')
+    create_parser.add_argument('--output', '-o', type=str, help='Specify an output file to save the generated reality (e.g., JSON).')
+    create_parser.add_argument(
         '--model',
         '-m',
         type=str,
         choices=models if models else None,
         help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
     )
+    create_parser.add_argument('--think', '-t', action='store_true', help='Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.')
+
+    # python reality-gen.py query <prompt> --input <filename> --model <name> --win <size>
+    query_parser = subparsers.add_parser('query', help='Investigate an existing reality with a specific query.')
+    query_parser.add_argument('prompt', type=str, help='Specific query to investigate the reality.')
+    query_parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality.')
+    query_parser.add_argument(
+        '--model',
+        '-m',
+        type=str,
+        choices=models if models else None,
+        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
+    )
+    query_parser.add_argument(
+        '--win',
+        '-w',
+        type=int,
+        default=6144,
+        help='Specify the maximum context window size (in tokens) for the model during this operation.'
+    )
+
+    # python reality-gen.py navigate <prompt> --input <filename> --output <filename> --model <name> --think --win <size>
+    navigate_parser = subparsers.add_parser('navigate', help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively.')
+    navigate_parser.add_argument('prompt', type=str, help='Prompt to guide the navigation and elaboration.')
+    navigate_parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality.')
+    navigate_parser.add_argument('--output', '-o', type=str, help='Specify an output file to save the explored reality (e.g., JSON).')
+    navigate_parser.add_argument(
+        '--model',
+        '-m',
+        type=str,
+        choices=models if models else None,
+        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
+    )
+    navigate_parser.add_argument('--think', '-t', action='store_true', help='Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.')
+    navigate_parser.add_argument(
+    '--win',
+    '-w',
+    type=int,
+    default=6144,
+    help='Specify the maximum context window size (in tokens) for the model during this operation.'
+)
 
     args = parser.parse_args()
 
-    system_prompt = CREATE_SYSTEM_PROMPT
-    prompt = args.create
-    input = None
-
-    if args.query:
-        prompt = args.query
-        with open(args.input, 'r') as f:
-            input = f.read()
-            # print(input)
-        system_prompt = QUERY_SYSTEM_PROMPT.format(world=input)
-    elif args.navigate:
-        prompt = args.navigate
-        with open(args.input, 'r') as f:
-            input = f.read()
-            # print(input)
-        system_prompt = NAVIGATE_SYSTEM_PROMPT.format(world=input)
-
     # main
-    thinking = True
-    response_str = ''
+    out = open(args.output, 'w', encoding='utf-8') if args.output else None
 
-    out = open(args.output, 'w') if args.output else None
+    if args.command == 'create':
+        system_prompt = CREATE_SYSTEM_PROMPT
+        process(prompt=args.prompt, model=args.model, system_prompt=system_prompt, out=out, think=True, debug=True)
+    elif args.command == 'query':
+        with open(args.input, 'r') as f:
+            world_json = f.read()
+            # print(world_json)
+        system_prompt = QUERY_SYSTEM_PROMPT.format(world=world_json)
+        process(prompt=args.prompt, model=args.model, system_prompt=system_prompt, out=out, think=True, debug=True, win=args.win)
+    elif args.command == 'navigate':
+        with open(args.input, 'r') as f:
+            world_json = f.read()
+            # print(world_json)
+        system_prompt = NAVIGATE_SYSTEM_PROMPT.format(world=world_json)
 
-    # generate
-    response = ollama.chat(
-        model=args.model,
-        messages=[
-            {'role': 'system', 'content': system_prompt},
-            {'role': 'user', 'content': prompt}
-        ],
-        # format='json',
-        stream=True,
-        think=args.think
-    )
+        # process
+        res_json = process(prompt=args.prompt, model=args.model, system_prompt=system_prompt, out=None, think=True, debug=True, win=args.win)
+        res = json.loads(res_json)
 
-    if args.think:
-        print('/think')
+        # reject
+        if ('status' in res) and (res['status'] == 'reject'):
+            print(f"rejected: {res['reason']}")
+            out.close()
+            exit()
 
-    for msg in response:
-        # think
-        if msg.message.thinking:
-            print(msg.message.thinking, end='', flush=True)
-        elif thinking:
-            if args.think:
-                print('/think')
-            thinking = False
-        # response
-        if msg.message.content:
-            response_str += msg.message.content
-            print(msg.message.content, end='', flush=True)
-            if out:
-                out.write(msg.message.content)
-        if out:
-            out.flush()
+        # insert
+        world = json.loads(world_json)
+        entity = {'manifestation': world}
+
+        for name in res['path']:
+            found = False
+            for e in entity['manifestation']['primary_constituents']:
+                if e['name'] == name:
+                    entity = e
+                    found = True
+                    break
+            if not found:
+                print(f'invalid entity: {name}')
+                exit()
+
+        entity['manifestation'] = res['manifestation']
+
+        res_json = json.dumps(world, indent=2, ensure_ascii=False)
+        print(res_json)
+
+        # output
+        out.write(res_json)
+        out.flush()
 
     if out:
         out.close()
