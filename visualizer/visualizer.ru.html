@@ -648,16 +648,26 @@
                     reader.onload = (e) => {
                         try {
                             const fileContent = e.target.result;
-                            jsonInput.value = fileContent;
-                            errorMessageDiv.classList.add('hidden');
+                            const fullJsonData = JSON.parse(fileContent);
+
+                            if (fullJsonData.world) {
+                                jsonInput.value = JSON.stringify(fullJsonData.world, null, 2);
+                                errorMessageDiv.classList.add('hidden');
+                                visualizeButton.click();
+                            } else {
+                                errorMessageDiv.textContent = `JSON structure error: 'world' field is missing in the uploaded file.`;
+                                errorMessageDiv.classList.remove('hidden');
+                            }
                         } catch (readError) {
-                            errorMessageDiv.textContent = `${translations.fileReadError} ${readError.message}`;
+                            errorMessageDiv.textContent = `Error reading file or parsing JSON: ${readError.message}`;
                             errorMessageDiv.classList.remove('hidden');
                         }
+                        event.target.value = '';
                     };
                     reader.onerror = (readError) => {
-                        errorMessageDiv.textContent = `${translations.fileReadError} ${readError.message}`;
+                        errorMessageDiv.textContent = `Error reading file: ${readError.message}`;
                         errorMessageDiv.classList.remove('hidden');
+                        event.target.value = '';
                     };
                     reader.readAsText(file);
                 }

@@ -1,5 +1,6 @@
 import json
 import ollama
+import datetime
 import argparse
 
 
@@ -120,7 +121,7 @@ JSON data:
 '''
 
 
-def process(prompt, model, system_prompt, out=None, think=True, debug=True, win=4096):
+def process(prompt, model, system_prompt, think=True, debug=True, win=4096):
     thinking = True
     out_str = ''
 
@@ -150,14 +151,53 @@ def process(prompt, model, system_prompt, out=None, think=True, debug=True, win=
             thinking = False
         # response
         if msg.message.content:
-            out_str += msg.message.content
             if debug:
                 print(msg.message.content, end='', flush=True)
-            if out:
-                out.write(msg.message.content)
-        if out:
-            out.flush()
+            out_str += msg.message.content
     return out_str
+
+
+def create(prompt, model, think):
+    return process(prompt=prompt, model=model, system_prompt=CREATE_SYSTEM_PROMPT, think=think, debug=True)
+
+
+def query(prompt, model, world_json, think, win):
+    system_prompt = QUERY_SYSTEM_PROMPT.format(world=world_json)
+    return process(prompt=prompt, model=model, system_prompt=system_prompt, think=think, debug=True, win=win)
+
+
+def navigate(prompt, model, world_json, think, win):
+    system_prompt = NAVIGATE_SYSTEM_PROMPT.format(world=world_json)
+
+    # process
+    res_json = process(prompt=prompt, model=model, system_prompt=system_prompt, think=think, debug=True, win=win)
+    res = json.loads(res_json)
+
+    # reject
+    if ('status' in res) and (res['status'] == 'reject'):
+        print(f"rejected: {res['reason']}")
+        return None
+
+    # insert
+    world = json.loads(world_json)
+    entity = {'manifestation': world}
+
+    for name in res['path']:
+        found = False
+        for e in entity['manifestation']['primary_constituents']:
+            if e['name'] == name:
+                entity = e
+                found = True
+                break
+        if not found:
+            print(f'invalid entity: {name}')
+            return None
+
+    entity['manifestation'] = res['manifestation']
+
+    res_json = json.dumps(world, indent=2, ensure_ascii=False)
+    print(res_json)
+    return res_json
 
 
 if __name__ == '__main__':
@@ -241,56 +281,48 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # main
-    out = open(args.output, 'w', encoding='utf-8') if args.output else None
+    res_json = None
 
     if args.command == 'create':
-        system_prompt = CREATE_SYSTEM_PROMPT
-        process(prompt=args.prompt, model=args.model, system_prompt=system_prompt, out=out, think=args.think, debug=True)
+        world_json = create(prompt=args.prompt, model=args.model, think=args.think)
+        world = json.loads(world_json)
+
+        res = {
+            'discovery': {
+                'date': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'prompt': args.prompt
+            },
+            'navigation': {
+                'max_depth': 0,
+                'history': []
+            },
+            'world': world
+        }
+        res_json = json.dumps(res, indent=2, ensure_ascii=False)
+
     elif args.command == 'query':
         with open(args.input, 'r') as f:
-            world_json = f.read()
+            meta = json.loads(f.read())
+            world_json = json.dumps(meta['world'], indent=2, ensure_ascii=False)
             # print(world_json)
-        system_prompt = QUERY_SYSTEM_PROMPT.format(world=world_json)
-        process(prompt=args.prompt, model=args.model, system_prompt=system_prompt, out=out, think=args.think, debug=True, win=args.win)
+            res_json = query(args.prompt, model=args.model, world_json=world_json, think=args.think, win=args.win)
     elif args.command == 'navigate':
         with open(args.input, 'r') as f:
-            world_json = f.read()
+            meta = json.loads(f.read())
+            meta['navigation']['history'].append({
+                'date': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'prompt': args.prompt
+            })
+
+            world_json = json.dumps(meta['world'], indent=2, ensure_ascii=False)
             # print(world_json)
-        system_prompt = NAVIGATE_SYSTEM_PROMPT.format(world=world_json)
 
-        # process
-        res_json = process(prompt=args.prompt, model=args.model, system_prompt=system_prompt, out=None, think=args.think, debug=True, win=args.win)
-        res = json.loads(res_json)
+            res_world_json = navigate(prompt=args.prompt, model=args.model, world_json=world_json, think=args.think, win=args.win)
+            meta['world'] = json.loads(res_world_json)
 
-        # reject
-        if ('status' in res) and (res['status'] == 'reject'):
-            print(f"rejected: {res['reason']}")
-            out.close()
-            exit()
+            res_json = json.dumps(meta, indent=2, ensure_ascii=False)
 
-        # insert
-        world = json.loads(world_json)
-        entity = {'manifestation': world}
-
-        for name in res['path']:
-            found = False
-            for e in entity['manifestation']['primary_constituents']:
-                if e['name'] == name:
-                    entity = e
-                    found = True
-                    break
-            if not found:
-                print(f'invalid entity: {name}')
-                exit()
-
-        entity['manifestation'] = res['manifestation']
-
-        res_json = json.dumps(world, indent=2, ensure_ascii=False)
-        print(res_json)
-
-        # output
-        out.write(res_json)
-        out.flush()
-
-    if out:
-        out.close()
+    if args.output and res_json:
+        with open(args.output, 'w', encoding='utf-8') as out:
+            out.write(res_json)
+            out.flush()
