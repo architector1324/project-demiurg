@@ -186,16 +186,28 @@ if __name__ == '__main__':
     )
     create_parser.add_argument('--think', '-t', action='store_true', help='Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.')
 
-    # python reality-gen.py query <prompt> --input <filename> --model <name> --win <size>
+    # python reality-gen.py query <prompt> --input <filename> --output <filename> --model <name> --win <size>
     query_parser = subparsers.add_parser('query', help='Investigate an existing reality with a specific query.')
     query_parser.add_argument('prompt', type=str, help='Specific query to investigate the reality.')
     query_parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality.')
+    query_parser.add_argument(
+        '--output',
+        '-o',
+        type=str,
+        help='Specify an output file to save the query results (e.g., Markdown).'
+    )
     query_parser.add_argument(
         '--model',
         '-m',
         type=str,
         choices=models if models else None,
         help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
+    )
+    query_parser.add_argument(
+        '--think',
+        '-t',
+        action='store_true',
+        help='Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.'
     )
     query_parser.add_argument(
         '--win',

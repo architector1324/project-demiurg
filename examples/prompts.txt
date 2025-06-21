@@ -29,3 +29,4 @@ Virtual reality that learns and evolves on its own, forming new rules and struct
 World consisting only of numbers and their relationships.
 Reality where the very concept of "presence" is a variable, and objects can exist or not exist depending on their level of "actualization".
 A silent civilization that communicates only through the motion of shadows and builds knowledge by observing patterns in natural light.
+An apple on a table (ordinary)
