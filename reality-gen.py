@@ -121,6 +121,7 @@ JSON data:
 '''
 
 
+# utils
 def process(prompt, model, system_prompt, think=True, debug=True, win=4096):
     thinking = True
     out_str = ''
@@ -157,6 +158,17 @@ def process(prompt, model, system_prompt, think=True, debug=True, win=4096):
     return out_str
 
 
+def calc_max_depth(world):
+    max_depth = 0
+
+    for e in world['primary_constituents']:
+        if 'manifestation' in e:
+            depth = 1 + calc_max_depth(e['manifestation'])
+            max_depth = max(max_depth, depth)
+    return max_depth
+
+
+# commands
 def create(prompt, model, think):
     return process(prompt=prompt, model=model, system_prompt=CREATE_SYSTEM_PROMPT, think=think, debug=True)
 
@@ -194,10 +206,7 @@ def navigate(prompt, model, world_json, think, win):
             return None
 
     entity['manifestation'] = res['manifestation']
-
-    res_json = json.dumps(world, indent=2, ensure_ascii=False)
-    print(res_json)
-    return res_json
+    return json.dumps(world, indent=2, ensure_ascii=False)
 
 
 if __name__ == '__main__':
@@ -318,11 +327,16 @@ if __name__ == '__main__':
             # print(world_json)
 
             res_world_json = navigate(prompt=args.prompt, model=args.model, world_json=world_json, think=args.think, win=args.win)
+            if res_world_json is None:
+                exit()
+
             meta['world'] = json.loads(res_world_json)
+            meta['navigation']['max_depth'] = calc_max_depth(meta['world'])
 
             res_json = json.dumps(meta, indent=2, ensure_ascii=False)
 
     if args.output and res_json:
+        print(res_json)
         with open(args.output, 'w', encoding='utf-8') as out:
             out.write(res_json)
             out.flush()
