@@ -54,7 +54,7 @@ Curious about SRGE's unique approach to reality generation and how it handles se
 
 Explore a wide variety of generated worlds and see SRGE's capabilities in action, from scientifically accurate systems to fictional universes and abstract concepts.
 
-**View the full catalog of examples here:** [SRGE World Generation Examples Catalog](./examples/examples.md)
+**View the full catalog of examples here:** [SRGE World Generation Examples Catalog (old)](./examples/old/examples.md)
 
 ---
 
