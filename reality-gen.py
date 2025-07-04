@@ -210,7 +210,6 @@ JSON data:
 
 # utils
 def process(prompt, model, system_prompt, think=True, debug=True, win=4096):
-    thinking = True
     out_str = ''
 
     # generate
@@ -231,6 +230,7 @@ def process(prompt, model, system_prompt, think=True, debug=True, win=4096):
     if think and debug:
         print('/think')
 
+    thinking = True
     for msg in response:
         # think
         if msg.message.thinking:
@@ -361,12 +361,12 @@ if __name__ == '__main__':
         help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
     )
     navigate_parser.add_argument(
-    '--win',
-    '-w',
-    type=int,
-    default=6144,
-    help='Specify the maximum context window size (in tokens) for the model during this operation.'
-)
+        '--win',
+        '-w',
+        type=int,
+        default=6144,
+        help='Specify the maximum context window size (in tokens) for the model during this operation.'
+    )
 
     args = parser.parse_args()
 
