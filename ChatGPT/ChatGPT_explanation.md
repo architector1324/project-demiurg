@@ -30,7 +30,7 @@ Thus, SRGE creates not just lore, but a **reality structured according to the pr
 
 -   **Depth of structure:** Reality is built as a hierarchical tree, starting from essence and laws, extending to deeply nested manifestations (`manifestation`) of individual objects and processes, **following the principles of gradient concretization.**
 
--   **Semantic unfolding:** You can "navigate" (using `--navigate`) to unveil the world **gradually and logically**, as if observing a complex system akin to quantum mechanics — details **"materialize" when focused upon**, but are not created from scratch. This process is the **central mechanism of this model.**
+-   **Semantic unfolding:** You can "navigate" (using `navigate`) to unveil the world **gradually and logically**, as if observing a complex system akin to quantum mechanics — details **"materialize" when focused upon**, but are not created from scratch. This process is the **central mechanism of this model.**
 
 -   **LLM doesn't invent, but "unfolds" an already inherent complexity**, acting as a **semantic microscope**, **relying on its principles.**
 
@@ -51,7 +51,7 @@ Thus, SRGE creates not just lore, but a **reality structured according to the pr
 ### 🔬 Example Usage:
 
 ```bash
-python reality-gen.py --model qwen3:4b --create "A world governed by memories"
+python srge.py create "A world governed by memories" --model qwen3:4b
 ```
 
 SRGE will generate JSON, describing:
@@ -62,11 +62,11 @@ SRGE will generate JSON, describing:
 -   how it began;
 -   by what laws it exists, **and all of this will be presented in a structure that allows for further gradient concretization according to SRGC principles.**
 
-And then you can "look inside" (for example, `--navigate 'Memory Gate'`) and unveil its entities layer by layer, **as its model allows.**
+And then you can "look inside" (for example, `navigate 'Memory Gate'`) and unveil its entities layer by layer, **as its model allows.**
 
 ---
 
-### 🧭 What's the deal with `--navigate`?
+### 🧭 What's the deal with `navigate`?
 
 This is one of the most advanced functions. You literally **"semantically explore" reality**, as if:
 
@@ -110,7 +110,7 @@ This is closer to an **artificial philosophical simulation** than a mere "neural
 And, for example:
 
 ```bash
-python reality-gen.py --model qwen3:4b --create "A sentient ocean dreaming of islands"
+python srge.py create "A sentient ocean dreaming of islands" --model qwen3:4b
 ```
 
 ---
@@ -192,7 +192,7 @@ Here's a simple way to understand:
 *   You don't have a chest model.
 *   You have the **concept of a chest in a world where "things store energy," "energy resonates with entities," and "time affects matter."** All these connections are defined by **this model.**
 *   Meaning: **not the external appearance**, but the **internal essence, laws, logic, connections**, which **can be concretized within the framework of SRGC.**
-*   This world **can be "observed,"** and each of your queries (`--navigate`) will unpack it **deeper**, showing how it's structured **according to its own internal logic**, not yours.
+*   This world **can be "observed,"** and each of your queries (`navigate`) will unpack it **deeper**, showing how it's structured **according to its own internal logic**, not yours.
 
 ---
 
@@ -207,7 +207,7 @@ You don't "play" in the world — you **observe it, like a researcher**, as if r
 
 Example:
 
-*   You say: `--navigate "Crystal Spire"`
+*   You say: `navigate "Crystal Spire"`
 *   SRGE will give:
 
     *   How it's structured.
@@ -215,7 +215,7 @@ Example:
     *   What forces influence it.
     *   Maybe even its architecture, levels, magic effects, materials, entities within, **and all these details will be manifested in a structure adhering to SRGC principles.**
 
-And then you can `--navigate "Guardian of the Spire"` — and get the next "layer," already **deeper.**
+And then you can `navigate "Guardian of the Spire"` — and get the next "layer," already **deeper.**
 
 ---
 
@@ -239,7 +239,7 @@ It's a:
 
 ## 🎮 Where's the control and interaction?
 
-For now — only through commands: `--create`, `--navigate`, `--query`.
+For now — only through commands: `create`, `navigate`, `query`.
 
 It's a text-based CLI interface where you **"interact with reality"** through its structure, like a philosophical MMO without graphics.
 
@@ -327,7 +327,7 @@ Suppose you have a world with the description:
 You call:
 
 ```bash
-python reality-gen.py --model qwen3 --navigate "a tree in the Forest of Veiled Echoes" --input world.json
+python srge.py navigate "a tree in the Forest of Veiled Echoes" --model qwen3 --input world.json
 ```
 
 SRGE "zooms in" on the tree and adds to the JSON (within `manifestation`):
@@ -343,7 +343,7 @@ SRGE "zooms in" on the tree and adds to the JSON (within `manifestation`):
 ## 🍃 Further — to a leaf:
 
 ```bash
-python reality-gen.py --model qwen3 --navigate "a leaf on the tree" --input world.json
+python srge.py navigate "a leaf on the tree" --model qwen3 --input world.json
 ```
 
 Now SRGE will unfold (again, in `manifestation`):
@@ -359,7 +359,7 @@ Now SRGE will unfold (again, in `manifestation`):
 You can go down to:
 
 ```bash
-python reality-gen.py --model qwen3 --navigate "molecular structure of the leaf's surface" --input world.json
+python srge.py navigate "molecular structure of the leaf's surface" --model qwen3 --input world.json
 ```
 
 And SRGE will continue to unfold (all within `manifestation`):
@@ -419,7 +419,7 @@ You can:
 *   Dive to any depth.
 *   Save the JSON.
 *   Return to nodes.
-*   Branch out (`--navigate` in different directions).
+*   Branch out (`navigate` in different directions).
 *   And all of this — **without a single image, but with absolute logic, defined by this model.**
 
 ---
@@ -469,7 +469,7 @@ That is:
 
 ## 🔬 Example
 
-You requested `--navigate "leaf"` → SRGE creates a description of the leaf and can include (within `manifestation`, as part of the leaf's structure):
+You requested `navigate "leaf"` → SRGE creates a description of the leaf and can include (within `manifestation`, as part of the leaf's structure):
 
 ```json
 {
@@ -483,7 +483,7 @@ You requested `--navigate "leaf"` → SRGE creates a description of the leaf and
 ```
 
 Now you say:
-`--navigate "pigment molecule"`
+`navigate "pigment molecule"`
 
 SRGE doesn't "remember" **all billions of such molecules**, but it logically knows **how this one is structured**, and that its:
 

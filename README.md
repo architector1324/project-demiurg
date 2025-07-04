@@ -19,7 +19,7 @@ To fully understand SRGE, it's crucial to distinguish between the engine itself,
 *   **SRGC (Semantic Reality with Gradient Concretization):** This is the **unique conceptual model, metaphysical structure, or "nature" of the reality itself** that SRGE generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality where entities exist on a **gradient spectrum of concretization** - from abstract concepts and undifferentiated groups to precisely manifested components.
     *   **The core idea of SRGC:** World details initially exist in a state of **potentiality and indeterminacy**, and they **"materialize" (manifest)** upon request, without violating the world's internal logic. This allows a reality to contain, for example, both **concrete, fully manifested entities** and **undefined groups** (e.g., "a single apple" and "remaining apples in a basket" can coexist correctly within an SRGC structure, where "remaining apples" is an entity with the potential for further concretization, rather than an error). SRGC allows a reality to be **partially concretized** until the moment of "observation."
 
-*   **The Emergent World:** The world in SRGE is an **emergent reality** that arises from the synergy between the structured map (JSON, created by the SRGC model) and the language model (LLM). The JSON is not the world itself but its **potential**, containing meanings and rules. The LLM is not merely a text generator but an **engine** that reveals this potential. Together, they create a **micro-dimension** - a dynamic, logically coherent system that you can explore through commands like `--navigate`, and `--query`. This is neither static text nor imagination but a living informational reality that exists in the process of interaction.
+*   **The Emergent World:** The world in SRGE is an **emergent reality** that arises from the synergy between the structured map (JSON, created by the SRGC model) and the language model (LLM). The JSON is not the world itself but its **potential**, containing meanings and rules. The LLM is not merely a text generator but an **engine** that reveals this potential. Together, they create a **micro-dimension** - a dynamic, logically coherent system that you can explore through commands like `navigate`, and `query`. This is neither static text nor imagination but a living informational reality that exists in the process of interaction.
 
 ---
 
@@ -77,7 +77,7 @@ SRGE offers a powerful set of capabilities designed to bring complex realities t
     *   `foundational_state`: The initial conditions and primordial state from which the reality emerges.
 *   **Unparalleled Consistency & Versatility:** SRGE delivers **genre-agnostic** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the gritty depths of cyberpunk, the generated realities will always adhere to their own logical framework.
 *   **Pure Intrinsic Logic:** Unlike typical game or narrative engines, SRGE focuses solely on the **intrinsic logic of the world itself**, **as determined by SRGC's principles**. There's no "player framing" – the reality exists independently, driven by its own internal dynamics.
-*   **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `--navigate` command), **in accordance with SRGC's principle of gradient concretization.**
+*   **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `navigate` command), **in accordance with SRGC's principle of gradient concretization.**
 
     **Important: This does not contradict the declared independence of the world from an external observer.** The LLM acts as a **"revealer" of inherent complexity**, not its arbitrary generator. The external observer, by requesting a deeper dive, does not **alter** the world or its internal laws, nor does it introduce anything external. It merely **prompts the world to "unfold"** that part of its structure which is already intrinsically embedded in its foundational semantic fabric, **following its rules**. This process always occurs **strictly according to the internal rules and logic of the reality itself**. Thus, the observer does not create a new reality, but rather **explores** an already existing one, merely shifting to a deeper level of its manifestation. This guarantees that even with deep exploration, the world remains absolutely internally consistent and true to its initial laws.
 *   **Local & Autonomous:** Run SRGE entirely on your machine without an internet connection. Powered by Ollama, it provides a self-contained environment for reality generation and exploration.
@@ -113,18 +113,18 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 
 | Command | Description | Status |
 | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ |
-| `--create` | Generate a completely new, high-level reality from a short prompt. | **Ready** |
-| `--query` | Interrogate a generated world through semantic Q&A. Answers are inferred purely from the world's internal logic - not guessed or invented. | **Ready** |
-| `--navigate`| Traverse and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon focused "observation," strictly adhering to its internal logic, **as defined by SRGC.** | **Ready** |
-| `--live` | Simulate dynamic evolution and events within a generated world based on its internal forces and rules. | *Planned* |
+| `create` | Generate a completely new, high-level reality from a short prompt. | **Ready** |
+| `query` | Interrogate a generated world through semantic Q&A. Answers are inferred purely from the world's internal logic - not guessed or invented. | **Ready** |
+| `navigate`| Traverse and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon focused "observation," strictly adhering to its internal logic, **as defined by SRGC.** | **Ready** |
+| `live` | Simulate dynamic evolution and events within a generated world based on its internal forces and rules. | *Planned* |
 
 ## Semantic Navigation (Unfolding Reality)
 
-The `--navigate` command is a core mechanism for **exploring and revealing the inherent, granular layers** of an already generated reality. It embodies the principle of **"Reality as Observation"**: where the details of a world exist in a state of potentiality and **materialize (unfold)** upon focused intent. This is not arbitrary generation; instead, it is a **semantic unfolding** of pre-existing, intrinsic complexity, logically derived from the parent entity and the overarching laws of the world, **all governed by its principles.**
+The `navigate` command is a core mechanism for **exploring and revealing the inherent, granular layers** of an already generated reality. It embodies the principle of **"Reality as Observation"**: where the details of a world exist in a state of potentiality and **materialize (unfold)** upon focused intent. This is not arbitrary generation; instead, it is a **semantic unfolding** of pre-existing, intrinsic complexity, logically derived from the parent entity and the overarching laws of the world, **all governed by its principles.**
 
-Imagine a vast, multi-dimensional map where only the major continents are initially visible. `--navigate` acts like a zoom function, progressively revealing cities, then streets, then individual buildings. All these details **already existed** on the map; they were simply not "rendered" at that specific level of granularity.
+Imagine a vast, multi-dimensional map where only the major continents are initially visible. `navigate` acts like a zoom function, progressively revealing cities, then streets, then individual buildings. All these details **already existed** on the map; they were simply not "rendered" at that specific level of granularity.
 
-When invoking `--navigate`, the user specifies a point of focus or a conceptual path (e.g., "Water Droplet", "Woman at a table"). The system (the LLM guided by the system prompt) acts as a **sophisticated semantic lens, interpreting the query and revealing the corresponding hierarchical layers, consistent with SRGC's gradient concretization.** This process then adds granular `"manifestation"` objects to the world's JSON structure.
+When invoking `navigate`, the user specifies a point of focus or a conceptual path (e.g., "Water Droplet", "Woman at a table"). The system (the LLM guided by the system prompt) acts as a **sophisticated semantic lens, interpreting the query and revealing the corresponding hierarchical layers, consistent with SRGC's gradient concretization.** This process then adds granular `"manifestation"` objects to the world's JSON structure.
 
 **Crucially, when an entity manifests, it reveals not only its `primary_constituents` but also its own internal `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`**, all strictly derived from its parent entity and the overarching world logic, **and adhering to the principles of coherence.** This ensures that every unveiled detail maintains the full **internal coherence** of the reality.
 
@@ -132,14 +132,14 @@ When invoking `--navigate`, the user specifies a point of focus or a conceptual 
 
 *   **Hierarchical Consistency:** All elements within the `manifestation` (its internal constituents, laws, and forces) are direct, more specific **consequences or deeper manifestations** of the parent entity's description and the parent world's governing structure, ensuring continuous logical coherence **within the model.**
 *   **Semantic Pathfinding and Unfolding:** The LLM does not require an exact name match. It **interprets** the user's query within the existing **structure** and **semantically determines the logical path** to the specified focus. If the requested entity is deeply nested, the model **recursively unfolds the entire chain of manifestation**, revealing the necessary intermediate `manifestation` levels.
-    *   Example: If the user requests `--navigate 'woman at a table in a restaurant'` when the world is described down to "New York City", the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
+    *   Example: If the user requests `navigate 'woman at a table in a restaurant'` when the world is described down to "New York City", the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
 *   **Focus-Oriented Detailing:** For larger entities, the command intelligently focuses on the most relevant sub-components, aggregating the vast majority of other parts into a single representative entity (e.g., `"Other [Entity Name] Components"`), preventing excessive data proliferation.
 *   **Internal and Objective:** In line with SRGE's core philosophy, the output is entirely devoid of an external observational frame, describing the world purely from within itself. The user does not *create* a new reality, but rather *explores* and *observes* the unfolding of an already existing one, merely shifting to a deeper level of its manifestation.
 
 The command returns the **complete, modified world JSON**, where the selected constituent element is updated or created with its new, deeper manifestation. This allows for recursive exploration, building an increasingly detailed **SRGC-structured map** of your fictional reality.
 
 > Example:
-> `python reality-gen.py --model qwen3 --navigate 'Sand' --input world.json`
+> `python srge.py navigate 'Sand' --model qwen3 --input world.json`
 
 ### **Semantic Navigation in Action: Unfolding a Woman in a Metropolis**
 
@@ -162,7 +162,7 @@ This example showcases the **true power of Semantic Navigation (Unfolding)** - n
 
 **Navigation Query:**
 ```bash
-python reality-gen.py --model qwen3 --think --input world.json --navigate 'A woman sitting at a table in a restaurant'
+python srge.py navigate 'A woman sitting at a table in a restaurant' --model qwen3 --input world.json
 ```
 
 **Result (schematic representation of the unfolded reality, demonstrating the full manifestation chain with expanded depth):**

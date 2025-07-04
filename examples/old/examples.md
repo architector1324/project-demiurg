@@ -30,21 +30,21 @@ These examples demonstrate SRGE's ability to model real-world physical and scien
 
 #### **1. Used Prompt/Commands**
 
-**1.1. World Creation (Initial `--create`):**
+**1.1. World Creation (Initial `create`):**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "A candle burning in a dark room (scientifically accurate)"
+python srge.py create "A candle burning in a dark room (scientifically accurate)" --model qwen3:4b
 ```
 
-**1.2. Navigation (Subsequent `--navigate`):**
+**1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_candle_world.json`)*
 ```bash
-python reality-gen.py --model qwen3 --think --navigate 'Flame' --input initial_candle_world.json
+python srge.py navigate 'Flame' --model qwen3 --input initial_candle_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
 This example demonstrates SRGE's ability to create **deep, scientifically accurate realities, developed with its underlying principles**, even for seemingly simple scenarios. It showcases:
 *   **Deep Scientific Understanding:** The use of specific physical laws (First and Second Laws of Thermodynamics, Planck's Law) and quantitative data (flame temperature, light wavelength, room temperature).
-*   **Semantic Navigation (`--navigate`) and the "Reality as Observation" Principle:** The crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Flame" led to a precise scientific "unfolding" of its intricate composition and dynamics, demonstrating hierarchical consistency, the internal structure of the "manifestation" driven by its principles, and focused detailing strictly derived from its inherent nature.
+*   **Semantic Navigation (`navigate`) and the "Reality as Observation" Principle:** The crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Flame" led to a precise scientific "unfolding" of its intricate composition and dynamics, demonstrating hierarchical consistency, the internal structure of the "manifestation" driven by its principles, and focused detailing strictly derived from its inherent nature.
 *   **Atomic/Molecular Level Detail:** The breakdown of the candle into `Wax` and `Wick` with detailed descriptions of their composition and functions.
 *   **Philosophical and Metaphysical Layering:** SRGE's ability to autonomously interpret and elevate a simple physical scene into a deeper, philosophical structure, consistent with its underlying principles, where phenomena like light become fundamental dynamics of existence.
 *   **High Internal Consistency:** All elements and laws are logically connected and complement each other.
@@ -163,21 +163,21 @@ This example demonstrates SRGE's ability to create **deep, scientifically accura
 
 #### **1. Used Prompt/Commands**
 
-**1.1. World Creation (Initial `--create`):**
+**1.1. World Creation (Initial `create`):**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "A water droplet in a vacuum (scientifically accurate)"
+python srge.py create "A water droplet in a vacuum (scientifically accurate)" --model qwen3:4b
 ```
 
-**1.2. Navigation (Subsequent `--navigate`):**
+**1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_water_world.json`)*
 ```bash
-python reality-gen.py --model qwen3 --think --navigate 'Atom of a water molecule' --input initial_water_world.json
+python srge.py navigate 'Atom of a water molecule' --model qwen3 --input initial_water_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
 This example demonstrates two key capabilities of SRGE:
 *   **Generation of Scientifically Accurate Realities, developed based on its principles:** SRGE's ability to create worlds describing complex physical phenomena (a water droplet in a vacuum) using precise scientific terminology and a deep understanding of relevant physics and chemistry laws.
-*   **Semantic Navigation (`--navigate`) and the "Reality as Observation" Principle:** The most crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Atom of a water molecule" led to a sequential "unfolding" of hierarchical layers: `Water Droplet` -> `Water Molecule` -> `Hydrogen Atom` / `Oxygen Atom`. This demonstrates hierarchical consistency and the internal structure of each "manifestation" guided by its principles.
+*   **Semantic Navigation (`navigate`) and the "Reality as Observation" Principle:** The most crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Atom of a water molecule" led to a sequential "unfolding" of hierarchical layers: `Water Droplet` -> `Water Molecule` -> `Hydrogen Atom` / `Oxygen Atom`. This demonstrates hierarchical consistency and the internal structure of each "manifestation" guided by its principles.
 
 #### **3. Generated JSON Worlds**
 
@@ -299,7 +299,7 @@ This example demonstrates two key capabilities of SRGE:
 
 #### **1. Used Prompt/Command**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "Our Solar System"
+python srge.py create "Our Solar System" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -390,7 +390,7 @@ This category showcases SRGE's ability to model complex living systems, from the
 
 #### **1. Used Prompt/Command**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "Ant colony"
+python srge.py create "Ant colony" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -451,7 +451,7 @@ This section demonstrates SRGE's versatility in generating rich **realities for 
 
 #### **1. Used Prompt/Command**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "Magical world with knights, magic, and villains"
+python srge.py create "Magical world with knights, magic, and villains" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -508,7 +508,7 @@ This example demonstrates SRGE's versatility and its ability to create **rich, i
 
 #### **1. Used Prompt/Command**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "World of Cyberpunk 2077"
+python srge.py create "World of Cyberpunk 2077" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -563,7 +563,7 @@ This example vividly demonstrates SRGE's ability to **generate realities for spe
 
 #### **1. Used Prompt/Command**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "World of The Elder Scrolls V: Skyrim"
+python srge.py create "World of The Elder Scrolls V: Skyrim" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -624,7 +624,7 @@ This category highlights SRGE's unique ability to **model highly abstract, metap
 
 #### **1. Used Prompt/Command**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "City built inside the heads of sleeping titans"
+python srge.py create "City built inside the heads of sleeping titans" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -669,7 +669,7 @@ This example is a vivid illustration of **SRGE's remarkable creativity and auton
 
 #### **1. Used Prompt/Command**
 ```bash
-python reality-gen.py --model qwen3:4b --think --create "World consisting only of numbers and their relationships"
+python srge.py create "World consisting only of numbers and their relationships" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**

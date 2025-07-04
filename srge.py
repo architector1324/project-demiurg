@@ -1,5 +1,6 @@
 import json
 import ollama
+import openai
 import datetime
 import argparse
 
@@ -209,91 +210,187 @@ JSON data:
 
 
 # utils
-def process(prompt, model, system_prompt, think=True, debug=True, win=4096):
-    out_str = ''
+class SRGELLMProcessor:
+    def __init__(self, model, world, think=True, debug=True):
+        self.model = model
+        self.world = world
+        self.think=think
+        self.debug=debug
 
-    # generate
-    response = ollama.chat(
-        model=model,
-        messages=[
-            {'role': 'system', 'content': system_prompt},
-            {'role': 'user', 'content': prompt}
-        ],
-        stream=True,
-        think=think,
-        options={
-            'num_ctx': win,
-            # 'num_thread': 8
-        }
-    )
+    def get_models():
+        pass
 
-    if think and debug:
-        print('/think')
+    def process(self, prompt, system_prompt, win=4096):
+        pass
 
-    thinking = True
-    for msg in response:
-        # think
-        if msg.message.thinking:
-            if debug:
-                print(msg.message.thinking, end='', flush=True)
-        elif thinking:
-            if think and debug:
-                print('/think')
-            thinking = False
-        # response
-        if msg.message.content:
-            if debug:
-                print(msg.message.content, end='', flush=True)
-            out_str += msg.message.content
-    return out_str
+    def calc_max_depth(self, next=None):
+        max_depth = 0
 
+        if next is None:
+            next = self.world
 
-def calc_max_depth(world):
-    max_depth = 0
+        for e in next['primary_constituents']:
+            if 'manifestation' in e:
+                depth = 1 + self.calc_max_depth(e['manifestation'])
+                max_depth = max(max_depth, depth)
+        return max_depth
 
-    for e in world['primary_constituents']:
-        if 'manifestation' in e:
-            depth = 1 + calc_max_depth(e['manifestation'])
-            max_depth = max(max_depth, depth)
-    return max_depth
+    def world_json(self):
+        return json.dumps(self.world, indent=2, ensure_ascii=False)
 
+    # commands
+    def create(self, prompt):
+        self.world = json.loads(self.process(prompt=prompt, system_prompt=CREATE_SYS))
+        return self.world
 
-# commands
-def create(prompt, model):
-    return process(prompt=prompt, model=model, system_prompt=CREATE_SYS, think=True, debug=True)
+    def query(self, prompt, win):
+        system_prompt = QUERY_SYS.format(world=self.world_json())
+        return self.process(prompt=prompt, system_prompt=system_prompt, win=win)
 
+    def navigate(self, prompt, win):
+        # generate path
+        system_prompt = NAVIGATE_PATH_SYS.format(world=self.world_json())
+        path_json = self.process(prompt=prompt, system_prompt=system_prompt, win=win)
 
-def query(prompt, model, world_json, think, win):
-    system_prompt = QUERY_SYS.format(world=world_json)
-    return process(prompt=prompt, model=model, system_prompt=system_prompt, think=think, debug=True, win=win)
+        path = json.loads(path_json)
 
+        # reject
+        if ('status' in path) and (path['status'] == 'reject'):
+            print(f"rejected: {path['reason']}")
+            return None
 
-def navigate(prompt, model, world_json, win):
-    # generate path
-    system_prompt = NAVIGATE_PATH_SYS.format(world=world_json)
-    path_json = process(prompt=prompt, model=model, system_prompt=system_prompt, think=True, debug=True, win=win)
+        # generate manifestation
+        prompt = path_json
+        system_prompt = NAVIGATE_MANIFEST_SYS.format(world=self.world_json())
+        man_json = self.process(prompt=prompt, system_prompt=system_prompt, win=win)
 
-    path = json.loads(path_json)
+        man = json.loads(man_json)
 
-    # reject
-    if ('status' in path) and (path['status'] == 'reject'):
-        print(f"rejected: {path['reason']}")
-        return None
+        path_man = {'path': path['path'], 'manifestation': man}
 
-    # generate manifestation
-    prompt = path_json
-    system_prompt = NAVIGATE_MANIFEST_SYS.format(world=world_json)
-    man_json = process(prompt=prompt, model=model, system_prompt=system_prompt, think=True, debug=True, win=win)
+        # insert
+        entity = {'manifestation': self.world}
 
-    man = json.loads(man_json)
+        for name in path_man['path']:
+            found = False
+            for e in entity['manifestation']['primary_constituents']:
+                if e['name'] == name:
+                    entity = e
+                    found = True
+                    break
+            if not found:
+                print(f'invalid entity: {name}')
+                return None
 
-    res = {'path': path['path'], 'manifestation': man}
+        entity['manifestation'] = path_man['manifestation']
 
-    return json.dumps(res, indent=2, ensure_ascii=False)
+        return self.world
 
 
+class OllamaProcessor(SRGELLMProcessor):
+    def __init__(self, model, world, think=True, debug=True):
+        super().__init__(model, world, think, debug)
+
+    def get_models():
+        return [m.model.replace(':latest', '') for m in ollama.list().models]
+    
+    def process(self, prompt, system_prompt, win=4096):
+        out_str = ''
+
+        # generate
+        response = ollama.chat(
+            model=self.model,
+            messages=[
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': prompt}
+            ],
+            stream=True,
+            think=self.think,
+            options={
+                'num_ctx': win,
+                # 'num_thread': 8
+            }
+        )
+
+        if self.think and self.debug:
+            print('/think')
+
+        thinking = True
+        for msg in response:
+            # think
+            if msg.message.thinking:
+                if self.debug:
+                    print(msg.message.thinking, end='', flush=True)
+            elif thinking:
+                if self.think and self.debug:
+                    print('/think')
+                thinking = False
+            # response
+            if msg.message.content:
+                if self.debug:
+                    print(msg.message.content, end='', flush=True)
+                out_str += msg.message.content
+        return out_str
+
+
+class OpenAIProcessor(SRGELLMProcessor):
+    def __init__(self, model, world, think=True, debug=True):
+        super().__init__(model, world, think, debug)
+
+    def get_models():
+        return ['local']
+    
+    def process(self, prompt, system_prompt, win=4096):
+        out_str = ''
+
+        client = openai.OpenAI(base_url='http://localhost:8080/v1', api_key='sk-no-key-required')
+
+        # generate
+        response = client.chat.completions.create(
+            model='local',
+            messages=[
+                {'role': 'system', 'content': system_prompt},
+                {'role': 'user', 'content': prompt}
+            ],
+            # max_tokens=2048,
+            stream=True,
+        )
+
+        thinking = False
+        for res in response:
+            msg = res.choices[0].delta.content
+            if msg is None:
+                continue
+
+            # think
+            if msg == '<think>':
+                thinking = True
+                if self.think and self.debug:
+                    print('/think')
+                continue
+            elif msg == '</think>':
+                thinking = False
+                if self.think and self.debug:
+                    print('/think')
+                continue
+
+            if thinking:
+                if self.think and self.debug:
+                    print(msg, end='', flush=True)
+            else:
+                # response
+                if self.debug:
+                    print(msg, end='', flush=True)
+                out_str += msg
+        return out_str
+
+
+# main
 if __name__ == '__main__':
-    models = [m.model.replace(':latest', '') for m in ollama.list().models]
+    LLMProcessor = OllamaProcessor
+    # LLMProcessor = OpenAIProcessor
+
+    models = LLMProcessor.get_models()
     if not models:
         print('no models provided!')
         exit()
@@ -305,7 +402,7 @@ if __name__ == '__main__':
 
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
 
-    # python reality-gen.py create <prompt> --output <filename> --model <name>
+    # python srge.py create <prompt> --output <filename> --model <name>
     create_parser = subparsers.add_parser('create', help='Generate a completely new, high-level reality from a short text prompt.')
     create_parser.add_argument('prompt', type=str, help='Short text prompt for reality generation.')
     create_parser.add_argument('--output', '-o', type=str, help='Specify an output file to save the generated reality (e.g., JSON).')
@@ -317,7 +414,7 @@ if __name__ == '__main__':
         help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
     )
 
-    # python reality-gen.py query <prompt> --input <filename> --output <filename> --model <name> --win <size>
+    # python srge.py query <prompt> --input <filename> --output <filename> --model <name> --win <size>
     query_parser = subparsers.add_parser('query', help='Investigate an existing reality with a specific query.')
     query_parser.add_argument('prompt', type=str, help='Specific query to investigate the reality.')
     query_parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality.')
@@ -348,7 +445,7 @@ if __name__ == '__main__':
         help='Specify the maximum context window size (in tokens) for the model during this operation.'
     )
 
-    # python reality-gen.py navigate <prompt> --input <filename> --output <filename> --model <name> --win <size>
+    # python srge.py navigate <prompt> --input <filename> --output <filename> --model <name> --win <size>
     navigate_parser = subparsers.add_parser('navigate', help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively.')
     navigate_parser.add_argument('prompt', type=str, help='Prompt to guide the navigation and elaboration.')
     navigate_parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality.')
@@ -371,11 +468,11 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # main
-    res_json = None
+    result = None
 
     if args.command == 'create':
-        world_json = create(prompt=args.prompt, model=args.model)
-        world = json.loads(world_json)
+        llm_processor = LLMProcessor(model=args.model, world=None, think=True, debug=True)
+        world = llm_processor.create(prompt=args.prompt)
 
         res = {
             'discovery': {
@@ -388,14 +485,13 @@ if __name__ == '__main__':
             },
             'world': world
         }
-        res_json = json.dumps(res, indent=2, ensure_ascii=False)
+        result = json.dumps(res, indent=2, ensure_ascii=False)
 
     elif args.command == 'query':
         with open(args.input, 'r') as f:
             meta = json.loads(f.read())
-            world_json = json.dumps(meta['world'], indent=2, ensure_ascii=False)
-            # print(world_json)
-            res_json = query(args.prompt, model=args.model, world_json=world_json, think=args.think, win=args.win)
+            llm_processor = LLMProcessor(model=args.model, world=meta['world'], think=args.think, debug=True)
+            result = llm_processor.query(args.prompt, win=args.win)
 
     elif args.command == 'navigate':
         with open(args.input, 'r') as f:
@@ -405,41 +501,20 @@ if __name__ == '__main__':
                 'prompt': args.prompt
             })
 
-            world_json = json.dumps(meta['world'], indent=2, ensure_ascii=False)
-            # print(world_json)
+            llm_processor = LLMProcessor(model=args.model, world=meta['world'], think=True, debug=True)
 
-            res_path_man_json = navigate(prompt=args.prompt, model=args.model, world_json=world_json, win=args.win)
-            if res_path_man_json is None:
+            world = llm_processor.navigate(prompt=args.prompt, win=args.win)
+            if world is None:
                 exit()
 
-            path_man = json.loads(res_path_man_json)
+            meta['world'] = world
+            meta['navigation']['max_depth'] = llm_processor.calc_max_depth()
 
-            # insert
-            world = json.loads(world_json)
-            entity = {'manifestation': world}
-
-            for name in path_man['path']:
-                found = False
-                for e in entity['manifestation']['primary_constituents']:
-                    if e['name'] == name:
-                        entity = e
-                        found = True
-                        break
-                if not found:
-                    print(f'invalid entity: {name}')
-                    exit()
-
-            entity['manifestation'] = path_man['manifestation']
-            res_world_json = json.dumps(world, indent=2, ensure_ascii=False)
-
-            meta['world'] = json.loads(res_world_json)
-            meta['navigation']['max_depth'] = calc_max_depth(meta['world'])
-
-            res_json = json.dumps(meta, indent=2, ensure_ascii=False)
+            result = json.dumps(meta, indent=2, ensure_ascii=False)
 
     # ourput
-    if args.output and res_json:
-        print(res_json)
+    if args.output and result:
+        print(result)
         with open(args.output, 'w', encoding='utf-8') as out:
-            out.write(res_json)
+            out.write(result)
             out.flush()
