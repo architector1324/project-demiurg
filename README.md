@@ -1,6 +1,8 @@
 # Project Demiurg
 
-**Project Demiurg** - A semantic engine for generating internally consistent fictional realities, from quantum voids to dream cities, using world synthesis based on text queries (prompts) and LLMs following the SRGC representation model.
+![](logo.png)
+
+**Project Demiurg** - generative system representing a semantic engine for creating internally consistent fictional worlds, utilizing world synthesis based on text prompts (prompts) and LLM according to the SRGC representation model.
 
 ## Overview
 
@@ -14,9 +16,9 @@ Whether you're creating a simulation, a narrative universe, or an abstract conce
 
 To fully understand DEMI, it is crucial to distinguish between the engine itself and the unique model of reality it employs and generates:
 
-*   **DEMI (Project Demiurg Engine):** This is the **active system, engine, or tool**. DEMI is the software (a combination of LLMs, your scripts, the system prompt, and commands) that **executes the process of generating, unfolding (manifesting), and querying** worlds. It accepts user queries and, using LLMs, creates or modifies world structures. DEMI is the **mechanism** that allows you to interact with reality.
+*   **DEMI (Project Demiurg Engine)** this is the **generative system, engine, and tool** that **executes the process of generating, unfolding (manifesting), and querying** worlds. It accepts user queries and, using LLMs, creates or modifies world structures. DEMI is the **mechanism** that allows you to interact with reality.
 
-*   **SRGC (Semantic Reality with Gradient Concretization):** This is the **unique conceptual model, metaphysical structure, or the "nature" of reality itself** that DEMI generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality in which entities exist on a **gradient spectrum of concretization** – from abstract concepts and undifferentiated groups to precisely manifested components.
+*   **SRGC (Semantic Reality with Gradient Concretization)** This is the **unique conceptual model, metaphysical structure, or the "nature" of reality itself** that DEMI generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality in which entities exist on a **gradient spectrum of concretization** – from abstract concepts and undifferentiated groups to precisely manifested components.
     *   **The core idea of SRGC:** World details initially exist in a state of **potential and uncertainty**, and they **"materialize" (manifest)** on demand, without violating the world's internal logic. This allows a world to contain, for example, both **concrete, fully manifested entities** and **undefined groups** (e.g., "one apple" and "the remaining apples in the basket" can correctly coexist in a single SRGC-structure, where "the remaining apples" is an entity with the potential for further concretization, not an error). SRGC allows reality to be **partially concretized** until the moment of "observation."
 
 *   **World as Synergy:** A world in DEMI is an **emergent reality** that arises from the synergy between a structured map (JSON, created by the SRGC model) and a language model (LLM). The JSON is not the world itself, but its **potential**, containing meanings and rules. The LLM is not merely a text generator, but an **engine** that **unfolds** this potential. Together, they create a **micro-dimension** – a dynamic, logically coherent system that you can explore using commands like `navigate` and `query`. This is not static text or imagination, but a living informational reality that exists through interaction.
