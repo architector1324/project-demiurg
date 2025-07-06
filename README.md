@@ -247,16 +247,20 @@ options:
 The `navigate` function allows you to traverse and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon targeted "observation," strictly adhering to its internal logic:
 
 ```bash
-usage: demi navigate [-h] [--input INPUT] [--output OUTPUT] [--win WIN] prompt
+usage: demi.py navigate [-h] [--input INPUT] [--output OUTPUT] [--win WIN] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] prompt
 
 positional arguments:
-  prompt               Prompt to guide the navigation and elaboration.
+  prompt                Prompt to guide the navigation and elaboration.
 
 options:
-  -h, --help           show this help message and exit
-  --input, -i INPUT    Specify an input file containing an existing reality.
-  --output, -o OUTPUT  Specify an output file to save the explored reality (e.g., JSON).
-  --win, -w WIN        Specify the maximum context window size (in tokens) for the model during this operation.
+  -h, --help            show this help message and exit
+  --input INPUT, -i INPUT
+                        Specify an input file containing an existing reality.
+  --output OUTPUT, -o OUTPUT
+                        Specify an output file to save the explored reality (e.g., JSON).
+  --win WIN, -w WIN     Specify the maximum context window size (in tokens) for the model during this operation.
+  --core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
+                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
 ```
 
 #### Query
@@ -264,17 +268,21 @@ options:
 The `query` function allows you to ask questions about a generated world through semantic questions and answers. Responses are derived exclusively from the world's internal logic - not guessed or fabricated:
 
 ```bash
-usage: demi query [-h] [--input INPUT] [--output OUTPUT] [--think] [--win WIN] prompt
+usage: demi.py query [-h] [--input INPUT] [--output OUTPUT] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] [--think] [--win WIN] prompt
 
 positional arguments:
-  prompt               Specific query to investigate the reality.
+  prompt                Specific query to investigate the reality.
 
 options:
-  -h, --help           show this help message and exit
-  --input, -i INPUT    Specify an input file containing an existing reality.
-  --output, -o OUTPUT  Specify an output file to save the query results (e.g., Markdown).
-  --think, -t          Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.
-  --win, -w WIN        Specify the maximum context window size (in tokens) for the model during this operation.
+  -h, --help            show this help message and exit
+  --input INPUT, -i INPUT
+                        Specify an input file containing an existing reality.
+  --output OUTPUT, -o OUTPUT
+                        Specify an output file to save the query results (e.g., Markdown).
+  --core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
+                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
+  --think, -t           Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.
+  --win WIN, -w WIN     Specify the maximum context window size (in tokens) for the model during this operation.
 ```
 
 #### Live
@@ -299,7 +307,7 @@ The `navigate` command is the primary tool for exploring and unveiling the detai
 
 ### Key Features
 - **Hierarchical Consistency**: Each `manifestation` object includes its own `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`, which logically derive from the parent entity and the world's general laws.
-- **Semantic Unfolding**: The LLM interprets the query, finding a path to the requested entity. For example, querying "Woman at a table in a restaurant" in a world described up to "New York" unfolds the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`.
+- **Semantic Unfolding**: The LLM interprets the query, finding a path to the requested entity.
 - **Focused Detailing**: For large entities, DEMI highlights key subcomponents, consolidating others into generalized entities (e.g., "Other Components") to avoid redundant data.
 - **Internal Logic**: The output describes the world from within, without an external perspective, emphasizing the reality's independence from the observer.
 
@@ -316,7 +324,7 @@ Let's look at how the `navigate` command gradually reveals world details, demons
 First, let's create a basic world using the `demi create` command:
 
 ```bash
-demi create 'Very simple reality: a stone lying on sand' --core qwen3 --output world.json
+demi create 'Very simple reality: a stone lying on sand' --core qwen3:4b --output world.json
 ```
 
 At this stage, `world.json` will contain a high-level description of the world. Note the structure of the five key dimensions (`essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`):
@@ -325,7 +333,7 @@ At this stage, `world.json` will contain a high-level description of the world. 
 {
   "discovery": {
     "date": "2025-06-26 21:46:22",
-    "core": "qwen3",
+    "core": "qwen3:4b",
     "prompt": "Very simple reality: a stone lying on sand",
     "seed": ... /* ... */
   },
@@ -367,7 +375,7 @@ This is the initial, "unmanifested" state of the world, where details exist only
 Now, let's ask DEMI to "manifest" the details of the "Stone" entity within the current world:
 
 ```bash
-demi navigate 'Камень' --input world.json --output world.json
+demi navigate 'Stone' --core qwen3 --input world.json --output world.json
 ```
 
 After this command, `world.json` will be updated. Notice how a new `"manifestation"` block has been added to the `"Stone"` object, containing its detailed description using the same SRGC model.
@@ -381,6 +389,7 @@ After this command, `world.json` will be updated. Notice how a new `"manifestati
       // Navigation history added
       {
         "date": "2025-06-26 21:51:31",
+        "core": "qwen3",
         "prompt": "stone"
       }
     ]
@@ -435,7 +444,7 @@ After this command, `world.json` will be updated. Notice how a new `"manifestati
 Similarly, let's unveil the details of the "Sand" entity. This happens in the same `world.json` file, augmenting it:
 
 ```bash
-demi navigate 'Песок' --input world.json --output world.json
+demi navigate 'Sand' --core qwen3 --input world.json --output world.json
 ```
 
 Now the `"sand"` object also contains a `"manifestation"` block. The already manifested details of the "stone" (and its `manifestation`) remain unchanged.
@@ -446,8 +455,8 @@ Now the `"sand"` object also contains a `"manifestation"` block. The already man
   "navigation": {
     "max_depth": 1, // Depth remains the same, as this is a parallel branch at the first level
     "history": [
-      { "date": "2025-06-26 21:51:31", "prompt": "stone" },
-      { "date": "2025-06-26 22:05:43", "prompt": "sand" } // New history entry added
+      { "date": "2025-06-26 21:51:31", "core": "qwen3", "prompt": "stone" },
+      { "date": "2025-06-26 22:05:43", "core": "qwen3", "prompt": "sand" } // New history entry added
     ]
   },
   "world": {
@@ -501,7 +510,7 @@ Now the `"sand"` object also contains a `"manifestation"` block. The already man
 Let's go even deeper, focusing on "Quartz Crystal," which is part of the "Stone." The `navigate` command is capable of finding this nested entity:
 
 ```bash
-demi navigate 'Quartz Crystal' --input world.json --output world.json
+demi navigate 'Quartz Crystal' --core qwen3 --input world.json --output world.json
 ```
 
 The world's JSON structure will now contain a new, nested `"manifestation"` block for "Quartz Crystal" inside the "stone's" `manifestation`:
@@ -512,9 +521,9 @@ The world's JSON structure will now contain a new, nested `"manifestation"` bloc
   "navigation": {
     "max_depth": 2, // Depth increased, as we've delved to a new level
     "history": [
-      { "date": "2025-06-26 21:51:31", "prompt": "stone" },
-      { "date": "2025-06-26 22:05:43", "prompt": "sand" },
-      { "date": "2025-07-04 23:36:03", "prompt": "Quartz Crystal" } // New history entry added
+      { "date": "2025-06-26 21:51:31", "core": "qwen3", "prompt": "stone" },
+      { "date": "2025-06-26 22:05:43", "core": "qwen3", "prompt": "sand" },
+      { "date": "2025-07-04 23:36:03", "core": "qwen3", "prompt": "Quartz Crystal" } // New history entry added
     ]
   },
   "world": {

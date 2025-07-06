@@ -38,7 +38,7 @@ demi create "A candle burning in a dark room (scientifically accurate)" --core q
 **1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_candle_world.json`)*
 ```bash
-demi navigate 'Flame' --input initial_candle_world.json
+demi navigate 'Flame' --core qwen3 --input initial_candle_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -171,7 +171,7 @@ demi create "A water droplet in a vacuum (scientifically accurate)" --core qwen3
 **1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_water_world.json`)*
 ```bash
-demi navigate 'Atom of a water molecule' --input initial_water_world.json
+demi navigate 'Atom of a water molecule' --core qwen3 --input initial_water_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**

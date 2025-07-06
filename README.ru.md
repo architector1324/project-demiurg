@@ -247,16 +247,20 @@ options:
 Функция `navigate` позволяет перемещаться и семантически разворачивать присущие, гранулярные детали существующего мира. Это не произвольная генерация; мир автоматически раскрывает свою предсуществующую сложность и структуру при целенаправленном «наблюдении», строго придерживаясь своей внутренней логики:
 
 ```bash
-usage: demi navigate [-h] [--input INPUT] [--output OUTPUT] [--win WIN] prompt
+usage: demi.py navigate [-h] [--input INPUT] [--output OUTPUT] [--win WIN] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] prompt
 
 positional arguments:
-  prompt               Prompt to guide the navigation and elaboration.
+  prompt                Prompt to guide the navigation and elaboration.
 
 options:
-  -h, --help           show this help message and exit
-  --input, -i INPUT    Specify an input file containing an existing reality.
-  --output, -o OUTPUT  Specify an output file to save the explored reality (e.g., JSON).
-  --win, -w WIN        Specify the maximum context window size (in tokens) for the model during this operation.
+  -h, --help            show this help message and exit
+  --input INPUT, -i INPUT
+                        Specify an input file containing an existing reality.
+  --output OUTPUT, -o OUTPUT
+                        Specify an output file to save the explored reality (e.g., JSON).
+  --win WIN, -w WIN     Specify the maximum context window size (in tokens) for the model during this operation.
+  --core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
+                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
 ```
 
 #### Query
@@ -264,17 +268,21 @@ options:
 Функция `query` позволяет задавать вопросы сгенерированному миру через семантические вопросы и ответы. Ответы выводятся исключительно из внутренней логики мира - не угадываются или выдумываются:
 
 ```bash
-usage: demi query [-h] [--input INPUT] [--output OUTPUT] [--think] [--win WIN] prompt
+usage: demi.py query [-h] [--input INPUT] [--output OUTPUT] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] [--think] [--win WIN] prompt
 
 positional arguments:
-  prompt               Specific query to investigate the reality.
+  prompt                Specific query to investigate the reality.
 
 options:
-  -h, --help           show this help message and exit
-  --input, -i INPUT    Specify an input file containing an existing reality.
-  --output, -o OUTPUT  Specify an output file to save the query results (e.g., Markdown).
-  --think, -t          Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.
-  --win, -w WIN        Specify the maximum context window size (in tokens) for the model during this operation.
+  -h, --help            show this help message and exit
+  --input INPUT, -i INPUT
+                        Specify an input file containing an existing reality.
+  --output OUTPUT, -o OUTPUT
+                        Specify an output file to save the query results (e.g., Markdown).
+  --core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
+                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
+  --think, -t           Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.
+  --win WIN, -w WIN     Specify the maximum context window size (in tokens) for the model during this operation.
 ```
 
 #### Live
@@ -299,7 +307,7 @@ options:
 
 ### Ключевые особенности
 - **Иерархическая согласованность**: Каждый объект `manifestation` включает собственные `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential` и `foundational_state`, которые логически вытекают из родительской сущности и общих законов мира.
-- **Семантическое разворачивание**: LLM интерпретирует запрос, находя путь к запрошенной сущности. Например, запрос "Женщина за столом в ресторане" в мире, описанном до "Нью-Йорк", разворачивает цепочку: `Город -> Район -> Здание -> Ресторан -> Стол -> Женщина`.
+- **Семантическое разворачивание**: LLM интерпретирует запрос, находя путь к запрошенной сущности.
 - **Фокусированная детализация**: Для крупных сущностей DEMI выделяет ключевые подкомпоненты, объединяя остальные в обобщенные сущности (например, "Другие компоненты"), чтобы избежать избыточных данных.
 - **Внутренняя логика**: Вывод описывает мир изнутри, без внешней перспективы, подчеркивая независимость реальности от наблюдателя.
 
@@ -316,7 +324,7 @@ options:
 Сначала создадим базовый мир, используя команду `demi create`:
 
 ```bash
-demi create 'Очень простая реальность: камень, лежащий на песке' --core qwen3 --output world.json
+demi create 'Очень простая реальность: камень, лежащий на песке' --core qwen3:4b --output world.json
 ```
 
 На этом этапе `world.json` будет содержать высокоуровневое описание мира. Обратите внимание на структуру пяти ключевых измерений (`essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`):
@@ -325,7 +333,7 @@ demi create 'Очень простая реальность: камень, ле�
 {
   "discovery": {
     "date": "2025-06-26 21:46:22",
-    "core": "qwen3",
+    "core": "qwen3:4b",
     "prompt": "Очень простая реальность: камень, лежащий на песке",
     "seed": ... /* ... */
   },
@@ -367,10 +375,10 @@ demi create 'Очень простая реальность: камень, ле�
 Теперь попросим DEMI "проявить" детали сущности "Камень" внутри текущего мира:
 
 ```bash
-demi navigate 'Камень' --input world.json --output world.json
+demi navigate 'Камень' --core qwen3 --input world.json --output world.json
 ```
 
-После этой команды `world.json` обновится. Обратите внимание, как к объекту `"Stone"` был добавлен новый блок `"manifestation"`, содержащий его детальное описание по той же SRGC-модели.
+После этой команды `world.json` обновится. Обратите внимание, как к объекту `"камень"` был добавлен новый блок `"manifestation"`, содержащий его детальное описание по той же SRGC-модели.
 
 ```json
 {
@@ -381,6 +389,7 @@ demi navigate 'Камень' --input world.json --output world.json
       // Добавлена история навигации
       {
         "date": "2025-06-26 21:51:31",
+        "core": "qwen3",
         "prompt": "камень"
       }
     ]
@@ -435,10 +444,10 @@ demi navigate 'Камень' --input world.json --output world.json
 Аналогично, раскроем детали сущности "Песок". Это происходит в том же файле `world.json`, дополняя его:
 
 ```bash
-demi navigate 'Песок' --input world.json --output world.json
+demi navigate 'Песок' --core qwen3 --input world.json --output world.json
 ```
 
-Теперь объект `"sand"` также содержит блок `"manifestation"`. Уже проявленные детали "камня" (и его `manifestation`) остаются неизменными.
+Теперь объект `"песок"` также содержит блок `"manifestation"`. Уже проявленные детали "камня" (и его `manifestation`) остаются неизменными.
 
 ```json
 {
@@ -446,8 +455,8 @@ demi navigate 'Песок' --input world.json --output world.json
   "navigation": {
     "max_depth": 1, // Глубина остается прежней, так как это параллельная ветвь на первом уровне
     "history": [
-      { "date": "2025-06-26 21:51:31", "prompt": "камень" },
-      { "date": "2025-06-26 22:05:43", "prompt": "песок" } // Добавлена новая запись в историю
+      { "date": "2025-06-26 21:51:31", "core": "qwen3", "prompt": "камень" },
+      { "date": "2025-06-26 22:05:43", "core": "qwen3", "prompt": "песок" } // Добавлена новая запись в историю
     ]
   },
   "world": {
@@ -501,7 +510,7 @@ demi navigate 'Песок' --input world.json --output world.json
 Пойдем еще глубже, сфокусировавшись на "Кварцевый Кристалл", который является частью "Камня". Команда `navigate` способна найти эту вложенную сущность:
 
 ```bash
-demi navigate 'Кварцевый Кристалл' --input world.json --output world.json
+demi navigate 'Кварцевый Кристалл' --core qwen3 --input world.json --output world.json
 ```
 
 JSON-структура мира теперь будет содержать новый, вложенный блок `"manifestation"` для "Кварцевый Кристалл" внутри `manifestation` "камня":
@@ -512,9 +521,9 @@ JSON-структура мира теперь будет содержать но
   "navigation": {
     "max_depth": 2, // Глубина увеличилась, так как мы погрузились на новый уровень
     "history": [
-      { "date": "2025-06-26 21:51:31", "prompt": "камень" },
-      { "date": "2025-06-26 22:05:43", "prompt": "песок" },
-      { "date": "2025-07-04 23:36:03", "prompt": "Кварцевый Кристалл" } // Добавлена новая запись в историю
+      { "date": "2025-06-26 21:51:31", "core": "qwen3", "prompt": "камень" },
+      { "date": "2025-06-26 22:05:43", "core": "qwen3", "prompt": "песок" },
+      { "date": "2025-07-04 23:36:03", "core": "qwen3", "prompt": "Кварцевый Кристалл" } // Добавлена новая запись в историю
     ]
   },
   "world": {

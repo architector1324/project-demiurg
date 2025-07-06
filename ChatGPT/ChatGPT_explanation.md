@@ -327,7 +327,7 @@ Suppose you have a world with the description:
 You call:
 
 ```bash
-demi navigate "a tree in the Forest of Veiled Echoes" --input world.json
+demi navigate "a tree in the Forest of Veiled Echoes" --core qwen3 --input world.json
 ```
 
 DEMI "zooms in" on the tree and adds to the JSON (within `manifestation`):
@@ -343,7 +343,7 @@ DEMI "zooms in" on the tree and adds to the JSON (within `manifestation`):
 ## 🍃 Further — to a leaf:
 
 ```bash
-demi navigate "a leaf on the tree" --input world.json
+demi navigate "a leaf on the tree" --core qwen3 --input world.json
 ```
 
 Now DEMI will unfold (again, in `manifestation`):
@@ -359,7 +359,7 @@ Now DEMI will unfold (again, in `manifestation`):
 You can go down to:
 
 ```bash
-demi navigate "molecular structure of the leaf's surface" --input world.json
+demi navigate "molecular structure of the leaf's surface" --core qwen3 --input world.json
 ```
 
 And DEMI will continue to unfold (all within `manifestation`):

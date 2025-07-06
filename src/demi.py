@@ -53,6 +53,13 @@ if __name__ == '__main__':
         help='Specify an output file to save the query results (e.g., Markdown).'
     )
     query_parser.add_argument(
+        '--core',
+        '-c',
+        type=str,
+        choices=models if models else None,
+        help=f'Specify the Ollama model to use as semantic core. Available models: {", ".join(models)}'
+    )
+    query_parser.add_argument(
         '--think',
         '-t',
         action='store_true',
@@ -77,6 +84,13 @@ if __name__ == '__main__':
         type=int,
         default=6144,
         help='Specify the maximum context window size (in tokens) for the model during this operation.'
+    )
+    navigate_parser.add_argument(
+        '--core',
+        '-c',
+        type=str,
+        choices=models if models else None,
+        help=f'Specify the Ollama model to use as semantic core. Available models: {", ".join(models)}'
     )
 
     args = parser.parse_args()
@@ -106,18 +120,21 @@ if __name__ == '__main__':
     elif args.command == 'query':
         with open(args.input, 'r') as f:
             meta = json.loads(f.read())
-            llm_processor = LLMProcessor(core=meta['discovery']['core'], world=meta['world'], seed=meta['discovery']['seed'], think=args.think, debug=True)
+            core = args.core if args.core else meta['discovery']['core']
+            llm_processor = LLMProcessor(core=core , world=meta['world'], seed=meta['discovery']['seed'], think=args.think, debug=True)
             result = llm_processor.query(args.prompt, win=args.win)
 
     elif args.command == 'navigate':
         with open(args.input, 'r') as f:
             meta = json.loads(f.read())
+            core = args.core if args.core else meta['discovery']['core']
             meta['navigation']['history'].append({
                 'date': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                'core': core,
                 'prompt': args.prompt
             })
 
-            llm_processor = LLMProcessor(core=meta['discovery']['core'], world=meta['world'], seed=meta['discovery']['seed'], think=True, debug=True)
+            llm_processor = LLMProcessor(core=core, world=meta['world'], seed=meta['discovery']['seed'], think=True, debug=True)
 
             world = llm_processor.navigate(prompt=args.prompt, win=args.win)
             if world is None:

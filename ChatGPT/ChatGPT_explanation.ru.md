@@ -325,7 +325,7 @@ DEMI — это **ядерный реактор смыслов**, а не кор
 Ты вызываешь:
 
 ```bash
-demi navigate "a tree in the Forest of Veiled Echoes" --input world.json
+demi navigate "a tree in the Forest of Veiled Echoes" --core qwen3 --input world.json
 ```
 
 DEMI "приближает" к дереву и добавляет к JSON (внутри `manifestation`):
@@ -341,7 +341,7 @@ DEMI "приближает" к дереву и добавляет к JSON (вн�
 ## 🍃 Дальше — к листику:
 
 ```bash
-demi navigate "a leaf on the tree" --input world.json
+demi navigate "a leaf on the tree" --core qwen3 --input world.json
 ```
 
 Теперь DEMI раскроет (опять же, в `manifestation`):
@@ -357,7 +357,7 @@ demi navigate "a leaf on the tree" --input world.json
 Ты можешь дойти до:
 
 ```bash
-demi navigate "molecular structure of the leaf's surface" --input world.json
+demi navigate "molecular structure of the leaf's surface" --core qwen3 --input world.json
 ```
 
 И DEMI продолжит разворачивать (всё в `manifestation`):
