@@ -51,7 +51,7 @@ Thus, DEMI creates not just lore, but a **reality structured according to the pr
 ### 🔬 Example Usage:
 
 ```bash
-demi create "A world governed by memories" --model qwen3:4b
+demi create "A world governed by memories" --core qwen3:4b
 ```
 
 DEMI will generate JSON, describing:
@@ -110,7 +110,7 @@ This is closer to an **artificial philosophical simulation** than a mere "neural
 And, for example:
 
 ```bash
-demi create "A sentient ocean dreaming of islands" --model qwen3:4b
+demi create "A sentient ocean dreaming of islands" --core qwen3:4b
 ```
 
 ---
@@ -327,7 +327,7 @@ Suppose you have a world with the description:
 You call:
 
 ```bash
-demi navigate "a tree in the Forest of Veiled Echoes" --model qwen3 --input world.json
+demi navigate "a tree in the Forest of Veiled Echoes" --input world.json
 ```
 
 DEMI "zooms in" on the tree and adds to the JSON (within `manifestation`):
@@ -343,7 +343,7 @@ DEMI "zooms in" on the tree and adds to the JSON (within `manifestation`):
 ## 🍃 Further — to a leaf:
 
 ```bash
-demi navigate "a leaf on the tree" --model qwen3 --input world.json
+demi navigate "a leaf on the tree" --input world.json
 ```
 
 Now DEMI will unfold (again, in `manifestation`):
@@ -359,7 +359,7 @@ Now DEMI will unfold (again, in `manifestation`):
 You can go down to:
 
 ```bash
-demi navigate "molecular structure of the leaf's surface" --model qwen3 --input world.json
+demi navigate "molecular structure of the leaf's surface" --input world.json
 ```
 
 And DEMI will continue to unfold (all within `manifestation`):

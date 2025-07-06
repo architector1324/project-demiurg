@@ -209,9 +209,10 @@ JSON data:
 
 # utils
 class DemiLLMProcessor:
-    def __init__(self, model, world, think=True, debug=True):
-        self.model = model
+    def __init__(self, core, world, seed=None, think=True, debug=True):
+        self.core = core
         self.world = world
+        self.seed = seed
         self.think=think
         self.debug=debug
 
@@ -286,8 +287,8 @@ class DemiLLMProcessor:
 
 
 class OllamaProcessor(DemiLLMProcessor):
-    def __init__(self, model, world, think=True, debug=True):
-        super().__init__(model, world, think, debug)
+    def __init__(self, core, world, seed=None, think=True, debug=True):
+        super().__init__(core, world, seed, think, debug)
 
     def get_models():
         return [m.model.replace(':latest', '') for m in ollama.list().models]
@@ -296,18 +297,19 @@ class OllamaProcessor(DemiLLMProcessor):
         out_str = ''
 
         # generate
+        options = ollama.Options()
+        options.num_ctx = win
+        options.seed = self.seed
+
         response = ollama.chat(
-            model=self.model,
+            model=self.core,
             messages=[
                 {'role': 'system', 'content': system_prompt},
                 {'role': 'user', 'content': prompt}
             ],
             stream=True,
             think=self.think,
-            options={
-                'num_ctx': win,
-                # 'num_thread': 8
-            }
+            options=options
         )
 
         if self.think and self.debug:
@@ -332,11 +334,11 @@ class OllamaProcessor(DemiLLMProcessor):
 
 
 class OpenAIProcessor(DemiLLMProcessor):
-    def __init__(self, model, world, think=True, debug=True):
-        super().__init__(model, world, think, debug)
+    def __init__(self, core, world, seed=None, think=True, debug=True):
+        super().__init__(core, world, seed, think, debug)
 
     def get_models():
-        return ['local']
+        return ['qwen3:4b']
     
     def process(self, prompt, system_prompt, win=4096):
         out_str = ''
@@ -345,13 +347,14 @@ class OpenAIProcessor(DemiLLMProcessor):
 
         # generate
         response = client.chat.completions.create(
-            model='local',
+            model=self.core,
             messages=[
                 {'role': 'system', 'content': system_prompt},
                 {'role': 'user', 'content': prompt}
             ],
-            # max_tokens=2048,
+            temperature=0.6, # important for stable reproducible with seed
             stream=True,
+            seed=self.seed
         )
 
         thinking = False

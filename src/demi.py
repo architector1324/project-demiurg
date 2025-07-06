@@ -1,4 +1,5 @@
 import json
+import random
 import datetime
 import argparse
 
@@ -22,19 +23,26 @@ if __name__ == '__main__':
 
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
 
-    # demi create <prompt> --output <filename> --model <name>
+    # demi create <prompt> --output <filename> --core <name>
     create_parser = subparsers.add_parser('create', help='Generate a completely new, high-level reality from a short text prompt.')
     create_parser.add_argument('prompt', type=str, help='Short text prompt for reality generation.')
     create_parser.add_argument('--output', '-o', type=str, help='Specify an output file to save the generated reality (e.g., JSON).')
     create_parser.add_argument(
-        '--model',
-        '-m',
+        '--core',
+        '-c',
         type=str,
         choices=models if models else None,
-        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
+        help=f'Specify the Ollama model to use as semantic core. Available models: {", ".join(models)}'
+    )
+    create_parser.add_argument(
+        '--seed',
+        '-s',
+        type=int,
+        default=random.randint(0, 2**32 - 1),
+        help='Specify a numerical seed for reproducible reality generation. If not provided, a random seed will be used.'
     )
 
-    # demi query <prompt> --input <filename> --output <filename> --model <name> --win <size>
+    # demi query <prompt> --input <filename> --output <filename> --core <name> --win <size>
     query_parser = subparsers.add_parser('query', help='Investigate an existing reality with a specific query.')
     query_parser.add_argument('prompt', type=str, help='Specific query to investigate the reality.')
     query_parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality.')
@@ -43,13 +51,6 @@ if __name__ == '__main__':
         '-o',
         type=str,
         help='Specify an output file to save the query results (e.g., Markdown).'
-    )
-    query_parser.add_argument(
-        '--model',
-        '-m',
-        type=str,
-        choices=models if models else None,
-        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
     )
     query_parser.add_argument(
         '--think',
@@ -65,18 +66,11 @@ if __name__ == '__main__':
         help='Specify the maximum context window size (in tokens) for the model during this operation.'
     )
 
-    # demi navigate <prompt> --input <filename> --output <filename> --model <name> --win <size>
+    # demi navigate <prompt> --input <filename> --output <filename> --core <name> --win <size>
     navigate_parser = subparsers.add_parser('navigate', help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively.')
     navigate_parser.add_argument('prompt', type=str, help='Prompt to guide the navigation and elaboration.')
     navigate_parser.add_argument('--input', '-i', type=str, default='world.json', help='Specify an input file containing an existing reality.')
     navigate_parser.add_argument('--output', '-o', type=str, help='Specify an output file to save the explored reality (e.g., JSON).')
-    navigate_parser.add_argument(
-        '--model',
-        '-m',
-        type=str,
-        choices=models if models else None,
-        help=f'Specify the Ollama model to use. Available models: {", ".join(models)}'
-    )
     navigate_parser.add_argument(
         '--win',
         '-w',
@@ -91,13 +85,15 @@ if __name__ == '__main__':
     result = None
 
     if args.command == 'create':
-        llm_processor = LLMProcessor(model=args.model, world=None, think=True, debug=True)
+        llm_processor = LLMProcessor(core=args.core, world=None, seed=args.seed, think=True, debug=True)
         world = llm_processor.create(prompt=args.prompt)
 
         res = {
             'discovery': {
                 'date': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                'prompt': args.prompt
+                'core': args.core,
+                'prompt': args.prompt,
+                'seed': args.seed,
             },
             'navigation': {
                 'max_depth': 0,
@@ -110,7 +106,7 @@ if __name__ == '__main__':
     elif args.command == 'query':
         with open(args.input, 'r') as f:
             meta = json.loads(f.read())
-            llm_processor = LLMProcessor(model=args.model, world=meta['world'], think=args.think, debug=True)
+            llm_processor = LLMProcessor(core=meta['discovery']['core'], world=meta['world'], seed=meta['discovery']['seed'], think=args.think, debug=True)
             result = llm_processor.query(args.prompt, win=args.win)
 
     elif args.command == 'navigate':
@@ -121,7 +117,7 @@ if __name__ == '__main__':
                 'prompt': args.prompt
             })
 
-            llm_processor = LLMProcessor(model=args.model, world=meta['world'], think=True, debug=True)
+            llm_processor = LLMProcessor(core=meta['discovery']['core'], world=meta['world'], seed=meta['discovery']['seed'], think=True, debug=True)
 
             world = llm_processor.navigate(prompt=args.prompt, win=args.win)
             if world is None:

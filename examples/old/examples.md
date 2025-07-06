@@ -32,13 +32,13 @@ These examples demonstrate DEMI's ability to model real-world physical and scien
 
 **1.1. World Creation (Initial `create`):**
 ```bash
-demi create "A candle burning in a dark room (scientifically accurate)" --model qwen3:4b
+demi create "A candle burning in a dark room (scientifically accurate)" --core qwen3:4b
 ```
 
 **1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_candle_world.json`)*
 ```bash
-demi navigate 'Flame' --model qwen3 --input initial_candle_world.json
+demi navigate 'Flame' --input initial_candle_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -165,13 +165,13 @@ This example demonstrates DEMI's ability to create **deep, scientifically accura
 
 **1.1. World Creation (Initial `create`):**
 ```bash
-demi create "A water droplet in a vacuum (scientifically accurate)" --model qwen3:4b
+demi create "A water droplet in a vacuum (scientifically accurate)" --core qwen3:4b
 ```
 
 **1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_water_world.json`)*
 ```bash
-demi navigate 'Atom of a water molecule' --model qwen3 --input initial_water_world.json
+demi navigate 'Atom of a water molecule' --input initial_water_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -299,7 +299,7 @@ This example demonstrates two key capabilities of DEMI:
 
 #### **1. Used Prompt/Command**
 ```bash
-demi create "Our Solar System" --model qwen3:4b
+demi create "Our Solar System" --core qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -390,7 +390,7 @@ This category showcases DEMI's ability to model complex living systems, from the
 
 #### **1. Used Prompt/Command**
 ```bash
-demi create "Ant colony" --model qwen3:4b
+demi create "Ant colony" --core qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -451,7 +451,7 @@ This section demonstrates DEMI's versatility in generating rich **realities for 
 
 #### **1. Used Prompt/Command**
 ```bash
-demi create "Magical world with knights, magic, and villains" --model qwen3:4b
+demi create "Magical world with knights, magic, and villains" --core qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -508,7 +508,7 @@ This example demonstrates DEMI's versatility and its ability to create **rich, i
 
 #### **1. Used Prompt/Command**
 ```bash
-demi create "World of Cyberpunk 2077" --model qwen3:4b
+demi create "World of Cyberpunk 2077" --core qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -563,7 +563,7 @@ This example vividly demonstrates DEMI's ability to **generate realities for spe
 
 #### **1. Used Prompt/Command**
 ```bash
-demi create "World of The Elder Scrolls V: Skyrim" --model qwen3:4b
+demi create "World of The Elder Scrolls V: Skyrim" --core qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -624,7 +624,7 @@ This category highlights DEMI's unique ability to **model highly abstract, metap
 
 #### **1. Used Prompt/Command**
 ```bash
-demi create "City built inside the heads of sleeping titans" --model qwen3:4b
+demi create "City built inside the heads of sleeping titans" --core qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
@@ -669,7 +669,7 @@ This example is a vivid illustration of **DEMI's remarkable creativity and auton
 
 #### **1. Used Prompt/Command**
 ```bash
-demi create "World consisting only of numbers and their relationships" --model qwen3:4b
+demi create "World consisting only of numbers and their relationships" --core qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**

@@ -32,13 +32,13 @@
 
 **1.1. Создание Мира (Начальный `create`):**
 ```bash
-demi create "Горящая свеча в темной комнате (научно точно)" --model qwen3:4b
+demi create "Горящая свеча в темной комнате (научно точно)" --core qwen3:4b
 ```
 
 **1.2. Навигация (Последующий `navigate`):**
 *(Использует JSON, сгенерированный в шаге 1.1, в качестве входного файла `initial_candle_world.json`)*
 ```bash
-demi navigate 'Пламя' --model qwen3 --input initial_candle_world.json
+demi navigate 'Пламя' --input initial_candle_world.json
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -173,13 +173,13 @@ demi navigate 'Пламя' --model qwen3 --input initial_candle_world.json
 
 **1.1. Создание Мира (Начальный `create`):**
 ```bash
-demi create "Капля воды в вакууме (научно точно)" --model qwen3:4b
+demi create "Капля воды в вакууме (научно точно)" --core qwen3:4b
 ```
 
 **1.2. Навигация (Последующий `navigate`):**
 *(Использует JSON, сгенерированный в шаге 1.1, в качестве входного файла `initial_water_world.json`)*
 ```bash
-demi navigate 'Атом молекулы воды' --model qwen3 --input initial_water_world.json
+demi navigate 'Атом молекулы воды' --input initial_water_world.json
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -307,7 +307,7 @@ demi navigate 'Атом молекулы воды' --model qwen3 --input initial
 
 #### **1. Использованный Промпт/Команда**
 ```bash
-demi create "Наша Солнечная Система" --model qwen3:4b
+demi create "Наша Солнечная Система" --core qwen3:4b
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -398,7 +398,7 @@ demi create "Наша Солнечная Система" --model qwen3:4b
 
 #### **1. Использованный Промпт/Команда**
 ```bash
-demi create "Колония муравьев" --model qwen3:4b
+demi create "Колония муравьев" --core qwen3:4b
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -459,7 +459,7 @@ demi create "Колония муравьев" --model qwen3:4b
 
 #### **1. Использованный Промпт/Команда**
 ```bash
-demi create "Волшебный мир с рыцарями, магией и злодеями" --model qwen3:4b
+demi create "Волшебный мир с рыцарями, магией и злодеями" --core qwen3:4b
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -516,7 +516,7 @@ demi create "Волшебный мир с рыцарями, магией и зл
 
 #### **1. Использованный Промпт/Команда**
 ```bash
-demi create "Мир Cyberpunk 2077" --model qwen3:4b
+demi create "Мир Cyberpunk 2077" --core qwen3:4b
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -571,7 +571,7 @@ demi create "Мир Cyberpunk 2077" --model qwen3:4b
 
 #### **1. Использованный Промпт/Команда**
 ```bash
-demi create "Мир The Elder Scrolls V: Skyrim" --model qwen3:4b
+demi create "Мир The Elder Scrolls V: Skyrim" --core qwen3:4b
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -632,7 +632,7 @@ demi create "Мир The Elder Scrolls V: Skyrim" --model qwen3:4b
 
 #### **1. Использованный Промпт/Команда**
 ```bash
-demi create "Город, построенный внутри голов спящих титанов" --model qwen3:4b
+demi create "Город, построенный внутри голов спящих титанов" --core qwen3:4b
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**
@@ -677,7 +677,7 @@ demi create "Город, построенный внутри голов спящ
 
 #### **1. Использованный Промпт/Команда**
 ```bash
-demi create "Мир, состоящий только из чисел и их взаимосвязей" --model qwen3:4b
+demi create "Мир, состоящий только из чисел и их взаимосвязей" --core qwen3:4b
 ```
 
 #### **2. Цель Демонстрации / Что предполагалось показать**

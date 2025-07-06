@@ -51,7 +51,7 @@ DEMI **преобразует текстовые запросы в строго 
 ### 🔬 Пример использования:
 
 ```bash
-demi create "A world governed by memories" --model qwen3:4b
+demi create "A world governed by memories" --core qwen3:4b
 ```
 
 DEMI сгенерирует JSON, где будет описано:
@@ -110,7 +110,7 @@ DEMI сгенерирует JSON, где будет описано:
 И, например:
 
 ```bash
-demi create "A sentient ocean dreaming of islands" --model qwen3:4b
+demi create "A sentient ocean dreaming of islands" --core qwen3:4b
 ```
 
 ---
@@ -325,7 +325,7 @@ DEMI — это **ядерный реактор смыслов**, а не кор
 Ты вызываешь:
 
 ```bash
-demi navigate "a tree in the Forest of Veiled Echoes" --model qwen3 --input world.json
+demi navigate "a tree in the Forest of Veiled Echoes" --input world.json
 ```
 
 DEMI "приближает" к дереву и добавляет к JSON (внутри `manifestation`):
@@ -341,7 +341,7 @@ DEMI "приближает" к дереву и добавляет к JSON (вн�
 ## 🍃 Дальше — к листику:
 
 ```bash
-demi navigate "a leaf on the tree" --model qwen3 --input world.json
+demi navigate "a leaf on the tree" --input world.json
 ```
 
 Теперь DEMI раскроет (опять же, в `manifestation`):
@@ -357,7 +357,7 @@ demi navigate "a leaf on the tree" --model qwen3 --input world.json
 Ты можешь дойти до:
 
 ```bash
-demi navigate "molecular structure of the leaf's surface" --model qwen3 --input world.json
+demi navigate "molecular structure of the leaf's surface" --input world.json
 ```
 
 И DEMI продолжит разворачивать (всё в `manifestation`):

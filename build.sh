@@ -9,6 +9,7 @@ pip install --upgrade pip
 pip install pyinstaller
 pip install ollama openai
 
+rm build/demi.py build/demi_core.py
 cp ./src/demi.py ./src/demi_core.py -t build/
 
 cd build

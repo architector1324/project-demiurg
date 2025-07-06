@@ -133,7 +133,7 @@ When `navigate` is invoked, the user specifies a focal point or conceptual path 
 The command returns the **complete, modified JSON of the world**, where the selected constituent is updated or created with its new, deeper manifestation. This allows for recursive exploration, creating an increasingly detailed **SRGC-structured map** of your fictional reality.
 
 > Example:
-> `demi navigate 'Sand' --model qwen3 --input world.json`
+> `demi navigate 'Sand' --input world.json`
 
 ### **Semantic Navigation in Action: Unfolding a Woman in a Metropolis**
 
@@ -156,7 +156,7 @@ This example demonstrates the **true power of semantic navigation (unfolding)** 
 
 **Navigation Query:**
 ```bash
-demi navigate 'A woman sitting at a table in a restaurant' --model qwen3 --input world.json
+demi navigate 'A woman sitting at a table in a restaurant' --input world.json
 ```
 
 **Result (schematic representation of unfolded reality, showing full chain of manifestations with expanded depth):**
