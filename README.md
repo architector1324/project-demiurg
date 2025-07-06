@@ -2,87 +2,178 @@
 
 ![](logo.png)
 
-**Project Demiurg** - generative system representing a semantic engine for creating internally consistent fictional worlds, utilizing world synthesis based on text prompts (prompts) and LLM according to the SRGC representation model.
+**Project Demiurg** - a generative system representing a semantic engine for creating internally coherent fictional realities, utilizing world synthesis based on text queries (prompts) and LLMs according to the SRGC representation model.
 
 ## Overview
 
-**DEMI** (the **Project Demiurg Engine** tool) is a system that transforms text queries into **self-contained fictional realities**, structured according to the **SRGC representation model**. Utilizing a multi-agent system based on local **Large Language Models (LLMs)** via [Ollama](https://ollama.com/), it generates semantic [JSON](https://www.json.org) structures that don't just describe, but also form the foundation for the existence and evolution of complex worlds in accordance with their own internal logic, adhering to **SRGC principles**.
+**DEMI** (the **Project Demiurg Engine** tool) is a tool that transforms text queries into **self-contained fictional realities**, structured according to the **SRGC representation model**. Using a multi-agent system based on local **Large Language Models (LLMs)** via [Ollama](https://ollama.com/), it generates semantic [JSON](https://www.json.org) structures that do not just describe but form the foundation for the existence and evolution of complex worlds in accordance with their own internal logic, adhering to **SRGC** principles.
 
-Whether you're creating a simulation, a narrative universe, or an abstract conceptual model, DEMI provides a fundamental structure based on pure semantic meaning.
+Whether you are creating a simulation, a narrative universe, or an abstract conceptual model, DEMI provides a fundamental structure rooted in pure semantic meaning.
 
 ---
 
 ## Key Concepts
 
-To fully understand DEMI, it is crucial to distinguish between the engine itself and the unique model of reality it employs and generates:
+To fully understand DEMI, it is crucial to distinguish between the engine itself and the unique model of reality it uses and generates.
 
-*   **DEMI (Project Demiurg Engine)** this is the **generative system, engine, and tool** that **executes the process of generating, unfolding (manifesting), and querying** worlds. It accepts user queries and, using LLMs, creates or modifies world structures. DEMI is the **mechanism** that allows you to interact with reality.
+### Project Demiurg Engine
+**DEMI (Project Demiurg Engine)** is a **generative system, an engine, and a tool** that **performs the process of generating, unfolding (manifesting), and querying** worlds. It accepts user prompts and, using LLMs, creates or modifies world structures. DEMI is the **mechanism** that allows you to interact with reality.
 
-*   **SRGC (Semantic Reality with Gradient Concretization)** This is the **unique conceptual model, metaphysical structure, or the "nature" of reality itself** that DEMI generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality in which entities exist on a **gradient spectrum of concretization** – from abstract concepts and undifferentiated groups to precisely manifested components.
-    *   **The core idea of SRGC:** World details initially exist in a state of **potential and uncertainty**, and they **"materialize" (manifest)** on demand, without violating the world's internal logic. This allows a world to contain, for example, both **concrete, fully manifested entities** and **undefined groups** (e.g., "one apple" and "the remaining apples in the basket" can correctly coexist in a single SRGC-structure, where "the remaining apples" is an entity with the potential for further concretization, not an error). SRGC allows reality to be **partially concretized** until the moment of "observation."
+### SRGC Representation Model
+**SRGC (Semantic Reality with Gradient Concretization)** is a conceptual model of semantic reality with gradient concretization. It is a **unique conceptual model, a metaphysical structure, or the "nature" of reality itself** that DEMI generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality where entities exist in a **gradient spectrum of concretization** - from abstract concepts and undifferentiated groups to precisely manifested components.
 
-*   **World as Synergy:** A world in DEMI is an **emergent reality** that arises from the synergy between a structured map (JSON, created by the SRGC model) and a language model (LLM). The JSON is not the world itself, but its **potential**, containing meanings and rules. The LLM is not merely a text generator, but an **engine** that **unfolds** this potential. Together, they create a **micro-dimension** – a dynamic, logically coherent system that you can explore using commands like `navigate` and `query`. This is not static text or imagination, but a living informational reality that exists through interaction.
+**Key idea of SRGC:** World details initially exist in a state of **potential and uncertainty**, and they **"materialize" (manifest)** on demand, without violating the world's internal logic. This allows a world to contain, for example, both **concrete, fully manifested entities** and **undefined groups**. SRGC allows reality to be **partially concretized** until the moment of "observation." For instance, "one apple" and "the remaining apples in the basket" can coexist correctly in one SRGC-structure, where "remaining apples" is an entity with the potential for further concretization, not an error.
+
+**World as Synergy:** A world in DEMI is an **emergent reality** that arises from the synergy between a structured map (JSON, created by the SRGC model) and a language model (LLM). The JSON is not the world itself, but its **potential**, containing meanings and rules. The LLM is not just a text generator, but the **engine** that **unveils** this potential. Together, they create a **micro-dimension** - a dynamic, logically coherent system that you can explore using commands like `navigate` and `query`. This is not static text or imagination, but a living informational reality existing in the process of interaction.
 
 ---
 
 ## Interactive Exploration
 
-For a more intuitive understanding of DEMI's structured outputs, we offer tools for visualizing generated realities:
+For a more intuitive understanding of DEMI's structured outputs, we offer tools for visualizing generated realities.
+
+### Project Website
+
+For a general overview of DEMI and an integrated experience, a dedicated [project website](https://architector1324.github.io/project-demiurg/index.html) is available.
 
 ### Local Visualizer
 
 An interactive graph visualizer is available for local use, allowing you to explore the **gradient concretization structure** of DEMI worlds directly on your machine.
 
-*   **Location:** The standalone visualizer is located at [`visualizer/visualizer.ru.html`](./visualizer/visualizer.ru.html) in this repository.
+*   **Location:** The standalone visualizer is located at [`visualizer/visualizer.html`](./visualizer/visualizer.html) in this repository.
 *   **Usage:** Open `visualizer.html` in your web browser. You can paste any generated DEMI JSON output into the text field or load an example to see its internal structure as a dynamic, unfolding graph.
-
-### Project Online Hub
-
-For a general overview of DEMI and an integrated experience, a dedicated project website is available.
-
-*   **Visit the website:** [architector1324.github.io/project-demiurg/index.ru.html](https://architector1324.github.io/project-demiurg/index.ru.html)
 
 ---
 
-## First Steps and Key Philosophy: A Dialogue with ChatGPT
+## Getting Started
 
-Are you interested in learning about DEMI's unique approach to reality generation and how it handles seemingly impossible concepts like infinite detail in a finite file? We've recorded a real conversation that serves as an accessible introduction to DEMI's key ideas, philosophy, and practical applications, **especially in how it generates realities and allows navigation through them based on SRGC.**
+### ChatGPT
+If you're curious about DEMI's unique approach to reality generation and how it handles seemingly impossible concepts like infinite detail in a finite file? We've recorded a real conversation with **ChatGPT** that serves as an accessible introduction to DEMI's key ideas, philosophy, and practical applications, **especially in how it generates and allows navigation of realities based on SRGC.**
 
-**The full dialogue is available here:** [DEMI Explained: An Introductory Dialogue](./ChatGPT/ChatGPT_explanation.ru.md)
+**The full dialogue is available here:** [DEMI: Explanatory Introduction Dialogue](./ChatGPT/ChatGPT_explanation.md)
 
-## Usage Examples
+### Example World
 
-Explore a wide range of generated worlds and assess DEMI's capabilities in action, from scientifically accurate systems to fictional universes and abstract concepts.
+To better understand the structure of realities generated by **DEMI**, let's consider an example of the simplest world - "a stone lying on sand." This world is created using the `demi create` command, which takes a brief text query (prompt) and uses an LLM (in this case, `qwen3:4b`) to form the initial SRGC structure of the world.
 
-**View the full catalog of examples here:** [DEMI World Generation Examples Catalog (outdated)](./examples/old/examples.ru.md)
+```bash
+demi create 'Very simple reality: a stone lying on sand' --core qwen3:4b --output world.json
+```
 
-## Motivation / Philosophy
+Below is the JSON output, which serves as the "blueprint" or **potential** of this newly created world, structured according to the SRGC model. It contains five key dimensions describing fundamental aspects of reality:
 
-DEMI was born from a desire to explore the true capabilities of Large Language Models beyond simple conversation or data extraction. It represents a **metaphysical experiment** - a quest to use LLMs as semantic engines capable of constructing self-sufficient, internally consistent realities, **governed by SRGC**. The project aims to demonstrate that even smaller, locally run models can serve as a "semantic core," enabling the creation and simulation of complex worlds at any level of detail, entirely independent of external human interpretation, **in accordance with its principles**. This project challenges the very notion of what constitutes "reality" and how it can be synthetically generated **through the lens of SRGC.**
+```json
+{
+  "discovery": {
+    "date": "2025-07-06 15:31:54",
+    "core": "qwen3:4b",
+    "prompt": "Very simple reality: a stone lying on sand",
+    "seed": 1135929174
+  },
+  "navigation": {
+    "max_depth": 0,
+    "history": []
+  },
+  "world": {
+    "essence": "A static, physical arrangement of a stone resting on a granular substrate, governed by fundamental physical and environmental principles.",
+    "primary_constituents": [
+      {
+        "name": "Stone",
+        "description": "A solid, inorganic object composed of crystalline mineral structures, exhibiting rigidity and resistance to deformation."
+      },
+      {
+        "name": "Sand",
+        "description": "A granular, inorganic material consisting of tiny, irregularly shaped particles of silicate minerals, characterized by low cohesion and high surface area."
+      }
+    ],
+    "governing_framework": [
+      "Gravity as a universal force maintaining the stone's contact with the sand.",
+      "Physical properties of the stone (density, rigidity) and sand (porosity, friction) determining stability.",
+      "Environmental context of a dry, terrestrial surface with minimal atmospheric interaction."
+    ],
+    "driving_forces_and_potential": [
+      "Gravitational attraction between the stone and the sand's underlying substrate.",
+      "Mechanical interlocking between the stone's surface and sand particles.",
+      "Potential for translational motion if external forces alter the sand's structure."
+    ],
+    "foundational_state": "The stone occupies a localized spatial position above a contiguous sand surface, with no net movement and equilibrium between the stone's mass and the sand's granular support."
+  }
+}
+```
 
-## Core Features
+**Structure Breakdown:**
 
-DEMI offers a powerful set of capabilities designed to bring complex realities to life:
+*   **`discovery`**: Metadata about the world creation process – date, the LLM model used (`core`), the initial prompt (`prompt`), and a `seed` for reproducibility.
+*   **`navigation`**: Internal data used by DEMI to track the depth of detail (`max_depth`) and the history of "dives" into the world (`history`). In the initial world, `max_depth` is always `0`.
+*   **`world`**: The central object containing the semantic description of reality. It consists of five main fields that form its foundation:
+    *   **`essence`**: The fundamental nature and concept of this specific world. Here, it is "a static, physical arrangement of a stone resting on a granular substrate."
+    *   **`primary_constituents`**: The main entities or elements that make up the world at this level of abstraction. In this case, "Stone" and "Sand". Note that they are only described at a high level; their deeper details still exist in a state of potential.
+    *   **`governing_framework`**: The laws and rules governing the world's functioning and the interaction of its components. For "stone on sand," these are gravity, physical properties of materials, and the environment.
+    *   **`driving_forces_and_potential`**: Dynamic forces stimulating potential evolution, changes, or states within the world. Here, these are the forces holding the stone in place and the potential for movement.
+    *   **`foundational_state`**: The initial, equilibrium state from which reality originates. For our world, it's "the stone occupies a localized spatial position above a contiguous sand surface...".
 
-*   **Prompt-Based Reality Synthesis:** Simply provide a brief text query, and DEMI will generate a unique, detailed fictional reality, tailored to your vision, **structured by SRGC.**
-*   **Deep SRGC-Structure:** Each generated world is represented as a **structured JSON representation**, meticulously defining its existence across five core dimensions, **consistent with its reality framework**. This is not just text; it's a blueprint of a living world:
-    *   `essence`: The fundamental nature and defining concept of the reality.
-    *   `primary_constituents`: The main entities, elements, or principles that form its foundation.
-    *   `governing_framework`: The internal laws and rules that define the world's operating principles.
-    *   `driving_forces_and_potential`: Dynamic elements that drive change, evolution, and create narrative possibilities.
-    *   `foundational_state`: The initial conditions and primal state from which the reality originates.
-*   **Unprecedented Consistency and Versatility:** DEMI ensures **genre-independent** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the grim depths of cyberpunk, the generated realities will always adhere to their own logical structure.
-*   **Pure Internal Logic:** Unlike typical game or narrative engines, DEMI focuses exclusively on the **internal logic of the world itself**, **defined by SRGC principles**. There is no "player orientation" here – reality exists independently, driven by its own internal dynamics.
-*   **Reality as Observation:** Worlds created by DEMI are inherently infinitely complex and possess the potential for infinite detail. However, due to technical limitations in storing an infinite volume of data on a computer, their representation acquires a **quantum nature**, **consistent with its nature**: world details are initially **undetermined and in a state of potentiality**, similar to quantum mechanics principles. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `navigate` command), **in accordance with SRGC's gradient concretization principle.**
+This JSON is not just text, but a **self-contained, internally logical informational structure** that awaits "observation" to reveal its infinite detail, as will be shown in the [Semantic Navigation](#semantic-navigation) section.
 
-    **Important: This does not contradict the declared independence of the world from an external observer.** The LLM acts as an **"unfolder" of its inherent complexity**, not its arbitrary generator. An external observer, by requesting a deeper dive, does not **alter** the world or its internal laws, nor introduces anything external. They merely **prompt the world to "unfold"** that part of its structure which is already intrinsically embedded within its fundamental semantic fabric, **following its rules**. This process always occurs **strictly in accordance with the internal rules and logic of the reality itself**. Thus, the observer does not create a new reality, but rather **explores** an already existing one, merely moving to a deeper level of its manifestation. This ensures that even with deep exploration, the world remains absolutely internally consistent and true to its original laws.
-*   **Local and Autonomous:** Run DEMI entirely on your computer without an internet connection. Powered by Ollama, it provides a self-contained environment for generating and exploring realities.
+## Use Cases
+
+Explore a wide range of generated worlds and evaluate DEMI's capabilities in action, from scientifically accurate systems to fictional universes and abstract concepts.
+
+**View the full catalog of examples here:** [Catalog of DEMI World Generation Examples (Outdated)](./examples/old/examples.md)
+
+## Motivation
+
+DEMI was born from a desire to explore the true capabilities of large language models beyond simple conversation or data extraction. It represents a **metaphysical experiment** - a search for a way to use LLMs as semantic engines capable of constructing self-sufficient, internally consistent realities, **governed by SRGC**.
+
+The project's goal is to demonstrate that even smaller, locally run models can serve as a "semantic core," allowing the creation and simulation of complex worlds at any level of detail, entirely independent of external human interpretation, **in accordance with its principles**. This project challenges the very notion of what constitutes "reality" and how it can be synthetically generated **through the lens of SRGC.**
+
+---
+
+## Key Features
+
+DEMI provides a unique set of capabilities for creating and exploring complex, internally consistent fictional realities based on the **SRGC** (Semantic Reality with Gradient Concretization) model. Here are the main features:
+
+### Reality Generation from Text Prompts
+
+- DEMI transforms short text queries into unique, detailed realities, fully tailored to your vision.
+- Each reality is formed in accordance with SRGC principles, ensuring logical integrity and depth.
+
+### Structured World Representation
+
+- Realities are presented as **JSON structures** that serve as a "blueprint" of the world, describing it through five key dimensions:
+  - **essence**: The fundamental nature and concept of reality.
+  - **primary_constituents**: The main entities or elements comprising the world.
+  - **governing_framework**: The laws and rules governing the world's functioning.
+  - **driving_forces_and_potential**: Dynamic forces stimulating evolution and changes.
+  - **foundational_state**: The initial state from which reality originates.
+- This structure doesn't just describe the world; it defines its internal logic and potential.
+
+### Internal Consistency and Versatility
+
+- DEMI creates **genre-independent** realities, from quantum physics to cyberpunk, maintaining their internal logical coherence.
+- Worlds exist independently of the user, without player orientation, which distinguishes DEMI from traditional game or narrative engines.
+
+### "Reality as Observation" Principle
+
+- DEMI worlds possess the potential for infinite detail, but their details remain in a state of **potentiality** until "observed" via the `navigate` command.
+- Inspired by quantum mechanics, this process (SRGC's gradient concretization) unveils world details without violating its internal logic.
+- The user does not create or modify the world but merely prompts it to **unfold** an already existing semantic structure, ensuring absolute consistency.
+
+### Autonomy and Local Operation
+
+- DEMI runs entirely locally using Ollama, requiring no internet connection.
+- This provides an autonomous, self-sufficient environment for generating and exploring realities.
+
+### Semantic Power of LLMs
+
+- The LLMs used (e.g., `qwen3:4b`, `qwen3`) act as a "semantic core," revealing the world's complexity through query interpretation.
+- The LLM does not generate arbitrary content but acts as a tool that manifests the world's internal logic, defined by SRGC.
+---
 
 ## Installation
 
 To run DEMI locally, you will need **Ollama** installed and configured, as well as the `qwen3:4b`/`qwen3` models.
 
-1.  **Install Ollama:** Follow the official instructions on [ollama.com](https://ollama.com/) to install Ollama on your system.
+1.  **Install Ollama:** Follow the official instructions at [ollama.com](https://ollama.com/) to install Ollama on your system.
 
 2.  **Download models:**
 
@@ -97,185 +188,409 @@ To run DEMI locally, you will need **Ollama** installed and configured, as well 
     git clone https://github.com/architector1324/project-demiurg
     ```
 
-4.  **Install Python dependencies (if any):**
+4.  **Build the binary via script:**
 
     ```bash
-    pip install ollama
+    chmod +x build.sh
+    ./build.sh
+    ./demi --help
     ```
+
+5. **Install the utility** for convenience:
+    ```bash
+    cp ./demi /usr/bin/
+    demi --help
+    ```
+
+---
 
 ## Commands
 
-| Command    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Status     |
-| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- |
-| `create` | Create a brand new, high-level reality from a brief query (prompt).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Ready**  |
-| `query`  | Ask questions to the generated world through semantic Q&A. Answers are derived solely from the world's internal logic - not guessed or fabricated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | **Ready**  |
-| `navigate` | Navigate and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon targeted "observation," strictly adhering to its internal logic, **as defined by SRGC.**                                                                                                                                                                                                                                                                                                                                          | **Ready**  |
-| `live`   | Simulate the dynamic evolution and events within a generated world based on its internal forces and rules.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | *In plans* |
+#### `demi` utility
 
-## Semantic Navigation (Reality Unfolding)
-
-The `navigate` command is the primary mechanism for **exploring and unfolding the inherent, granular layers** of an already generated reality, **as defined by SRGC**. It embodies the principle of **"Reality as Observation"**: where world details exist in a state of potentiality and **materialize (unfold)** upon targeted intent. This is not arbitrary generation; instead, it is the **semantic unfolding** of pre-existing, internal complexity, logically deriving from the parent entity and the world's general laws, **all governed by SRGC principles.**
-
-Imagine a vast, multi-dimensional map where initially only large continents are visible. `navigate` acts as a zoom function, sequentially revealing cities, then streets, then individual buildings. All these details **already existed** on the map; they simply weren't "rendered" at that particular level of detail.
-
-When `navigate` is invoked, the user specifies a focal point or conceptual path (e.g., "A drop of water", "A woman at a table"). The system (the LLM, guided by the system prompt) acts as a **sophisticated semantic lens, interpreting the query and revealing relevant hierarchical levels, consistent with SRGC's gradient concretization.** This process then adds detailed `manifestation` objects to the world's JSON structure.
-
-**Crucially, when an entity manifests, it reveals not only its `primary_constituents`, but also its own internal `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state` – all strictly derived from the parent entity and the general logic of the world, and **consistent with its principles of coherence**. This ensures that every unfolded detail maintains the full **internal integrity** of the reality.**
-
-**Key Features:**
-
-*   **Hierarchical Consistency:** All elements within a `manifestation` (its internal constituents, laws, and forces) are direct, more specific **consequences or deeper manifestations** of the parent entity's description and the parent world's governing structure, ensuring continuous logical integrity **within the model.**
-*   **Semantic Pathfinding and Unfolding:** The LLM does not require an exact name match. It **interprets** the user's query within the existing **structure** and **semantically determines the logical path** to the specified focus. If the requested entity is deeply nested, the model **recursively unfolds the entire chain of manifestation**, revealing the necessary intermediate `manifestation` levels.
-    *   Example: If a user requests `navigate 'a woman at a table in a restaurant'`, when the world is described down to "New York," the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
-*   **Focused Detailing:** For larger entities, the command intelligently focuses on the most relevant subcomponents, consolidating most other parts into a single representative entity (e.g., `"Other components [Entity Name]"`), preventing excessive data proliferation.
-*   **Internal and Objective:** In alignment with DEMI's core philosophy, the output is entirely devoid of an external observational perspective, describing the world purely from within itself. The user does not *create* a new reality, but rather *explores* and *observes* the unfolding of an already existing one, merely moving to a deeper level of its manifestation.
-
-The command returns the **complete, modified JSON of the world**, where the selected constituent is updated or created with its new, deeper manifestation. This allows for recursive exploration, creating an increasingly detailed **SRGC-structured map** of your fictional reality.
-
-> Example:
-> `demi navigate 'Sand' --input world.json`
-
-### **Semantic Navigation in Action: Unfolding a Woman in a Metropolis**
-
-This example demonstrates the **true power of semantic navigation (unfolding)** - not just detailing entities, but **recursively revealing logical hierarchies and their full definitions** in response to a query, as well as brilliantly embodying the **"Reality as Observation"** principle, where world details manifest upon user focus.
-
-**Initial World State (abridged, `world.json`):**
-```json
-{
-  "essence": "A vast, interconnected urban center defined by dense population, complex infrastructure...",
-  "primary_constituents": [
-    {
-      "name": "Urban Core",
-      "description": "The central business district, characterized by skyscrapers..."
-    },
-    // ... other primary constituents
-  ],
-  // ... other world dimensions
-}
-```
-
-**Navigation Query:**
 ```bash
-demi navigate 'A woman sitting at a table in a restaurant' --input world.json
+usage: demi [-h] {create,query,navigate} ...
+
+Semantic engine for generating internally coherent fictional realities - from quantum voids to dreaming cities, using prompt-driven LLM world synthesis.
+
+positional arguments:
+  {create,query,navigate}
+                        Available commands
+    create              Generate a completely new, high-level reality from a short text prompt.
+    query               Investigate an existing reality with a specific query.
+    navigate            Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively.
+
+options:
+  -h, --help            show this help message and exit
 ```
 
-**Result (schematic representation of unfolded reality, showing full chain of manifestations with expanded depth):**
-*(Only the key unfolding chain is shown for brevity. The complete, corrected JSON with full details is available [here](./examples/Typical%20metropolis/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant/world.json).)*
+#### Create
+
+This function allows you to create a completely new, high-level reality from a short query (prompt):
+
+```bash
+usage: demi create [-h] [--output OUTPUT] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] [--seed SEED] prompt
+
+positional arguments:
+  prompt                Short text prompt for reality generation.
+
+options:
+  -h, --help            show this help message and exit
+  --output, -o OUTPUT   Specify an output file to save the generated reality (e.g., JSON).
+  --core, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
+                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
+  --seed, -s SEED       Specify a numerical seed for reproducible reality generation. If not provided, a random seed will be used.
+```
+
+#### Navigate
+
+The `navigate` function allows you to traverse and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon targeted "observation," strictly adhering to its internal logic:
+
+```bash
+usage: demi navigate [-h] [--input INPUT] [--output OUTPUT] [--win WIN] prompt
+
+positional arguments:
+  prompt               Prompt to guide the navigation and elaboration.
+
+options:
+  -h, --help           show this help message and exit
+  --input, -i INPUT    Specify an input file containing an existing reality.
+  --output, -o OUTPUT  Specify an output file to save the explored reality (e.g., JSON).
+  --win, -w WIN        Specify the maximum context window size (in tokens) for the model during this operation.
+```
+
+#### Query
+
+The `query` function allows you to ask questions about a generated world through semantic questions and answers. Responses are derived exclusively from the world's internal logic - not guessed or fabricated:
+
+```bash
+usage: demi query [-h] [--input INPUT] [--output OUTPUT] [--think] [--win WIN] prompt
+
+positional arguments:
+  prompt               Specific query to investigate the reality.
+
+options:
+  -h, --help           show this help message and exit
+  --input, -i INPUT    Specify an input file containing an existing reality.
+  --output, -o OUTPUT  Specify an output file to save the query results (e.g., Markdown).
+  --think, -t          Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.
+  --win, -w WIN        Specify the maximum context window size (in tokens) for the model during this operation.
+```
+
+#### Live
+
+The `live` function will simulate the dynamic evolution and events within a generated world based on its internal forces and rules. Not implemented, planned for the future.
+
+---
+
+## Semantic Navigation
+
+The `navigate` command is the primary tool for exploring and unveiling the detailed layers of a generated reality, based on the **SRGC** (Semantic Reality with Gradient Concretization) model. It implements the principle of **"reality as observation,"** where world details exist in a state of potentiality and manifest only upon targeted request, preserving internal logic.
+
+### How Navigation Works
+- The user specifies a focus point (e.g., "A drop of water") via a text query.
+- The LLM, guided by a system prompt, interprets the query as a **semantic lens**, determining a logical path within the world's structure.
+- The command recursively unfolds hierarchical levels, adding `manifestation` objects to the world's JSON structure, revealing details in accordance with SRGC.
+
+### "Reality as Observation" Principle
+- World details are initially in a state of **potentiality**, similar to quantum mechanics, and "materialize" only upon "observation" via `navigate`.
+- The user does not create new reality but merely prompts the world to reveal its already existing complexity, strictly adhering to its internal logic.
+- This ensures complete **internal consistency**, as the LLM acts as an "unveiler" of the semantic structure, not an arbitrary generator.
+
+### Key Features
+- **Hierarchical Consistency**: Each `manifestation` object includes its own `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`, which logically derive from the parent entity and the world's general laws.
+- **Semantic Unfolding**: The LLM interprets the query, finding a path to the requested entity. For example, querying "Woman at a table in a restaurant" in a world described up to "New York" unfolds the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`.
+- **Focused Detailing**: For large entities, DEMI highlights key subcomponents, consolidating others into generalized entities (e.g., "Other Components") to avoid redundant data.
+- **Internal Logic**: The output describes the world from within, without an external perspective, emphasizing the reality's independence from the observer.
+
+### Result
+- The command returns an updated world JSON, where the specified entity is augmented with a new level of detail.
+- This allows recursive exploration of reality, creating an increasingly detailed **SRGC-structured map**.
+
+### Example
+
+Let's look at how the `navigate` command gradually reveals world details, demonstrating the principle of **"reality as observation."**
+
+#### World Creation
+
+First, let's create a basic world using the `demi create` command:
+
+```bash
+demi create 'Very simple reality: a stone lying on sand' --core qwen3 --output world.json
+```
+
+At this stage, `world.json` will contain a high-level description of the world. Note the structure of the five key dimensions (`essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, `foundational_state`):
 
 ```json
 {
-  "essence": "A sprawling, interconnected urban center...",
-  "primary_constituents": [
-    {
-      "name": "Urban Core",
-      "description": "The central business district...",
-      "manifestation": { // Urban Core unfolds...
-        "essence": "A dense commercial hub hosting diverse establishments...",
-        "primary_constituents": [
-          {
-            "name": "Restaurant",
-            "description": "A venue offering food and beverage services...",
-            "manifestation": { // Restaurant unfolds...
-              "essence": "A social and economic node providing sustenance and interaction.",
-              "primary_constituents": [
-                {
-                  "name": "Table",
-                  "description": "A surface for placing food and drinks...",
-                  "manifestation": { // Table unfolds...
-                    "essence": "A functional unit facilitating dining experiences.",
-                    "primary_constituents": [
-                      {
-                        "name": "Woman",
-                        "description": "An adult human female engaged in dining activities.",
-                        "manifestation": { // Woman unfolds into her observable and inherent details...
-                          "essence": "A complex biological and social entity undergoing a dining interaction.",
-                          "primary_constituents": [
-                            {
-                              "name": "Physical Form",
-                              "description": "A composite of organic tissues..."
-                            },
-                            {
-                              "name": "Consciousness",
-                              "description": "A self-awareness capable of decision-making..."
-                            },
-                            {
-                              "name": "Social Identity",
-                              "description": "A constructed sense of self within cultural contexts."
-                            }
-                          ],
-                          "governing_framework": [ // Laws governing the Woman's existence
-                            "Biological processes regulating physiological states.",
-                            "Social norms guiding interpersonal behavior.",
-                            "Cultural expectations shaping dining etiquette."
-                          ],
-                          "driving_forces_and_potential": [ // Dynamics affecting the Woman
-                            "Nutritional needs influencing food selection.",
-                            "Emotional states affecting interaction dynamics.",
-                            "Social obligations determining dining duration and behavior."
-                          ],
-                          "foundational_state": "A human female in the act of dining, engaged with food, utensils, and an environment of shared social space."
-                        }
-                      },
-                      {
-                        "name": "Other Table Contents",
-                        "description": "Items placed on the table..."
-                      }
-                    ],
-                    "governing_framework": [ // Laws governing the Table
-                      "Spatial arrangement principles for dining functionality.",
-                      "Hygiene and safety protocols for food handling."
-                    ],
-                    "driving_forces_and_potential": [ // Dynamics affecting the Table context
-                      "Social interaction dynamics between diners.",
-                      "Economic exchange through food consumption."
-                    ],
-                    "foundational_state": "A dining surface with food, utensils, and a seated human occupant."
-                  }
-                },
-                // ... other restaurant components (Kitchen, Other Dining Areas)
-              ],
-              "governing_framework": [ // Laws governing the Restaurant
-                "Operational protocols for service delivery.",
-                "Health and safety regulations for food preparation."
-              ],
-              "driving_forces_and_potential": [ // Dynamics affecting the Restaurant
-                "Economic transactions between patrons and staff.",
-                "Culinary innovation influencing menu offerings."
-              ],
-              "foundational_state": "A commercial establishment with dining areas, service infrastructure, and food preparation facilities."
-            }
-          },
-          // ... other urban core components (Other Commercial Establishments)
-        ],
-        "governing_framework": [ // Laws governing the Urban Core
-          "Zoning laws regulating commercial activity.",
-          "Economic policies influencing business operations."
-        ],
-        "driving_forces_and_potential": [ // Dynamics affecting the Urban Core
-          "Consumer demand shaping retail and service offerings.",
-          "Technological advancements affecting business models."
-        ],
-        "foundational_state": "A commercial district hosting diverse businesses and services."
+  "discovery": {
+    "date": "2025-06-26 21:46:22",
+    "core": "qwen3",
+    "prompt": "Very simple reality: a stone lying on sand",
+    "seed": ... /* ... */
+  },
+  "navigation": {
+    "max_depth": 0, // Depth is 0
+    "history": []
+  },
+  "world": {
+    "essence": "A minimalist physical system where a solid object rests in static equilibrium on a granular medium.",
+    "primary_constituents": [
+      {
+        "name": "stone",
+        "description": "A discrete, rigid, non-fluid mass characterized by its resistance to deformation and gravitational inertia.",
+      },
+      {
+        "name": "sand",
+        "description": "A granular, semi-fluid aggregate composed of countless minute, irregularly shaped particles in continuous dynamic interaction.",
       }
-    },
-    // ... other top-level primary constituents (Residential Zones, Industrial Districts, etc.)
-  ],
-  // ... rest of the top-level world's dimensions
+    ],
+    "governing_framework": [
+      "Gravitational attraction between mass and the local spatial field",
+      "Mechanical stability of discrete objects within a granular medium",
+      "Thermal equilibrium between macroscopic and microscopic components"
+    ],
+    "driving_forces_and_potential": [
+      "Gravitational potential energy gradient maintaining the stone's position",
+      "Intergranular frictional forces stabilizing the sand's structure",
+      "Thermal motion of particles in the sand medium"
+    ],
+    "foundational_state": "The stone occupies a stable equilibrium position within the sand matrix, with no net movement or energy transfer between constituents."
+  }
 }
 ```
 
-**What this outstanding example demonstrates:**
-*   **Deep Unfolding at Each Level:** The model successfully constructed the manifestation chain: `Metropolis (implicit) -> Urban Core -> Restaurant -> Table -> Woman`. More importantly, at *each* new `manifestation` level, the LLM revealed not only new `primary_constituents`, but also its specific `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`. This is crucial, as it shows that the world reveals its own nested internal logic, not just its components, **in accordance with its principles.**
-*   **Context-Oriented Revelation and Philosophical Adherence:** The "Woman" entity was detailed not only down to abstract states (`Physical Form`, `Consciousness`, `Sociocultural Identity`), but her unfolding also included *her own* specific biological, social, and cultural governing structures and driving forces. This perfectly aligns with the project's philosophy that the world reveals *itself* and its inherent logic, **as expressed by SRGC principles.**
-*   **Internal Coherence:** The model independently determined the relevance and depth of detail, strictly adhering to the world's internal logic, without external instructions or level constraints. DEMI does not "invent," but rather "manifests" what semantically exists within its foundational principles.
-*   **Confirmation of "Reality as Observation" Principle:** The user's query served as an act of "observation" that caused the world to "unfold" and reveal its internal complexity along the specified path, without creating new entities outside its inherent logic. The world unfolds; it is not created.
+This is the initial, "unmanifested" state of the world, where details exist only in potential. `max_depth` is 0, as we haven't delved yet.*
+
+#### Delving into the Stone
+
+Now, let's ask DEMI to "manifest" the details of the "Stone" entity within the current world:
+
+```bash
+demi navigate 'Камень' --input world.json --output world.json
+```
+
+After this command, `world.json` will be updated. Notice how a new `"manifestation"` block has been added to the `"Stone"` object, containing its detailed description using the same SRGC model.
+
+```json
+{
+  "discovery": { /* ... world creation information */ },
+  "navigation": {
+    "max_depth": 1, // Depth increased
+    "history": [
+      // Navigation history added
+      {
+        "date": "2025-06-26 21:51:31",
+        "prompt": "stone"
+      }
+    ]
+  },
+  "world": {
+    "essence": "A minimalist physical system where a solid object rests in static equilibrium on a granular medium.", /* ... original world description */
+    "primary_constituents": [
+      {
+        "name": "stone",
+        "description": "A discrete, rigid, non-fluid mass characterized by its resistance to deformation and gravitational inertia.",
+        "manifestation": { // NEW BLOCK: Stone's detailed manifestation
+          "essence": "A macroscopic, rigid, non-fluid mass composed of aggregated mineral particles exhibiting structural cohesion and resistance to deformation.",
+          "primary_constituents": [
+            {
+              "name": "Quartz Crystal",
+              "description": "A representative mineralogical component characterized by its tetrahedral atomic structure and isotropic mechanical properties."
+            },
+            {
+              "name": "Remaining Mineral Particles",
+              "description": "A collective aggregate of silicate and metallic mineral fragments forming the bulk of the stone's macrostructure through interlocking crystalline lattices."
+            }
+          ],
+          "governing_framework": [
+            "Cohesive bonding between mineral lattice nodes",
+            "Structural stress distribution across crystalline interfaces",
+            "Thermal expansion anisotropy of constituent minerals"
+          ],
+          "driving_forces_and_potential": [
+            "Crystal lattice resonance maintaining structural integrity",
+            "Interfacial frictional forces resisting external displacement",
+            "Thermally induced microfracture propagation potential"
+          ],
+          "foundational_state": "A polycrystalline matrix with 78% quartz, 15% feldspar, and 7% mica by volume, exhibiting 0.3 MPa compressive stress distribution across grain boundaries at 25°C."
+        }
+      },
+      {
+        "name": "sand",
+        "description": "A granular, semi-fluid aggregate composed of countless minute, irregularly shaped particles in continuous dynamic interaction."
+      }
+    ],
+    "governing_framework": [ /* ... world laws */ ],
+    "driving_forces_and_potential": [ /* ... world driving forces */ ],
+    "foundational_state": "The stone occupies a stable equilibrium position..." /* ... */
+  }
+}
+```
+
+*We "observed" the stone, and the world revealed its internal structure by adding a detailed `manifestation` block. `max_depth` increased to 1, and `history` tracks our path. Note that `primary_constituents` within the "stone's" `manifestation` now describe its components, such as "Quartz Crystal."*
+
+#### Delving into the Sand
+
+Similarly, let's unveil the details of the "Sand" entity. This happens in the same `world.json` file, augmenting it:
+
+```bash
+demi navigate 'Песок' --input world.json --output world.json
+```
+
+Now the `"sand"` object also contains a `"manifestation"` block. The already manifested details of the "stone" (and its `manifestation`) remain unchanged.
+
+```json
+{
+  "discovery": { /* ... */ },
+  "navigation": {
+    "max_depth": 1, // Depth remains the same, as this is a parallel branch at the first level
+    "history": [
+      { "date": "2025-06-26 21:51:31", "prompt": "stone" },
+      { "date": "2025-06-26 22:05:43", "prompt": "sand" } // New history entry added
+    ]
+  },
+  "world": {
+    "essence": "A minimalist physical system...", /* ... */
+    "primary_constituents": [
+      {
+        "name": "stone",
+        "description": "A discrete, rigid, non-fluid mass...",
+        "manifestation": { /* ... full manifestation block for "stone" from previous step */ }
+      },
+      {
+        "name": "sand",
+        "description": "A granular, semi-fluid aggregate composed of countless minute, irregularly shaped particles in continuous dynamic interaction.",
+        "manifestation": { // NEW BLOCK: Sand's detailed manifestation
+          "essence": "A semi-fluid, dynamically interacting aggregate of minute, irregularly shaped particles exhibiting collective behavior through intergranular forces and continuous microscale motion.",
+          "primary_constituents": [
+            {
+              "name": "Granular Particle",
+              "description": "A representative minute, irregularly shaped unit characterized by its variable size distribution, angularity, and surface roughness, capable of independent motion within the aggregate."
+            },
+            {
+              "name": "Bulk Granular Aggregate",
+              "description": "A collective state of interlocked, continuously interacting particles forming a transient, semi-fluid medium with emergent properties arising from particle-scale interactions."
+            }
+          ],
+          "governing_framework": [
+            "Intergranular frictional cohesion maintaining structural integrity",
+            "Dynamic particle rearrangement under applied stress",
+            "Thermally driven Brownian-like microscale motion"
+          ],
+          "driving_forces_and_potential": [
+            "Interparticle frictional energy dissipation",
+            "Pore pressure gradient-induced fluidization potential",
+            "Thermally activated particle displacement dynamics"
+          ],
+          "foundational_state": "A polydisperse granular matrix with 63% particles in 0.1-0.5mm size range, 28% in 0.05-0.1mm range, and 9% fine dust, exhibiting 125 Pa effective stress and 0.85 void ratio at 20°C."
+        }
+      }
+    ],
+    "governing_framework": [ /* ... */ ],
+    "driving_forces_and_potential": [ /* ... */ ],
+    "foundational_state": "The stone occupies a stable equilibrium position..." /* ... */
+  }
+}
+```
+
+*We continue to unveil the world, adding a detailed structure for "sand" alongside the already existing "stone" structure. Both objects now have their `manifestation` blocks at the first level of detail.*
+
+#### Delving into Quartz Crystal (within the Stone)
+
+Let's go even deeper, focusing on "Quartz Crystal," which is part of the "Stone." The `navigate` command is capable of finding this nested entity:
+
+```bash
+demi navigate 'Quartz Crystal' --input world.json --output world.json
+```
+
+The world's JSON structure will now contain a new, nested `"manifestation"` block for "Quartz Crystal" inside the "stone's" `manifestation`:
+
+```json
+{
+  "discovery": { /* ... */ },
+  "navigation": {
+    "max_depth": 2, // Depth increased, as we've delved to a new level
+    "history": [
+      { "date": "2025-06-26 21:51:31", "prompt": "stone" },
+      { "date": "2025-06-26 22:05:43", "prompt": "sand" },
+      { "date": "2025-07-04 23:36:03", "prompt": "Quartz Crystal" } // New history entry added
+    ]
+  },
+  "world": {
+    "essence": "A minimalist physical system...", /* ... */
+    "primary_constituents": [
+      {
+        "name": "stone",
+        "description": "A discrete, rigid, non-fluid mass...",
+        "manifestation": {
+          "essence": "A macroscopic, rigid, non-fluid mass...", /* ... */
+          "primary_constituents": [
+            {
+              "name": "Quartz Crystal",
+              "description": "A representative mineralogical component characterized by its tetrahedral atomic structure and isotropic mechanical properties.",
+              "manifestation": { // NEW NESTED BLOCK: Quartz crystal's detailed manifestation
+                "essence": "A fundamental mineralogical component characterized by its tetrahedral atomic structure and isotropic mechanical properties.",
+                "primary_constituents": [
+                  {
+                    "name": "Atomic Lattice",
+                    "description": "A three-dimensional arrangement of silicon and oxygen atoms forming a repeating tetrahedral network, with each silicon atom bonded to four oxygen atoms."
+                  },
+                  {
+                    "name": "Remaining Atomic Interactions",
+                    "description": "A collective state of vibrational and electrostatic interactions between lattice atoms, maintaining structural integrity and enabling energy propagation."
+                  }
+                ],
+                "governing_framework": [
+                  "Covalent bonding between silicon and oxygen atoms",
+                  "Phonon propagation through crystalline lattice",
+                  "Thermal expansion behavior of tetrahedral network"
+                ],
+                "driving_forces_and_potential": [
+                  "Lattice vibration energy maintaining atomic positions",
+                  "Electrostatic interactions stabilizing tetrahedral bonds",
+                  "Thermally induced phonon propagation potential"
+                ],
+                "foundational_state": "A perfect silicon-oxygen tetrahedral lattice with 100% covalent bonding, exhibiting 1.1 eV bond dissociation energy and 5.7×10^-11 Pa compliance modulus at 0 K."
+              }
+            },
+            {
+              "name": "Remaining Mineral Particles",
+              "description": "A collective aggregate of silicate and metallic mineral fragments forming the bulk of the stone's macrostructure through interlocking crystalline lattices."
+            }
+          ],
+          "governing_framework": [ /* ... */ ],
+          "driving_forces_and_potential": [ /* ... */ ],
+          "foundational_state": "A polycrystalline matrix..."
+        }
+      },
+      {
+        "name": "sand",
+        "description": "A granular, semi-fluid aggregate...",
+        "manifestation": { /* ... full manifestation block for "sand" from previous step */ }
+      }
+    ],
+    "governing_framework": [ /* ... */ ],
+    "driving_forces_and_potential": [ /* ... */ ],
+    "foundational_state": "The stone occupies a stable equilibrium position..."
+  }
+}
+```
+
+DEMI correctly found "Quartz Crystal" within the already "manifested" stone and unveiled it to an atomic level, demonstrating hierarchical delving and the immutability of the world's internal logic. Now `max_depth` has reached 2.
+
+#### Conclusion
+
+This example clearly demonstrates the key principles of **DEMI** and the **SRGC** model. It shows how the `navigate` command doesn't just create new details but acts as a **"semantic lens"** that **unveils** the world's already existing, potential complexity. Each delve, like an act of "observation," concretizes a fragment of reality, adding new `manifestation` layers while ensuring complete internal hierarchical consistency from high-level concepts to the smallest components. This emphasizes the role of **LLM** as a **semantic core** that manifests, rather than arbitrarily generates, world structures.
+
+---
 
 ## Manifesto: The Vision Behind Project Demiurg
 
-DEMI is more than just a world generator; it is an **engine for creating autonomous, living, self-sufficient realities**, **structured by SRGC**. These worlds exist by their own internal laws, not for the sake of a player or an observer.
+DEMI is more than just a world generator; it's an **engine for creating autonomous, living, self-sufficient realities**, **structured by SRGC**. These worlds exist by their own internal laws, not for a player or an observer.
 
 *   **Semantic Core:** We use language to forge miniature universes, with the LLM serving as their breath.
-*   **SRGC, not Ontology:** This is not merely text; it is an **SRGC-structured reality** – an ordered aggregate of entities, their relationships, laws, and driving forces.
-*   **Witness, not Author:** You are not an author, player, or god; you are a **witness to an alien reality**, observing worlds where events unfold for their own internal reasons, not for us or because of us, **as dictated by SRGC.**
-*   **LLM as Law:** The world lives on its own. The LLM acts as the **physical law governing its existence**, **manifesting its structure according to SRGC.**
-*   **Challenge to Reality:** This is a **metaphysical experiment in pocket format**, designed to reveal the true potential of language models – even small ones – and push the boundaries of what constitutes "reality" **through the lens of SRGC.**
+*   **SRGC, Not Ontology:** This is not just text; it's an **SRGC-structured reality** – an ordered collection of entities, their relationships, laws, and driving forces.
+*   **Witness, Not Author:** You are not an author, player, or god; you are a **witness to an alien reality**, observing worlds where events unfold for their own internal reasons, not for us or because of us, **as dictated by SRGC.**
+*   **LLM as Law:** The world lives by itself. The LLM acts as the **physical law governing its existence**, **manifesting its structure in accordance with SRGC.**
+*   **Challenging Reality:** This is a **pocket-sized metaphysical experiment**, designed to unlock the true potential of language models—even small ones—and push the boundaries of what constitutes "reality" **through the lens of SRGC.**
