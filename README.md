@@ -229,7 +229,7 @@ options:
 This function allows you to create a completely new, high-level reality from a short query (prompt):
 
 ```bash
-usage: demi create [-h] [--output OUTPUT] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] [--seed SEED] prompt
+usage: demi create [-h] [--output OUTPUT] [--core {qwen3:4b,qwen3}] [--seed SEED] [--debug] prompt
 
 positional arguments:
   prompt                Short text prompt for reality generation.
@@ -237,9 +237,10 @@ positional arguments:
 options:
   -h, --help            show this help message and exit
   --output, -o OUTPUT   Specify an output file to save the generated reality (e.g., JSON).
-  --core, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
-                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
+  --core, -c {qwen3:4b,qwen3}
+                        Specify the Ollama model to use as semantic core. Available models: qwen3:4b, qwen3
   --seed, -s SEED       Specify a numerical seed for reproducible reality generation. If not provided, a random seed will be used.
+  --debug, -d           Enable debug mode to show verbose output and internal workings.
 ```
 
 #### Navigate
@@ -247,20 +248,19 @@ options:
 The `navigate` function allows you to traverse and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon targeted "observation," strictly adhering to its internal logic:
 
 ```bash
-usage: demi.py navigate [-h] [--input INPUT] [--output OUTPUT] [--win WIN] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] prompt
+usage: demi navigate [-h] [--input INPUT] [--output OUTPUT] [--win WIN] [--core {qwen3:4b,qwen3}] [--debug] prompt
 
 positional arguments:
   prompt                Prompt to guide the navigation and elaboration.
 
 options:
   -h, --help            show this help message and exit
-  --input INPUT, -i INPUT
-                        Specify an input file containing an existing reality.
-  --output OUTPUT, -o OUTPUT
-                        Specify an output file to save the explored reality (e.g., JSON).
-  --win WIN, -w WIN     Specify the maximum context window size (in tokens) for the model during this operation.
-  --core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
-                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
+  --input, -i INPUT     Specify an input file containing an existing reality.
+  --output, -o OUTPUT   Specify an output file to save the explored reality (e.g., JSON).
+  --win, -w WIN         Specify the maximum context window size (in tokens) for the model during this operation.
+  --core, -c {qwen3:4b,qwen3}
+                        Specify the Ollama model to use as semantic core. Available models: qwen3:4b, qwen3
+  --debug, -d           Enable debug mode to show verbose output and internal workings.
 ```
 
 #### Query
@@ -268,21 +268,20 @@ options:
 The `query` function allows you to ask questions about a generated world through semantic questions and answers. Responses are derived exclusively from the world's internal logic - not guessed or fabricated:
 
 ```bash
-usage: demi.py query [-h] [--input INPUT] [--output OUTPUT] [--core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}] [--think] [--win WIN] prompt
+usage: demi query [-h] [--input INPUT] [--output OUTPUT] [--core {qwen3:4b,qwen3}] [--think] [--win WIN] [--debug] prompt
 
 positional arguments:
   prompt                Specific query to investigate the reality.
 
 options:
   -h, --help            show this help message and exit
-  --input INPUT, -i INPUT
-                        Specify an input file containing an existing reality.
-  --output OUTPUT, -o OUTPUT
-                        Specify an output file to save the query results (e.g., Markdown).
-  --core {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}, -c {gemma3n,smollm2,qwen3:4b,qwen3,gemma3}
-                        Specify the Ollama model to use as semantic core. Available models: gemma3n, smollm2, qwen3:4b, qwen3, gemma3
+  --input, -i INPUT     Specify an input file containing an existing reality.
+  --output, -o OUTPUT   Specify an output file to save the query results (e.g., Markdown).
+  --core, -c {qwen3:4b,qwen3}
+                        Specify the Ollama model to use as semantic core. Available models: qwen3:4b, qwen3
   --think, -t           Enable advanced, iterative reasoning for the model to refine outputs. May increase processing time and token usage.
-  --win WIN, -w WIN     Specify the maximum context window size (in tokens) for the model during this operation.
+  --win, -w WIN         Specify the maximum context window size (in tokens) for the model during this operation.
+  --debug, -d           Enable debug mode to show verbose output and internal workings.
 ```
 
 #### Live
@@ -332,38 +331,38 @@ At this stage, `world.json` will contain a high-level description of the world. 
 ```json
 {
   "discovery": {
-    "date": "2025-06-26 21:46:22",
+    "date": "2025-07-06 22:25:23",
     "core": "qwen3:4b",
     "prompt": "Very simple reality: a stone lying on sand",
-    "seed": ... /* ... */
+    "seed": 780000870
   },
   "navigation": {
-    "max_depth": 0, // Depth is 0
+    "max_depth": 0,
     "history": []
   },
   "world": {
-    "essence": "A minimalist physical system where a solid object rests in static equilibrium on a granular medium.",
+    "essence": "A world where a solid object (a stone) rests in equilibrium on a granular substrate (sand), governed by the interplay of gravitational forces and the dynamic nature of the substrate.",
     "primary_constituents": [
       {
-        "name": "stone",
-        "description": "A discrete, rigid, non-fluid mass characterized by its resistance to deformation and gravitational inertia.",
+        "name": "Stone",
+        "description": "A dense, impermeable mass of mineral composition, characterized by its rigid form and resistance to deformation under external forces."
       },
       {
-        "name": "sand",
-        "description": "A granular, semi-fluid aggregate composed of countless minute, irregularly shaped particles in continuous dynamic interaction.",
+        "name": "Sand",
+        "description": "A granular medium composed of minute, interlocking particles of mineral or organic origin, perpetually in a state of kinetic flux due to environmental forces."
       }
     ],
     "governing_framework": [
-      "Gravitational attraction between mass and the local spatial field",
-      "Mechanical stability of discrete objects within a granular medium",
-      "Thermal equilibrium between macroscopic and microscopic components"
+      "The principle of equilibrium between solid and granular substrates, where the stone's weight is counterbalanced by the sand's interstitial resistance.",
+      "The law of gravitational attraction, which dictates the stone's position relative to the sand's surface.",
+      "The dynamic interaction between sand particles, which maintain their granular structure through continuous, subliminal motion."
     ],
     "driving_forces_and_potential": [
-      "Gravitational potential energy gradient maintaining the stone's position",
-      "Intergranular frictional forces stabilizing the sand's structure",
-      "Thermal motion of particles in the sand medium"
+      "The gravitational potential energy of the stone's position relative to the sand's surface.",
+      "The kinetic energy of sand particles, which sustains their granular state and influences the stone's stability.",
+      "The potential for displacement, arising from imbalances in gravitational forces or external perturbations to the sand's dynamic equilibrium."
     ],
-    "foundational_state": "The stone occupies a stable equilibrium position within the sand matrix, with no net movement or energy transfer between constituents."
+    "foundational_state": "The stone occupies a specific spatial locus on the sand's surface, its position stabilized by the sand's granular structure. The sand exists in a state of perpetual, low-velocity motion, with particles in constant, frictional interaction that maintains the integrity of the substrate while allowing for subtle, imperceptible shifts in the stone's position over time."
   }
 }
 ```
@@ -382,62 +381,62 @@ After this command, `world.json` will be updated. Notice how a new `"manifestati
 
 ```json
 {
-  "discovery": { /* ... world creation information */ },
+  "discovery": { /* ... metadata about world creation */ },
   "navigation": {
     "max_depth": 1, // Depth increased
     "history": [
       // Navigation history added
       {
-        "date": "2025-06-26 21:51:31",
+        "date": "2025-07-06 22:27:22",
         "core": "qwen3",
-        "prompt": "stone"
+        "prompt": "Stone"
       }
     ]
   },
   "world": {
-    "essence": "A minimalist physical system where a solid object rests in static equilibrium on a granular medium.", /* ... original world description */
+    "essence": "A world where a solid object (a stone) rests in equilibrium on a granular substrate...", /* ... high-level world essence */
     "primary_constituents": [
       {
-        "name": "stone",
-        "description": "A discrete, rigid, non-fluid mass characterized by its resistance to deformation and gravitational inertia.",
+        "name": "Stone",
+        "description": "A dense, impermeable mass of mineral composition...", /* ... high-level stone description */
         "manifestation": { // NEW BLOCK: Stone's detailed manifestation
-          "essence": "A macroscopic, rigid, non-fluid mass composed of aggregated mineral particles exhibiting structural cohesion and resistance to deformation.",
+          "essence": "A rigid, mineralogical aggregate characterized by a highly ordered atomic lattice structure, capable of resisting deformation through the cohesive forces of its crystalline framework.",
           "primary_constituents": [
             {
-              "name": "Quartz Crystal",
-              "description": "A representative mineralogical component characterized by its tetrahedral atomic structure and isotropic mechanical properties."
+              "name": "Crystal Lattice",
+              "description": "A three-dimensional array of atoms or molecules arranged in a repeating, symmetrical pattern, forming the foundational structural matrix of the stone."
             },
             {
-              "name": "Remaining Mineral Particles",
-              "description": "A collective aggregate of silicate and metallic mineral fragments forming the bulk of the stone's macrostructure through interlocking crystalline lattices."
+              "name": "Mineral Matrix",
+              "description": "The cohesive network of chemical bonds and interatomic forces that bind the crystal lattice together, maintaining structural integrity under external stress."
             }
           ],
           "governing_framework": [
-            "Cohesive bonding between mineral lattice nodes",
-            "Structural stress distribution across crystalline interfaces",
-            "Thermal expansion anisotropy of constituent minerals"
+            "The principle of atomic cohesion, where electrostatic bonds between ions or covalent bonds between atoms dictate the stone's rigidity and resistance to compression.",
+            "The law of crystalline symmetry, which defines the geometric arrangement of atomic structures and determines the stone's physical properties.",
+            "The dynamic equilibrium of vibrational energy within the lattice, maintaining thermal stability while resisting macro-scale deformation."
           ],
           "driving_forces_and_potential": [
-            "Crystal lattice resonance maintaining structural integrity",
-            "Interfacial frictional forces resisting external displacement",
-            "Thermally induced microfracture propagation potential"
+            "The latent potential energy stored in the atomic bonds, capable of releasing energy through fracturing or dislocation under excessive stress.",
+            "The kinetic vibrational motion of atoms within the lattice, which sustains structural stability and influences the stone's thermal conductivity.",
+            "The potential for metamorphic transformation, arising from prolonged exposure to environmental forces that may alter its crystalline structure."
           ],
-          "foundational_state": "A polycrystalline matrix with 78% quartz, 15% feldspar, and 7% mica by volume, exhibiting 0.3 MPa compressive stress distribution across grain boundaries at 25°C."
+          "foundational_state": "The stone's atomic lattice exhibits a uniform distribution of vibrational energy across its crystalline framework, with interatomic bonds in a state of low-entropy equilibrium. The lattice's geometric arrangement remains unaltered by the granular substrate's motion, maintaining structural integrity through persistent electrostatic cohesion."
         }
       },
       {
-        "name": "sand",
-        "description": "A granular, semi-fluid aggregate composed of countless minute, irregularly shaped particles in continuous dynamic interaction."
+        "name": "Sand",
+        "description": "A granular medium composed of minute, interlocking particles of mineral or organic origin..." /* ... high-level sand description */
       }
     ],
-    "governing_framework": [ /* ... world laws */ ],
-    "driving_forces_and_potential": [ /* ... world driving forces */ ],
-    "foundational_state": "The stone occupies a stable equilibrium position..." /* ... */
+    "governing_framework": [ /* ... high-level world laws */ ],
+    "driving_forces_and_potential": [ /* ... high-level world driving forces */ ],
+    "foundational_state": "The stone occupies a specific spatial locus on the sand's surface..." /* ... high-level world foundational state */
   }
 }
 ```
 
-*We "observed" the stone, and the world revealed its internal structure by adding a detailed `manifestation` block. `max_depth` increased to 1, and `history` tracks our path. Note that `primary_constituents` within the "stone's" `manifestation` now describe its components, such as "Quartz Crystal."*
+*We "observed" the stone, and the world revealed its internal structure by adding a detailed `manifestation` block. `max_depth` increased to 1, and `history` tracks our path. Note that `primary_constituents` within the "stone's" `manifestation` now describe its components, such as "Crystal Lattice."*
 
 #### Delving into the Sand
 
@@ -447,146 +446,168 @@ Similarly, let's unveil the details of the "Sand" entity. This happens in the sa
 demi navigate 'Sand' --core qwen3 --input world.json --output world.json
 ```
 
-Now the `"sand"` object also contains a `"manifestation"` block. The already manifested details of the "stone" (and its `manifestation`) remain unchanged.
+Now the `"Sand"` object also contains a `"manifestation"` block. The already manifested details of the "stone" (and its `manifestation`) remain unchanged.
 
 ```json
 {
-  "discovery": { /* ... */ },
+  "discovery": { /* ... metadata about world creation */ },
   "navigation": {
-    "max_depth": 1, // Depth remains the same, as this is a parallel branch at the first level
+    "max_depth": 1,
     "history": [
-      { "date": "2025-06-26 21:51:31", "core": "qwen3", "prompt": "stone" },
-      { "date": "2025-06-26 22:05:43", "core": "qwen3", "prompt": "sand" } // New history entry added
+      // Navigation history updated
+      {
+        "date": "2025-07-06 22:27:22",
+        "core": "qwen3",
+        "prompt": "Stone"
+      },
+      {
+        "date": "2025-07-06 22:35:23",
+        "core": "qwen3",
+        "prompt": "Sand"
+      }
     ]
   },
   "world": {
-    "essence": "A minimalist physical system...", /* ... */
+    "essence": "A world where a solid object (a stone) rests in equilibrium on a granular substrate...", /* ... high-level world essence */
     "primary_constituents": [
       {
-        "name": "stone",
-        "description": "A discrete, rigid, non-fluid mass...",
-        "manifestation": { /* ... full manifestation block for "stone" from previous step */ }
+        "name": "Stone",
+        "description": "A dense, impermeable mass of mineral composition...", /* ... high-level stone description */
+        "manifestation": { /* ... already manifested stone details */ }
       },
       {
-        "name": "sand",
-        "description": "A granular, semi-fluid aggregate composed of countless minute, irregularly shaped particles in continuous dynamic interaction.",
+        "name": "Sand",
+        "description": "A granular medium composed of minute, interlocking particles of mineral or organic origin...", /* ... high-level sand description */
         "manifestation": { // NEW BLOCK: Sand's detailed manifestation
-          "essence": "A semi-fluid, dynamically interacting aggregate of minute, irregularly shaped particles exhibiting collective behavior through intergranular forces and continuous microscale motion.",
+          "essence": "A granular medium characterized by the perpetual, low-velocity motion of interlocking particles, sustained by frictional interactions and dynamic equilibrium within the substrate.",
           "primary_constituents": [
             {
               "name": "Granular Particle",
-              "description": "A representative minute, irregularly shaped unit characterized by its variable size distribution, angularity, and surface roughness, capable of independent motion within the aggregate."
+              "description": "A discrete, irregularly shaped unit of mineral or organic origin, exhibiting micro-scale frictional interactions and kinetic motion within the granular matrix."
             },
             {
-              "name": "Bulk Granular Aggregate",
-              "description": "A collective state of interlocked, continuously interacting particles forming a transient, semi-fluid medium with emergent properties arising from particle-scale interactions."
+              "name": "Remaining Particles",
+              "description": "The collective aggregate of all granular units beyond the representative particle, forming the dynamic substrate that sustains the stone's equilibrium through continuous, subliminal motion."
             }
           ],
           "governing_framework": [
-            "Intergranular frictional cohesion maintaining structural integrity",
-            "Dynamic particle rearrangement under applied stress",
-            "Thermally driven Brownian-like microscale motion"
+            "The principle of granular cohesion, where frictional forces between adjacent particles maintain structural integrity while allowing for localized displacement.",
+            "The law of kinetic frictional equilibrium, dictating the balance between particle motion and interstitial resistance that sustains the substrate's dynamic state.",
+            "The dynamic interaction of granular particles, where continuous, low-velocity motion sustains the substrate's microstructural integrity and enables subtle redistribution of forces."
           ],
           "driving_forces_and_potential": [
-            "Interparticle frictional energy dissipation",
-            "Pore pressure gradient-induced fluidization potential",
-            "Thermally activated particle displacement dynamics"
+            "The kinetic energy of individual particles, which sustains their perpetual motion and enables micro-scale rearrangement under applied forces.",
+            "The potential for granular displacement, arising from imbalances in frictional forces or external perturbations to the substrate's dynamic equilibrium.",
+            "The latent capacity for cohesive restructuring, enabling the substrate to adapt to localized stress without compromising its overall integrity."
           ],
-          "foundational_state": "A polydisperse granular matrix with 63% particles in 0.1-0.5mm size range, 28% in 0.05-0.1mm range, and 9% fine dust, exhibiting 125 Pa effective stress and 0.85 void ratio at 20°C."
+          "foundational_state": "The granular particles exist in a state of perpetual, low-velocity motion, with interstitial frictional forces maintaining their collective structure. Each particle exhibits micro-scale rotational and translational movement, balanced by cohesive interactions that prevent macro-scale collapse while allowing for imperceptible shifts in the substrate's configuration."
         }
       }
     ],
-    "governing_framework": [ /* ... */ ],
-    "driving_forces_and_potential": [ /* ... */ ],
-    "foundational_state": "The stone occupies a stable equilibrium position..." /* ... */
+    "governing_framework": [ /* ... high-level world laws */ ],
+    "driving_forces_and_potential": [ /* ... high-level world driving forces */ ],
+    "foundational_state": "The stone occupies a specific spatial locus on the sand's surface..." /* ... high-level world foundational state */
   }
 }
 ```
 
 *We continue to unveil the world, adding a detailed structure for "sand" alongside the already existing "stone" structure. Both objects now have their `manifestation` blocks at the first level of detail.*
 
-#### Delving into Quartz Crystal (within the Stone)
+#### Delving into Crystal Lattice (within the Stone)
 
-Let's go even deeper, focusing on "Quartz Crystal," which is part of the "Stone." The `navigate` command is capable of finding this nested entity:
+Let's go even deeper, focusing on "Crystal Lattice," which is part of the "Stone." The `navigate` command is capable of finding this nested entity:
 
 ```bash
-demi navigate 'Quartz Crystal' --core qwen3 --input world.json --output world.json
+demi navigate 'Crystal Lattice' --core qwen3 --input world.json --output world.json
 ```
 
-The world's JSON structure will now contain a new, nested `"manifestation"` block for "Quartz Crystal" inside the "stone's" `manifestation`:
+The world's JSON structure will now contain a new, nested `"manifestation"` block for "Crystal Lattice" inside the "stone's" `manifestation`:
 
 ```json
 {
-  "discovery": { /* ... */ },
+  "discovery": { /* ... metadata about world creation */ },
   "navigation": {
-    "max_depth": 2, // Depth increased, as we've delved to a new level
+    "max_depth": 2, // Depth increased
     "history": [
-      { "date": "2025-06-26 21:51:31", "core": "qwen3", "prompt": "stone" },
-      { "date": "2025-06-26 22:05:43", "core": "qwen3", "prompt": "sand" },
-      { "date": "2025-07-04 23:36:03", "core": "qwen3", "prompt": "Quartz Crystal" } // New history entry added
+      // Navigation history updated
+      {
+        "date": "2025-07-06 22:27:22",
+        "core": "qwen3",
+        "prompt": "Stone"
+      },
+      {
+        "date": "2025-07-06 22:35:23",
+        "core": "qwen3",
+        "prompt": "Sand"
+      },
+      {
+        "date": "2025-07-06 22:51:47",
+        "core": "qwen3",
+        "prompt": "Crystal Lattice"
+      }
     ]
   },
   "world": {
-    "essence": "A minimalist physical system...", /* ... */
+    "essence": "A world where a solid object (a stone) rests in equilibrium on a granular substrate...", /* ... high-level world essence */
     "primary_constituents": [
       {
-        "name": "stone",
-        "description": "A discrete, rigid, non-fluid mass...",
+        "name": "Stone",
+        "description": "A dense, impermeable mass of mineral composition...", /* ... high-level stone description */
         "manifestation": {
-          "essence": "A macroscopic, rigid, non-fluid mass...", /* ... */
+          "essence": "A rigid, mineralogical aggregate characterized by a highly ordered atomic lattice structure...", /* ... already manifested stone details */
           "primary_constituents": [
             {
-              "name": "Quartz Crystal",
-              "description": "A representative mineralogical component characterized by its tetrahedral atomic structure and isotropic mechanical properties.",
-              "manifestation": { // NEW NESTED BLOCK: Quartz crystal's detailed manifestation
-                "essence": "A fundamental mineralogical component characterized by its tetrahedral atomic structure and isotropic mechanical properties.",
+              "name": "Crystal Lattice",
+              "description": "A three-dimensional array of atoms or molecules arranged in a repeating, symmetrical pattern...", /* ... high-level crystal lattice description */
+              "manifestation": { // NEW BLOCK: Crystal Lattice's detailed manifestation
+                "essence": "A three-dimensional array of atoms or molecules arranged in a repeating, symmetrical pattern, forming the foundational structural matrix of the stone.",
                 "primary_constituents": [
                   {
                     "name": "Atomic Lattice",
-                    "description": "A three-dimensional arrangement of silicon and oxygen atoms forming a repeating tetrahedral network, with each silicon atom bonded to four oxygen atoms."
+                    "description": "A periodic, three-dimensional arrangement of atoms or molecules, defining the stone's structural framework through translational symmetry."
                   },
                   {
-                    "name": "Remaining Atomic Interactions",
-                    "description": "A collective state of vibrational and electrostatic interactions between lattice atoms, maintaining structural integrity and enabling energy propagation."
+                    "name": "Bonding Network",
+                    "description": "The cohesive system of chemical bonds and interatomic forces that maintain the lattice's integrity, enabling resistance to deformation under external stress."
                   }
                 ],
                 "governing_framework": [
-                  "Covalent bonding between silicon and oxygen atoms",
-                  "Phonon propagation through crystalline lattice",
-                  "Thermal expansion behavior of tetrahedral network"
+                  "The principle of periodicity, where the lattice's repeating unit defines the spatial arrangement of atoms and determines the stone's macroscopic properties.",
+                  "The law of interatomic bonding, which dictates the strength and directional characteristics of the lattice's cohesive forces.",
+                  "The dynamic equilibrium of vibrational modes within the lattice, maintaining thermal stability while preserving structural rigidity."
                 ],
                 "driving_forces_and_potential": [
-                  "Lattice vibration energy maintaining atomic positions",
-                  "Electrostatic interactions stabilizing tetrahedral bonds",
-                  "Thermally induced phonon propagation potential"
+                  "The latent energy stored in covalent or ionic bonds, capable of releasing energy through lattice dislocation or fracture under excessive stress.",
+                  "The kinetic vibrational motion of atoms within the lattice, which sustains thermal conductivity and influences the stone's mechanical response to external forces.",
+                  "The potential for structural transformation, arising from thermal excitation or external pressure that may induce phase changes or lattice reconfiguration."
                 ],
-                "foundational_state": "A perfect silicon-oxygen tetrahedral lattice with 100% covalent bonding, exhibiting 1.1 eV bond dissociation energy and 5.7×10^-11 Pa compliance modulus at 0 K."
+                "foundational_state": "The atomic lattice exhibits a uniform distribution of vibrational energy across its periodic framework, with interatomic bonds in a state of low-entropy equilibrium. The lattice's geometric arrangement remains unaltered by external perturbations, maintaining structural integrity through persistent electrostatic or covalent cohesion."
               }
             },
             {
-              "name": "Remaining Mineral Particles",
-              "description": "A collective aggregate of silicate and metallic mineral fragments forming the bulk of the stone's macrostructure through interlocking crystalline lattices."
+              "name": "Mineral Matrix",
+              "description": "The cohesive network of chemical bonds and interatomic forces that bind the crystal lattice together..." /* ... high-level mineral matrix description */
             }
           ],
-          "governing_framework": [ /* ... */ ],
-          "driving_forces_and_potential": [ /* ... */ ],
-          "foundational_state": "A polycrystalline matrix..."
+          "governing_framework": [ /* ... stone's laws */ ],
+          "driving_forces_and_potential": [ /* ... stone's driving forces */ ],
+          "foundational_state": "The stone's atomic lattice exhibits a uniform distribution of vibrational energy..." /* ... stone's foundational state */
         }
       },
       {
-        "name": "sand",
-        "description": "A granular, semi-fluid aggregate...",
-        "manifestation": { /* ... full manifestation block for "sand" from previous step */ }
+        "name": "Sand",
+        "description": "A granular medium composed of minute, interlocking particles of mineral or organic origin...", /* ... high-level sand description */
+        "manifestation": { /* ... already manifested sand details */ }
       }
     ],
-    "governing_framework": [ /* ... */ ],
-    "driving_forces_and_potential": [ /* ... */ ],
-    "foundational_state": "The stone occupies a stable equilibrium position..."
+    "governing_framework": [ /* ... high-level world laws */ ],
+    "driving_forces_and_potential": [ /* ... high-level world driving forces */ ],
+    "foundational_state": "The stone occupies a specific spatial locus on the sand's surface..." /* ... high-level world foundational state */
   }
 }
 ```
 
-DEMI correctly found "Quartz Crystal" within the already "manifested" stone and unveiled it to an atomic level, demonstrating hierarchical delving and the immutability of the world's internal logic. Now `max_depth` has reached 2.
+DEMI correctly found "Crystal Lattice" within the already "manifested" stone and unveiled it to an atomic level, demonstrating hierarchical delving and the immutability of the world's internal logic. Now `max_depth` has reached 2.
 
 #### Conclusion
 
