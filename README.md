@@ -1,106 +1,98 @@
-# Semantic Reality Generation Engine (SRGE)
+# Project Demiurg
 
-A semantic engine for generating internally coherent fictional realities - from quantum voids to dreaming cities, using prompt-driven LLM world synthesis, powered by the **SRGC model of reality.**
+**Project Demiurg** - A semantic engine for generating internally consistent fictional realities, from quantum voids to dream cities, using world synthesis based on text queries (prompts) and LLMs following the SRGC representation model.
 
 ## Overview
 
-**SRGE** is a tool that transforms natural language prompts into **self-sufficient fictional realities structured by the SRGC model**. By leveraging a highly specialized **system prompt** and local **Large Language Models (LLMs)** via Ollama, it generates semantic JSON outputs that don't just describe, but also **lay the foundation for the existence and evolution of complex worlds according to their own intrinsic logic, adhering to the principles of Semantic Reality with Gradient Concretization (SRGC).**
+**DEMI** (the **Project Demiurg Engine** tool) is a system that transforms text queries into **self-contained fictional realities**, structured according to the **SRGC representation model**. Utilizing a multi-agent system based on local **Large Language Models (LLMs)** via [Ollama](https://ollama.com/), it generates semantic [JSON](https://www.json.org) structures that don't just describe, but also form the foundation for the existence and evolution of complex worlds in accordance with their own internal logic, adhering to **SRGC principles**.
 
-Whether you're building a simulation, a narrative universe, or an abstract conceptual model, SRGE provides a foundational structure grounded in pure semantic meaning.
+Whether you're creating a simulation, a narrative universe, or an abstract conceptual model, DEMI provides a fundamental structure based on pure semantic meaning.
 
 ---
 
-## Key Concepts: SRGE (The Engine) and SRGC (The Reality Model)
+## Key Concepts
 
-To fully understand SRGE, it's crucial to distinguish between the engine itself, the unique reality model it employs, and the emergent world that arises from their interaction:
+To fully understand DEMI, it is crucial to distinguish between the engine itself and the unique model of reality it employs and generates:
 
-*   **SRGE (Semantic Reality Generation Engine):** This is the **active system, engine, or tool**. SRGE is the software (a combination of the LLM, your scripts, the specialized system prompt, and commands) that **executes the process of generating, unfolding (manifesting), and querying** worlds. It takes user prompts as input and, using the LLM, creates or modifies world structures. SRGE is the **mechanism** that allows you to interact with a reality.
+*   **DEMI (Project Demiurg Engine):** This is the **active system, engine, or tool**. DEMI is the software (a combination of LLMs, your scripts, the system prompt, and commands) that **executes the process of generating, unfolding (manifesting), and querying** worlds. It accepts user queries and, using LLMs, creates or modifies world structures. DEMI is the **mechanism** that allows you to interact with reality.
 
-*   **SRGC (Semantic Reality with Gradient Concretization):** This is the **unique conceptual model, metaphysical structure, or "nature" of the reality itself** that SRGE generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality where entities exist on a **gradient spectrum of concretization** - from abstract concepts and undifferentiated groups to precisely manifested components.
-    *   **The core idea of SRGC:** World details initially exist in a state of **potentiality and indeterminacy**, and they **"materialize" (manifest)** upon request, without violating the world's internal logic. This allows a reality to contain, for example, both **concrete, fully manifested entities** and **undefined groups** (e.g., "a single apple" and "remaining apples in a basket" can coexist correctly within an SRGC structure, where "remaining apples" is an entity with the potential for further concretization, rather than an error). SRGC allows a reality to be **partially concretized** until the moment of "observation."
+*   **SRGC (Semantic Reality with Gradient Concretization):** This is the **unique conceptual model, metaphysical structure, or the "nature" of reality itself** that DEMI generates and interacts with. Unlike traditional, static ontologies, SRGC describes a reality in which entities exist on a **gradient spectrum of concretization** – from abstract concepts and undifferentiated groups to precisely manifested components.
+    *   **The core idea of SRGC:** World details initially exist in a state of **potential and uncertainty**, and they **"materialize" (manifest)** on demand, without violating the world's internal logic. This allows a world to contain, for example, both **concrete, fully manifested entities** and **undefined groups** (e.g., "one apple" and "the remaining apples in the basket" can correctly coexist in a single SRGC-structure, where "the remaining apples" is an entity with the potential for further concretization, not an error). SRGC allows reality to be **partially concretized** until the moment of "observation."
 
-*   **The Emergent World:** The world in SRGE is an **emergent reality** that arises from the synergy between the structured map (JSON, created by the SRGC model) and the language model (LLM). The JSON is not the world itself but its **potential**, containing meanings and rules. The LLM is not merely a text generator but an **engine** that reveals this potential. Together, they create a **micro-dimension** - a dynamic, logically coherent system that you can explore through commands like `navigate`, and `query`. This is neither static text nor imagination but a living informational reality that exists in the process of interaction.
+*   **World as Synergy:** A world in DEMI is an **emergent reality** that arises from the synergy between a structured map (JSON, created by the SRGC model) and a language model (LLM). The JSON is not the world itself, but its **potential**, containing meanings and rules. The LLM is not merely a text generator, but an **engine** that **unfolds** this potential. Together, they create a **micro-dimension** – a dynamic, logically coherent system that you can explore using commands like `navigate` and `query`. This is not static text or imagination, but a living informational reality that exists through interaction.
 
 ---
 
 ## Interactive Exploration
 
-To provide a more intuitive understanding of SRGE's structured outputs, we offer tools for visualizing generated realities:
+For a more intuitive understanding of DEMI's structured outputs, we offer tools for visualizing generated realities:
 
 ### Local Visualizer
 
-An interactive graph visualizer is available for local use, allowing you to explore the **gradient concretization structure** of SRGE worlds directly on your machine.
+An interactive graph visualizer is available for local use, allowing you to explore the **gradient concretization structure** of DEMI worlds directly on your machine.
 
-*   **Location:** Find the standalone visualizer at [`visualizer/visualizer.html`](./visualizer/visualizer.html) in this repository.
-*   **Usage:** Open `visualizer.html` in your web browser. You can paste any SRGE-generated JSON output into the provided text area or load an example to see its internal structure as a dynamic, expandable graph.
+*   **Location:** The standalone visualizer is located at [`visualizer/visualizer.ru.html`](./visualizer/visualizer.ru.html) in this repository.
+*   **Usage:** Open `visualizer.html` in your web browser. You can paste any generated DEMI JSON output into the text field or load an example to see its internal structure as a dynamic, unfolding graph.
 
-### Online Project Hub
+### Project Online Hub
 
-For a broader overview of SRGE and an integrated experience, a dedicated project website is available.
+For a general overview of DEMI and an integrated experience, a dedicated project website is available.
 
-*   **Access the Website:** [architector1324.github.io/semantic-reality-generation-engine](https://architector1324.github.io/semantic-reality-generation-engine/)
-
----
-
-## First Steps & Core Philosophy: An Introductory Dialogue
-
-Curious about SRGE's unique approach to reality generation and how it handles seemingly impossible concepts like infinite detail within a finite file? We've captured a real conversation that serves as an accessible introduction to SRGE's core ideas, philosophy, and practical applications, **especially how it generates and navigates realities leveraging the SRGC model.**
-
-**Dive into the full dialogue here:** [SRGE Explained: An Introductory Dialogue](./ChatGPT/ChatGPT_explanation.md)
+*   **Visit the website:** [architector1324.github.io/project-demiurg/index.ru.html](https://architector1324.github.io/project-demiurg/index.ru.html)
 
 ---
+
+## First Steps and Key Philosophy: A Dialogue with ChatGPT
+
+Are you interested in learning about DEMI's unique approach to reality generation and how it handles seemingly impossible concepts like infinite detail in a finite file? We've recorded a real conversation that serves as an accessible introduction to DEMI's key ideas, philosophy, and practical applications, **especially in how it generates realities and allows navigation through them based on SRGC.**
+
+**The full dialogue is available here:** [DEMI Explained: An Introductory Dialogue](./ChatGPT/ChatGPT_explanation.ru.md)
 
 ## Usage Examples
 
-Explore a wide variety of generated worlds and see SRGE's capabilities in action, from scientifically accurate systems to fictional universes and abstract concepts.
+Explore a wide range of generated worlds and assess DEMI's capabilities in action, from scientifically accurate systems to fictional universes and abstract concepts.
 
-**View the full catalog of examples here:** [SRGE World Generation Examples Catalog (old)](./examples/old/examples.md)
-
----
+**View the full catalog of examples here:** [DEMI World Generation Examples Catalog (outdated)](./examples/old/examples.ru.md)
 
 ## Motivation / Philosophy
 
-SRGE was born from the desire to explore the true capabilities of Large Language Models beyond mere conversation or data retrieval. It represents a **metaphysical experiment** - a quest to harness LLMs as semantic engines capable of constructing self-contained, internally consistent realities **governed by the SRGC model**. My aim is to demonstrate that even smaller, locally runnable models can serve as a "semantic core," enabling the creation and simulation of complex worlds at arbitrary levels of detail, entirely independent of external human interpretation, **in accordance with its principles**. This project challenges the very notion of what constitutes a "reality" and how it can be synthetically generated **through the lens of SRGC.**
-
----
+DEMI was born from a desire to explore the true capabilities of Large Language Models beyond simple conversation or data extraction. It represents a **metaphysical experiment** - a quest to use LLMs as semantic engines capable of constructing self-sufficient, internally consistent realities, **governed by SRGC**. The project aims to demonstrate that even smaller, locally run models can serve as a "semantic core," enabling the creation and simulation of complex worlds at any level of detail, entirely independent of external human interpretation, **in accordance with its principles**. This project challenges the very notion of what constitutes "reality" and how it can be synthetically generated **through the lens of SRGC.**
 
 ## Core Features
 
-SRGE offers a powerful set of capabilities designed to bring complex realities to life:
+DEMI offers a powerful set of capabilities designed to bring complex realities to life:
 
-*   **Prompt-Driven Reality Synthesis:** Simply provide a short text prompt, and SRGE will generate a unique, detailed fictional reality, tailored to your vision.
-*   **Deep SRGC Structure:** Each generated world comes as a **structured JSON output**, meticulously defining its existence across five core dimensions, **consistent with the underlying reality framework**. This isn't just text; it's a blueprint for a living world:
+*   **Prompt-Based Reality Synthesis:** Simply provide a brief text query, and DEMI will generate a unique, detailed fictional reality, tailored to your vision, **structured by SRGC.**
+*   **Deep SRGC-Structure:** Each generated world is represented as a **structured JSON representation**, meticulously defining its existence across five core dimensions, **consistent with its reality framework**. This is not just text; it's a blueprint of a living world:
     *   `essence`: The fundamental nature and defining concept of the reality.
-    *   `primary_constituents`: The core entities, elements, or principles that form its very fabric.
-    *   `governing_framework`: The intrinsic laws and rules that dictate how the world functions.
-    *   `driving_forces_and_potential`: The dynamic elements that propel change, evolution, and narrative possibilities.
-    *   `foundational_state`: The initial conditions and primordial state from which the reality emerges.
-*   **Unparalleled Consistency & Versatility:** SRGE delivers **genre-agnostic** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the gritty depths of cyberpunk, the generated realities will always adhere to their own logical framework.
-*   **Pure Intrinsic Logic:** Unlike typical game or narrative engines, SRGE focuses solely on the **intrinsic logic of the world itself**, **as determined by SRGC's principles**. There's no "player framing" – the reality exists independently, driven by its own internal dynamics.
-*   **Reality as Observation:** Worlds created by SRGE are, in essence, infinitely complex and possess the potential for endless detail. However, due to the technical limitations of storing infinitude on a computer, their representation takes on a **quantum nature**: the world's details are initially **undetermined and in a state of potentiality**, akin to the principles of quantum mechanics. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `navigate` command), **in accordance with SRGC's principle of gradient concretization.**
+    *   `primary_constituents`: The main entities, elements, or principles that form its foundation.
+    *   `governing_framework`: The internal laws and rules that define the world's operating principles.
+    *   `driving_forces_and_potential`: Dynamic elements that drive change, evolution, and create narrative possibilities.
+    *   `foundational_state`: The initial conditions and primal state from which the reality originates.
+*   **Unprecedented Consistency and Versatility:** DEMI ensures **genre-independent** and **internally consistent** semantic synthesis. Whether you're exploring the intricacies of quantum physics or the grim depths of cyberpunk, the generated realities will always adhere to their own logical structure.
+*   **Pure Internal Logic:** Unlike typical game or narrative engines, DEMI focuses exclusively on the **internal logic of the world itself**, **defined by SRGC principles**. There is no "player orientation" here – reality exists independently, driven by its own internal dynamics.
+*   **Reality as Observation:** Worlds created by DEMI are inherently infinitely complex and possess the potential for infinite detail. However, due to technical limitations in storing an infinite volume of data on a computer, their representation acquires a **quantum nature**, **consistent with its nature**: world details are initially **undetermined and in a state of potentiality**, similar to quantum mechanics principles. They **"materialize" and manifest** only upon targeted **"observation"** or focus from the user (via the `navigate` command), **in accordance with SRGC's gradient concretization principle.**
 
-    **Important: This does not contradict the declared independence of the world from an external observer.** The LLM acts as a **"revealer" of inherent complexity**, not its arbitrary generator. The external observer, by requesting a deeper dive, does not **alter** the world or its internal laws, nor does it introduce anything external. It merely **prompts the world to "unfold"** that part of its structure which is already intrinsically embedded in its foundational semantic fabric, **following its rules**. This process always occurs **strictly according to the internal rules and logic of the reality itself**. Thus, the observer does not create a new reality, but rather **explores** an already existing one, merely shifting to a deeper level of its manifestation. This guarantees that even with deep exploration, the world remains absolutely internally consistent and true to its initial laws.
-*   **Local & Autonomous:** Run SRGE entirely on your machine without an internet connection. Powered by Ollama, it provides a self-contained environment for reality generation and exploration.
-
----
+    **Important: This does not contradict the declared independence of the world from an external observer.** The LLM acts as an **"unfolder" of its inherent complexity**, not its arbitrary generator. An external observer, by requesting a deeper dive, does not **alter** the world or its internal laws, nor introduces anything external. They merely **prompt the world to "unfold"** that part of its structure which is already intrinsically embedded within its fundamental semantic fabric, **following its rules**. This process always occurs **strictly in accordance with the internal rules and logic of the reality itself**. Thus, the observer does not create a new reality, but rather **explores** an already existing one, merely moving to a deeper level of its manifestation. This ensures that even with deep exploration, the world remains absolutely internally consistent and true to its original laws.
+*   **Local and Autonomous:** Run DEMI entirely on your computer without an internet connection. Powered by Ollama, it provides a self-contained environment for generating and exploring realities.
 
 ## Installation
 
-To run SRGE locally, you'll need **Ollama** installed and configured, along with the `qwen3:4b`/`qwen3` models.
+To run DEMI locally, you will need **Ollama** installed and configured, as well as the `qwen3:4b`/`qwen3` models.
 
-1.  **Install Ollama:** Follow the official instructions at [ollama.com](https://ollama.com/) to install Ollama on your system.
+1.  **Install Ollama:** Follow the official instructions on [ollama.com](https://ollama.com/) to install Ollama on your system.
 
-2.  **Pull the models:**
+2.  **Download models:**
 
     ```bash
     ollama pull qwen3:4b
     ollama pull qwen3
     ```
 
-3.  **Clone the SRGE repository:**
+3.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/architector1324/semantic-reality-generation-engine
+    git clone https://github.com/architector1324/project-demiurg
     ```
 
 4.  **Install Python dependencies (if any):**
@@ -111,62 +103,62 @@ To run SRGE locally, you'll need **Ollama** installed and configured, along with
 
 ## Commands
 
-| Command | Description | Status |
-| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ |
-| `create` | Generate a completely new, high-level reality from a short prompt. | **Ready** |
-| `query` | Interrogate a generated world through semantic Q&A. Answers are inferred purely from the world's internal logic - not guessed or invented. | **Ready** |
-| `navigate`| Traverse and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon focused "observation," strictly adhering to its internal logic, **as defined by SRGC.** | **Ready** |
-| `live` | Simulate dynamic evolution and events within a generated world based on its internal forces and rules. | *Planned* |
+| Command    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Status     |
+| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- |
+| `create` | Create a brand new, high-level reality from a brief query (prompt).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Ready**  |
+| `query`  | Ask questions to the generated world through semantic Q&A. Answers are derived solely from the world's internal logic - not guessed or fabricated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | **Ready**  |
+| `navigate` | Navigate and semantically unfold the inherent, granular details of an existing world. This is not arbitrary generation; the world automatically reveals its pre-existing complexity and structure upon targeted "observation," strictly adhering to its internal logic, **as defined by SRGC.**                                                                                                                                                                                                                                                                                                                                          | **Ready**  |
+| `live`   | Simulate the dynamic evolution and events within a generated world based on its internal forces and rules.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | *In plans* |
 
-## Semantic Navigation (Unfolding Reality)
+## Semantic Navigation (Reality Unfolding)
 
-The `navigate` command is a core mechanism for **exploring and revealing the inherent, granular layers** of an already generated reality. It embodies the principle of **"Reality as Observation"**: where the details of a world exist in a state of potentiality and **materialize (unfold)** upon focused intent. This is not arbitrary generation; instead, it is a **semantic unfolding** of pre-existing, intrinsic complexity, logically derived from the parent entity and the overarching laws of the world, **all governed by its principles.**
+The `navigate` command is the primary mechanism for **exploring and unfolding the inherent, granular layers** of an already generated reality, **as defined by SRGC**. It embodies the principle of **"Reality as Observation"**: where world details exist in a state of potentiality and **materialize (unfold)** upon targeted intent. This is not arbitrary generation; instead, it is the **semantic unfolding** of pre-existing, internal complexity, logically deriving from the parent entity and the world's general laws, **all governed by SRGC principles.**
 
-Imagine a vast, multi-dimensional map where only the major continents are initially visible. `navigate` acts like a zoom function, progressively revealing cities, then streets, then individual buildings. All these details **already existed** on the map; they were simply not "rendered" at that specific level of granularity.
+Imagine a vast, multi-dimensional map where initially only large continents are visible. `navigate` acts as a zoom function, sequentially revealing cities, then streets, then individual buildings. All these details **already existed** on the map; they simply weren't "rendered" at that particular level of detail.
 
-When invoking `navigate`, the user specifies a point of focus or a conceptual path (e.g., "Water Droplet", "Woman at a table"). The system (the LLM guided by the system prompt) acts as a **sophisticated semantic lens, interpreting the query and revealing the corresponding hierarchical layers, consistent with SRGC's gradient concretization.** This process then adds granular `"manifestation"` objects to the world's JSON structure.
+When `navigate` is invoked, the user specifies a focal point or conceptual path (e.g., "A drop of water", "A woman at a table"). The system (the LLM, guided by the system prompt) acts as a **sophisticated semantic lens, interpreting the query and revealing relevant hierarchical levels, consistent with SRGC's gradient concretization.** This process then adds detailed `manifestation` objects to the world's JSON structure.
 
-**Crucially, when an entity manifests, it reveals not only its `primary_constituents` but also its own internal `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`**, all strictly derived from its parent entity and the overarching world logic, **and adhering to the principles of coherence.** This ensures that every unveiled detail maintains the full **internal coherence** of the reality.
+**Crucially, when an entity manifests, it reveals not only its `primary_constituents`, but also its own internal `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state` – all strictly derived from the parent entity and the general logic of the world, and **consistent with its principles of coherence**. This ensures that every unfolded detail maintains the full **internal integrity** of the reality.**
 
 **Key Features:**
 
-*   **Hierarchical Consistency:** All elements within the `manifestation` (its internal constituents, laws, and forces) are direct, more specific **consequences or deeper manifestations** of the parent entity's description and the parent world's governing structure, ensuring continuous logical coherence **within the model.**
+*   **Hierarchical Consistency:** All elements within a `manifestation` (its internal constituents, laws, and forces) are direct, more specific **consequences or deeper manifestations** of the parent entity's description and the parent world's governing structure, ensuring continuous logical integrity **within the model.**
 *   **Semantic Pathfinding and Unfolding:** The LLM does not require an exact name match. It **interprets** the user's query within the existing **structure** and **semantically determines the logical path** to the specified focus. If the requested entity is deeply nested, the model **recursively unfolds the entire chain of manifestation**, revealing the necessary intermediate `manifestation` levels.
-    *   Example: If the user requests `navigate 'woman at a table in a restaurant'` when the world is described down to "New York City", the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
-*   **Focus-Oriented Detailing:** For larger entities, the command intelligently focuses on the most relevant sub-components, aggregating the vast majority of other parts into a single representative entity (e.g., `"Other [Entity Name] Components"`), preventing excessive data proliferation.
-*   **Internal and Objective:** In line with SRGE's core philosophy, the output is entirely devoid of an external observational frame, describing the world purely from within itself. The user does not *create* a new reality, but rather *explores* and *observes* the unfolding of an already existing one, merely shifting to a deeper level of its manifestation.
+    *   Example: If a user requests `navigate 'a woman at a table in a restaurant'`, when the world is described down to "New York," the model will unfold the chain: `City -> District -> Building -> Restaurant -> Table -> Woman`, adding new `manifestation` objects at each level.
+*   **Focused Detailing:** For larger entities, the command intelligently focuses on the most relevant subcomponents, consolidating most other parts into a single representative entity (e.g., `"Other components [Entity Name]"`), preventing excessive data proliferation.
+*   **Internal and Objective:** In alignment with DEMI's core philosophy, the output is entirely devoid of an external observational perspective, describing the world purely from within itself. The user does not *create* a new reality, but rather *explores* and *observes* the unfolding of an already existing one, merely moving to a deeper level of its manifestation.
 
-The command returns the **complete, modified world JSON**, where the selected constituent element is updated or created with its new, deeper manifestation. This allows for recursive exploration, building an increasingly detailed **SRGC-structured map** of your fictional reality.
+The command returns the **complete, modified JSON of the world**, where the selected constituent is updated or created with its new, deeper manifestation. This allows for recursive exploration, creating an increasingly detailed **SRGC-structured map** of your fictional reality.
 
 > Example:
-> `python srge.py navigate 'Sand' --model qwen3 --input world.json`
+> `demi navigate 'Sand' --model qwen3 --input world.json`
 
 ### **Semantic Navigation in Action: Unfolding a Woman in a Metropolis**
 
-This example showcases the **true power of Semantic Navigation (Unfolding)** - not merely detailing entities, but **recursively revealing logical hierarchies and their full definitions** in response to a query, and brilliantly embodying the **"Reality as Observation"** principle where world details manifest upon user focus.
+This example demonstrates the **true power of semantic navigation (unfolding)** - not just detailing entities, but **recursively revealing logical hierarchies and their full definitions** in response to a query, as well as brilliantly embodying the **"Reality as Observation"** principle, where world details manifest upon user focus.
 
-**Initial World State (abbreviated, `world.json`):**
+**Initial World State (abridged, `world.json`):**
 ```json
 {
-  "essence": "A sprawling, interconnected urban center defined by its dense population, complex infrastructure...",
+  "essence": "A vast, interconnected urban center defined by dense population, complex infrastructure...",
   "primary_constituents": [
     {
       "name": "Urban Core",
-      "description": "The central business district characterized by skyscrapers..."
+      "description": "The central business district, characterized by skyscrapers..."
     },
-    // ... rest of primary constituents
+    // ... other primary constituents
   ],
-  // ... rest of the world's dimensions
+  // ... other world dimensions
 }
 ```
 
 **Navigation Query:**
 ```bash
-python srge.py navigate 'A woman sitting at a table in a restaurant' --model qwen3 --input world.json
+demi navigate 'A woman sitting at a table in a restaurant' --model qwen3 --input world.json
 ```
 
-**Result (schematic representation of the unfolded reality, demonstrating the full manifestation chain with expanded depth):**
-*(Only the key unfolding chain is shown for brevity. The full, corrected JSON version with complete details is available [here](./examples/Typical%20metropolis/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant/world.json).)*
+**Result (schematic representation of unfolded reality, showing full chain of manifestations with expanded depth):**
+*(Only the key unfolding chain is shown for brevity. The complete, corrected JSON with full details is available [here](./examples/Typical%20metropolis/A%20woman%20sitting%20at%20a%20table%20in%20a%20restaurant/world.json).)*
 
 ```json
 {
@@ -271,19 +263,17 @@ python srge.py navigate 'A woman sitting at a table in a restaurant' --model qwe
 ```
 
 **What this outstanding example demonstrates:**
-*   **Deep Unfolding at Every Level:** The model successfully built the manifestation chain `Metropolis (implicitly) -> Urban Core -> Restaurant -> Table -> Woman`. More importantly, at *each* new `manifestation` level, the LLM not only revealed new `primary_constituents` but also its specific `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`. This is crucial as it shows the world revealing its own nested intrinsic logic, not just its components.
-*   **Context-Aware Revelation & Philosophical Alignment:** The "Woman" entity was detailed not only to abstract states (`Physical Form`, `Consciousness`, `Sociocultural Identity`), but her unfolding also included her *own* specific biological, social, and cultural governing frameworks and driving forces. This perfectly aligns with the project's philosophy of the world revealing *itself* and its inherent logic.
-*   **Intrinsic Coherence:** The model independently determined the relevance and depth of detailing, strictly adhering to the world's internal logic, without external instructions or level constraints. SRGE does not "invent" but rather "manifests" what already semantically exists within its foundational principles.
-*   **Confirmation of "Reality as Observation":** The user's query served as an "observation" that compelled the world to "unfold" and reveal its internal complexity along the specified path, without creating new entities outside its inherent logic. The world unravels, it is not created.
+*   **Deep Unfolding at Each Level:** The model successfully constructed the manifestation chain: `Metropolis (implicit) -> Urban Core -> Restaurant -> Table -> Woman`. More importantly, at *each* new `manifestation` level, the LLM revealed not only new `primary_constituents`, but also its specific `essence`, `governing_framework`, `driving_forces_and_potential`, and `foundational_state`. This is crucial, as it shows that the world reveals its own nested internal logic, not just its components, **in accordance with its principles.**
+*   **Context-Oriented Revelation and Philosophical Adherence:** The "Woman" entity was detailed not only down to abstract states (`Physical Form`, `Consciousness`, `Sociocultural Identity`), but her unfolding also included *her own* specific biological, social, and cultural governing structures and driving forces. This perfectly aligns with the project's philosophy that the world reveals *itself* and its inherent logic, **as expressed by SRGC principles.**
+*   **Internal Coherence:** The model independently determined the relevance and depth of detail, strictly adhering to the world's internal logic, without external instructions or level constraints. DEMI does not "invent," but rather "manifests" what semantically exists within its foundational principles.
+*   **Confirmation of "Reality as Observation" Principle:** The user's query served as an act of "observation" that caused the world to "unfold" and reveal its internal complexity along the specified path, without creating new entities outside its inherent logic. The world unfolds; it is not created.
 
----
+## Manifesto: The Vision Behind Project Demiurg
 
-## Manifesto: The Vision Behind SRGE
+DEMI is more than just a world generator; it is an **engine for creating autonomous, living, self-sufficient realities**, **structured by SRGC**. These worlds exist by their own internal laws, not for the sake of a player or an observer.
 
-SRGE is more than just a world generator; it's an **engine for creating autonomous, living, self-contained realities**, **structured by the SRGC model**. These worlds exist by their own internal laws, not for the sake of a player or an observer.
-
-*   **Semantic Core:** We use language to forge miniature universes, with the LLM serving as their very breath.
-*   **SRGC, Not Ontology:** This is not merely text; it's a **SRGC-structured reality** – an ordered collection of entities and their relationships, where "word becomes flesh, and JSON its substance," **governed by principles of gradient concretization.**
-*   **Witness, Not Author:** You are not the author, player, or god; you are a **witness to an alien reality**, observing worlds where events unfold for their own internal reasons, not for or because of us, **as dictated by the SRGC model.**
-*   **LLM as Law:** The world lives by itself. The LLM acts as the **physical law governing its existence**, **manifesting its structure according to the SRGC model.**
-*   **Challenging Reality:** This is a **metaphysical experiment in a pocket-sized format**, designed to reveal the true capabilities of language models – even small ones – and to push the boundaries of what constitutes "reality" **through the lens of SRGC.**
+*   **Semantic Core:** We use language to forge miniature universes, with the LLM serving as their breath.
+*   **SRGC, not Ontology:** This is not merely text; it is an **SRGC-structured reality** – an ordered aggregate of entities, their relationships, laws, and driving forces.
+*   **Witness, not Author:** You are not an author, player, or god; you are a **witness to an alien reality**, observing worlds where events unfold for their own internal reasons, not for us or because of us, **as dictated by SRGC.**
+*   **LLM as Law:** The world lives on its own. The LLM acts as the **physical law governing its existence**, **manifesting its structure according to SRGC.**
+*   **Challenge to Reality:** This is a **metaphysical experiment in pocket format**, designed to reveal the true potential of language models – even small ones – and push the boundaries of what constitutes "reality" **through the lens of SRGC.**

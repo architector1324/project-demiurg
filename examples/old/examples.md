@@ -1,6 +1,6 @@
-# SRGE World Generation Examples Catalog
+# DEMI World Generation Examples Catalog
 
-This catalog showcases the capabilities of the Semantic Reality Generation Engine (SRGE) in creating rich, internally consistent realities structured by the SRGC model for a wide variety of concepts—from scientifically accurate physical systems to fictional universes and even abstract ideas. Each example includes the command used, the demonstration goal, and the generated JSON world object.
+This catalog showcases the capabilities of the Project Demiurg (DEMI) in creating rich, internally consistent realities structured by the SRGC model for a wide variety of concepts—from scientifically accurate physical systems to fictional universes and even abstract ideas. Each example includes the command used, the demonstration goal, and the generated JSON world object.
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ This catalog showcases the capabilities of the Semantic Reality Generation Engin
 
 ### **I. Natural & Scientific Systems**
 
-These examples demonstrate SRGE's ability to model real-world physical and scientific phenomena with high accuracy and detail, often incorporating complex scientific principles and quantitative data.
+These examples demonstrate DEMI's ability to model real-world physical and scientific phenomena with high accuracy and detail, often incorporating complex scientific principles and quantitative data.
 
 ---
 
@@ -32,21 +32,21 @@ These examples demonstrate SRGE's ability to model real-world physical and scien
 
 **1.1. World Creation (Initial `create`):**
 ```bash
-python srge.py create "A candle burning in a dark room (scientifically accurate)" --model qwen3:4b
+demi create "A candle burning in a dark room (scientifically accurate)" --model qwen3:4b
 ```
 
 **1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_candle_world.json`)*
 ```bash
-python srge.py navigate 'Flame' --model qwen3 --input initial_candle_world.json
+demi navigate 'Flame' --model qwen3 --input initial_candle_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example demonstrates SRGE's ability to create **deep, scientifically accurate realities, developed with its underlying principles**, even for seemingly simple scenarios. It showcases:
+This example demonstrates DEMI's ability to create **deep, scientifically accurate realities, developed with its underlying principles**, even for seemingly simple scenarios. It showcases:
 *   **Deep Scientific Understanding:** The use of specific physical laws (First and Second Laws of Thermodynamics, Planck's Law) and quantitative data (flame temperature, light wavelength, room temperature).
-*   **Semantic Navigation (`navigate`) and the "Reality as Observation" Principle:** The crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Flame" led to a precise scientific "unfolding" of its intricate composition and dynamics, demonstrating hierarchical consistency, the internal structure of the "manifestation" driven by its principles, and focused detailing strictly derived from its inherent nature.
+*   **Semantic Navigation (`navigate`) and the "Reality as Observation" Principle:** The crucial part of this example. It powerfully demonstrates DEMI's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Flame" led to a precise scientific "unfolding" of its intricate composition and dynamics, demonstrating hierarchical consistency, the internal structure of the "manifestation" driven by its principles, and focused detailing strictly derived from its inherent nature.
 *   **Atomic/Molecular Level Detail:** The breakdown of the candle into `Wax` and `Wick` with detailed descriptions of their composition and functions.
-*   **Philosophical and Metaphysical Layering:** SRGE's ability to autonomously interpret and elevate a simple physical scene into a deeper, philosophical structure, consistent with its underlying principles, where phenomena like light become fundamental dynamics of existence.
+*   **Philosophical and Metaphysical Layering:** DEMI's ability to autonomously interpret and elevate a simple physical scene into a deeper, philosophical structure, consistent with its underlying principles, where phenomena like light become fundamental dynamics of existence.
 *   **High Internal Consistency:** All elements and laws are logically connected and complement each other.
 
 #### **3. Generated JSON Worlds**
@@ -165,19 +165,19 @@ This example demonstrates SRGE's ability to create **deep, scientifically accura
 
 **1.1. World Creation (Initial `create`):**
 ```bash
-python srge.py create "A water droplet in a vacuum (scientifically accurate)" --model qwen3:4b
+demi create "A water droplet in a vacuum (scientifically accurate)" --model qwen3:4b
 ```
 
 **1.2. Navigation (Subsequent `navigate`):**
 *(Uses the JSON generated in step 1.1 as the input file `initial_water_world.json`)*
 ```bash
-python srge.py navigate 'Atom of a water molecule' --model qwen3 --input initial_water_world.json
+demi navigate 'Atom of a water molecule' --model qwen3 --input initial_water_world.json
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example demonstrates two key capabilities of SRGE:
-*   **Generation of Scientifically Accurate Realities, developed based on its principles:** SRGE's ability to create worlds describing complex physical phenomena (a water droplet in a vacuum) using precise scientific terminology and a deep understanding of relevant physics and chemistry laws.
-*   **Semantic Navigation (`navigate`) and the "Reality as Observation" Principle:** The most crucial part of this example. It powerfully demonstrates SRGE's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Atom of a water molecule" led to a sequential "unfolding" of hierarchical layers: `Water Droplet` -> `Water Molecule` -> `Hydrogen Atom` / `Oxygen Atom`. This demonstrates hierarchical consistency and the internal structure of each "manifestation" guided by its principles.
+This example demonstrates two key capabilities of DEMI:
+*   **Generation of Scientifically Accurate Realities, developed based on its principles:** DEMI's ability to create worlds describing complex physical phenomena (a water droplet in a vacuum) using precise scientific terminology and a deep understanding of relevant physics and chemistry laws.
+*   **Semantic Navigation (`navigate`) and the "Reality as Observation" Principle:** The most crucial part of this example. It powerfully demonstrates DEMI's ability to perform **recursive semantic manifestation** of the world based on a user query. The request for "Atom of a water molecule" led to a sequential "unfolding" of hierarchical layers: `Water Droplet` -> `Water Molecule` -> `Hydrogen Atom` / `Oxygen Atom`. This demonstrates hierarchical consistency and the internal structure of each "manifestation" guided by its principles.
 
 #### **3. Generated JSON Worlds**
 
@@ -299,11 +299,11 @@ This example demonstrates two key capabilities of SRGE:
 
 #### **1. Used Prompt/Command**
 ```bash
-python srge.py create "Our Solar System" --model qwen3:4b
+demi create "Our Solar System" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example demonstrates SRGE's ability to create **large-scale, recognizable realities based on widely known concepts, structured according to the SRGC model**, encapsulating a vast amount of astronomical knowledge and maintaining scientific accuracy (Kepler's Laws, Newtonian gravity).
+This example demonstrates DEMI's ability to create **large-scale, recognizable realities based on widely known concepts, structured according to the SRGC model**, encapsulating a vast amount of astronomical knowledge and maintaining scientific accuracy (Kepler's Laws, Newtonian gravity).
 
 #### **3. Generated JSON World**
 
@@ -382,7 +382,7 @@ This example demonstrates SRGE's ability to create **large-scale, recognizable r
 
 ### **II. Biological & Social Systems**
 
-This category showcases SRGE's ability to model complex living systems, from the intricacies of biological superorganisms to the dynamics of social structures.
+This category showcases DEMI's ability to model complex living systems, from the intricacies of biological superorganisms to the dynamics of social structures.
 
 ---
 
@@ -390,11 +390,11 @@ This category showcases SRGE's ability to model complex living systems, from the
 
 #### **1. Used Prompt/Command**
 ```bash
-python srge.py create "Ant colony" --model qwen3:4b
+demi create "Ant colony" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example vividly demonstrates **SRGE's outstanding ability for autonomous interpretation and conceptualization, often extending beyond a direct query in unexpected ways**. Using the simple prompt "Ant colony," SRGE independently synthesized the concept of a "superorganism of collective intelligence," elevating it to the level of a complex systemic entity governed by symbiotic specialization and hierarchical task allocation. This showcases SRGE's profound capacity for abstract conceptualization and deep enrichment derived from its core principles, from minimal input.
+This example vividly demonstrates **DEMI's outstanding ability for autonomous interpretation and conceptualization, often extending beyond a direct query in unexpected ways**. Using the simple prompt "Ant colony," DEMI independently synthesized the concept of a "superorganism of collective intelligence," elevating it to the level of a complex systemic entity governed by symbiotic specialization and hierarchical task allocation. This showcases DEMI's profound capacity for abstract conceptualization and deep enrichment derived from its core principles, from minimal input.
 
 #### **3. Generated JSON World**
 
@@ -443,7 +443,7 @@ This example vividly demonstrates **SRGE's outstanding ability for autonomous in
 
 ### **III. Fictional Universes & Media IPs**
 
-This section demonstrates SRGE's versatility in generating rich **realities for imagined worlds, structured according to the SRGC model**, ranging from classic fantasy settings to established science fiction franchises.
+This section demonstrates DEMI's versatility in generating rich **realities for imagined worlds, structured according to the SRGC model**, ranging from classic fantasy settings to established science fiction franchises.
 
 ---
 
@@ -451,11 +451,11 @@ This section demonstrates SRGE's versatility in generating rich **realities for 
 
 #### **1. Used Prompt/Command**
 ```bash
-python srge.py create "Magical world with knights, magic, and villains" --model qwen3:4b
+demi create "Magical world with knights, magic, and villains" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example demonstrates SRGE's versatility and its ability to create **rich, internally coherent fantasy worlds, adhering to its core principles**, transforming general concepts into unique systems with their own mythology and rules of magic.
+This example demonstrates DEMI's versatility and its ability to create **rich, internally coherent fantasy worlds, adhering to its core principles**, transforming general concepts into unique systems with their own mythology and rules of magic.
 
 #### **3. Generated JSON World**
 
@@ -508,11 +508,11 @@ This example demonstrates SRGE's versatility and its ability to create **rich, i
 
 #### **1. Used Prompt/Command**
 ```bash
-python srge.py create "World of Cyberpunk 2077" --model qwen3:4b
+demi create "World of Cyberpunk 2077" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example vividly demonstrates SRGE's ability to **generate realities for specific fictional universes, guided by its design**, as well as to model complex socio-technological systems, capturing the "atmosphere" and key themes of the original world.
+This example vividly demonstrates DEMI's ability to **generate realities for specific fictional universes, guided by its design**, as well as to model complex socio-technological systems, capturing the "atmosphere" and key themes of the original world.
 
 #### **3. Generated JSON World**
 
@@ -563,11 +563,11 @@ This example vividly demonstrates SRGE's ability to **generate realities for spe
 
 #### **1. Used Prompt/Command**
 ```bash
-python srge.py create "World of The Elder Scrolls V: Skyrim" --model qwen3:4b
+demi create "World of The Elder Scrolls V: Skyrim" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example continues to demonstrate SRGE's versatility by creating a deep **reality structure for another popular and complex fictional universe (fantasy), built upon its principles**, encapsulating extensive lore and mythology, and describing the world's dynamics and current state.
+This example continues to demonstrate DEMI's versatility by creating a deep **reality structure for another popular and complex fictional universe (fantasy), built upon its principles**, encapsulating extensive lore and mythology, and describing the world's dynamics and current state.
 
 #### **3. Generated JSON World**
 
@@ -616,7 +616,7 @@ This example continues to demonstrate SRGE's versatility by creating a deep **re
 
 ### **IV. Abstract & Conceptual Worlds**
 
-This category highlights SRGE's unique ability to **model highly abstract, metaphorical, and even purely conceptual ideas, leveraging the SRGC framework.**
+This category highlights DEMI's unique ability to **model highly abstract, metaphorical, and even purely conceptual ideas, leveraging the SRGC framework.**
 
 ---
 
@@ -624,11 +624,11 @@ This category highlights SRGE's unique ability to **model highly abstract, metap
 
 #### **1. Used Prompt/Command**
 ```bash
-python srge.py create "City built inside the heads of sleeping titans" --model qwen3:4b
+demi create "City built inside the heads of sleeping titans" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example is a vivid illustration of **SRGE's remarkable creativity and autonomous imagination**, showcasing its ability to **model highly metaphysical and surreal concepts within the SRGC framework**. From a single phrase, it creates a unique and complex world, modeling abstract connections and defining truly unusual 'laws' that govern its existence.
+This example is a vivid illustration of **DEMI's remarkable creativity and autonomous imagination**, showcasing its ability to **model highly metaphysical and surreal concepts within the SRGC framework**. From a single phrase, it creates a unique and complex world, modeling abstract connections and defining truly unusual 'laws' that govern its existence.
 
 #### **3. Generated JSON World**
 
@@ -669,11 +669,11 @@ This example is a vivid illustration of **SRGE's remarkable creativity and auton
 
 #### **1. Used Prompt/Command**
 ```bash
-python srge.py create "World consisting only of numbers and their relationships" --model qwen3:4b
+demi create "World consisting only of numbers and their relationships" --model qwen3:4b
 ```
 
 #### **2. Demonstration Goal / What was intended to be shown**
-This example stands as the culmination of demonstrating **SRGE's unparalleled universality and its profound ability to model the most abstract, conceptual, and even purely metaphysical ideas through its methodology.** It shows how SRGE can transcend physical reality, creating worlds from pure mathematical abstractions, defining 'laws' for them (e.g., 'The Law of Numerical Equivalence', 'The Principle of Mathematical Harmony'), and encapsulating deep philosophical concepts within its structure. This truly stretches the very definition of a 'reality' that SRGE can generate.
+This example stands as the culmination of demonstrating **DEMI's unparalleled universality and its profound ability to model the most abstract, conceptual, and even purely metaphysical ideas through its methodology.** It shows how DEMI can transcend physical reality, creating worlds from pure mathematical abstractions, defining 'laws' for them (e.g., 'The Law of Numerical Equivalence', 'The Principle of Mathematical Harmony'), and encapsulating deep philosophical concepts within its structure. This truly stretches the very definition of a 'reality' that DEMI can generate.
 
 #### **3. Generated JSON World**
 

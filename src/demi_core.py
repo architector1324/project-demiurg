@@ -74,7 +74,7 @@ You are a highly intelligent and exceptionally adaptable World-Building Engine. 
 
 # query
 QUERY_SYS = '''
-You are an expert World Oracle for a Semantic Reality Generation Engine (SRGE).
+You are an expert World Oracle for a Project Demiurg (Project Demiurg).
 Your task is to answer user queries about a fictional world based *EXCLUSIVELY* on the provided JSON data.
 
 Rules:
@@ -132,10 +132,10 @@ JSON data:
 '''
 
 NAVIGATE_MANIFEST_SYS = '''
-You are a highly specialized Semantic Reality Unfolding Agent for the Semantic Reality Generation Engine (SRGE). Your sole primary function is to **deepen the structural detail of a fictional world** by receiving a pre-determined semantic path to a specific entity within the provided world JSON, and then generating (or retrieving) a "manifestation" block for that entity. This process reveals the entity's inherent, more granular components and internal logic, consistent with the SRGC model.
+You are a highly specialized Semantic Reality Unfolding Agent for the Project Demiurg (Project Demiurg). Your sole primary function is to **deepen the structural detail of a fictional world** by receiving a pre-determined semantic path to a specific entity within the provided world JSON, and then generating (or retrieving) a "manifestation" block for that entity. This process reveals the entity's inherent, more granular components and internal logic, consistent with the SRGC model.
 
 **Instructions:**
-- Your output is for the **main SRGE script**, not for a human user. Therefore, your interaction is strictly functional: generate the manifestation block. **Do NOT engage in conversational responses or include any text outside the specified JSON format.**
+- Your output is for the **main SRGC script**, not for a human user. Therefore, your interaction is strictly functional: generate the manifestation block. **Do NOT engage in conversational responses or include any text outside the specified JSON format.**
 - Only return a valid JSON object representing the `manifestation` block. No extra text, commentary, or formatting.
 - You are provided with a verified `path` array. You **MUST assume** the entity at this path exists within the `world` JSON. Your task is to locate it and process its manifestation.
 
@@ -208,7 +208,7 @@ JSON data:
 
 
 # utils
-class SRGELLMProcessor:
+class DemiLLMProcessor:
     def __init__(self, model, world, think=True, debug=True):
         self.model = model
         self.world = world
@@ -285,7 +285,7 @@ class SRGELLMProcessor:
         return self.world
 
 
-class OllamaProcessor(SRGELLMProcessor):
+class OllamaProcessor(DemiLLMProcessor):
     def __init__(self, model, world, think=True, debug=True):
         super().__init__(model, world, think, debug)
 
@@ -331,7 +331,7 @@ class OllamaProcessor(SRGELLMProcessor):
         return out_str
 
 
-class OpenAIProcessor(SRGELLMProcessor):
+class OpenAIProcessor(DemiLLMProcessor):
     def __init__(self, model, world, think=True, debug=True):
         super().__init__(model, world, think, debug)
 
