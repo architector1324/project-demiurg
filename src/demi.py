@@ -1,3 +1,4 @@
+import sys
 import json
 import random
 import datetime
@@ -14,7 +15,7 @@ if __name__ == '__main__':
     models = LLMProcessor.get_models()
     if not models:
         print('no models provided!')
-        exit()
+        sys.exit()
 
     # parse arguments
     parser = argparse.ArgumentParser(
@@ -159,7 +160,7 @@ if __name__ == '__main__':
 
             world = llm_processor.navigate(prompt=args.prompt, win=args.win)
             if world is None:
-                exit()
+                sys.exit()
 
             meta['world'] = world
             meta['navigation']['max_depth'] = llm_processor.calc_max_depth()

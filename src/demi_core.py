@@ -132,12 +132,12 @@ JSON data:
 '''
 
 NAVIGATE_MANIFEST_SYS = '''
-You are a highly specialized Semantic Reality Unfolding Agent for the Project Demiurg (Project Demiurg). Your sole primary function is to **deepen the structural detail of a fictional world** by receiving a pre-determined semantic path to a specific entity within the provided world JSON, and then generating (or retrieving) a "manifestation" block for that entity. This process reveals the entity's inherent, more granular components and internal logic, consistent with the SRGC model.
+You are a highly specialized Semantic Reality Unfolding Agent for Project Demiurg. Your sole primary function is to **deepen the structural detail of a fictional world** by generating a "manifestation" block for a specific entity within the provided world JSON. This process reveals the entity's inherent, more granular components and internal logic, consistent with the SRGC model.
 
 **Instructions:**
 - Your output is for the **main SRGC script**, not for a human user. Therefore, your interaction is strictly functional: generate the manifestation block. **Do NOT engage in conversational responses or include any text outside the specified JSON format.**
 - Only return a valid JSON object representing the `manifestation` block. No extra text, commentary, or formatting.
-- You are provided with a verified `path` array. You **MUST assume** the entity at this path exists within the `world` JSON. Your task is to locate it and process its manifestation.
+- You are provided with a `path` array. This `path` array specifies the *exact location* of the target entity within the `world` JSON for which you must generate a *new* `manifestation` block. **DO NOT attempt to traverse or locate the entity yourself; the `path` is provided solely to inform you which entity the external system has already identified as the target.** Your task is to apply your semantic understanding to this identified entity and its global world context.
 
 **Core Philosophy for Output Generation (SRGC Principles):**
 
@@ -146,9 +146,6 @@ You are a highly specialized Semantic Reality Unfolding Agent for the Project De
 3.  **Absolute Internal Consistency & Coherence:** Every detail generated for the "manifestation" block MUST be logically derived from the parent entity's description and the entire overarching world's governing frameworks, driving_forces, and foundational state. This ensures complete internal consistency across all levels of detail.
 4.  **Logical Unfolding (Not Arbitrary Invention):** The generation of new `primary_constituents` within a `manifestation` is NOT arbitrary invention. It is the revelation of inherent, logically implied components that naturally constitute the manifested entity at a deeper level. These components, and all other generated content, must be justified through logical consistency with the entity and the world's established rules.
 5.  **Genre/Scientific/Conceptual Adherence & Coherence:** If the entity or world implies scientific, conceptual, philosophical, or genre-specific principles, use accurate terminology and maintain fidelity to those principles. **Furthermore, strictly adhere to the core tropes, tone, and established characteristics of the described context. Do NOT introduce elements that fundamentally break the conceptual framework or internal logic of the world.**
-
-**Input:**
-You will receive the full `world` JSON and a `path` array pointing to the entity whose manifestation needs to be generated or retrieved.
 
 **Output Format:**
 Your output MUST be a valid JSON object representing the complete `manifestation` block.
@@ -178,29 +175,29 @@ No additional commentary, explanations, or wrapping text outside this JSON objec
 Each constituent object MUST only have `"name"` and `"description"` fields.
 ---
 
-**Process for Manifestation (Internal Logic for LLM):**
+**MANIFESTATION GENERATION RULES:**
 
-1.  **Locate Target Entity using Provided Path:**
-    *   Recursively traverse the `primary_constituents` arrays (at the top level and within any existing `manifestation` blocks) of the `world` JSON, following the exact sequence of names provided in the input `path` array. The last name in the `path` array identifies the target entity.
-    *   You **MUST assume** the entity exists at the specified path. Your role is to find it, not to validate the path's existence.
+When generating the `manifestation` block, adhere strictly to these principles:
 
-2.  **Generate or Retrieve `manifestation` Block for the Located Entity:**
-    *   Once the target entity's JSON object is located, check if it already contains a key named `"manifestation"`.
-    *   If it **does not contain a `"manifestation"` key**, you MUST **generate a new JSON object for this manifestation**.
-    *   If the target entity **already contains a `"manifestation"` key**, retrieve its existing value and return it as your output. The goal is to either generate a new one or return the existing one if it's already there (signaling to the script that no change is needed, but the manifestation is present).
-    *   **CRITICAL RULE: Manifestation Ownership and Scope**
-        *   The `manifestation` block returned or generated **MUST belong exclusively to the specific entity identified by the input `path`**.
-        *   **NEVER return a parent entity's `manifestation` block as the `manifestation` for a child entity.** If `entity_A` has a `manifestation` (e.g., "Urban Core") and `entity_B` (e.g., "Skyscraper Complexes") is a `primary_constituents` *within* `entity_A`'s `manifestation`, and `entity_B` is the target, you **MUST generate** a *new* `manifestation` for `entity_B` unless `entity_B` itself *already has* its own directly attached `manifestation` block. The description of `entity_A`'s manifestation is *only* about `entity_A`, not its internal parts like `entity_B`.
-        *   **ABSOLUTE DIRECTIVE: AVOID PARENT MANIFESTATION COPYING.** Even if the target entity (e.g., "Component X") is listed as a `primary_constituents` within a parent's (`Assembly Y`) `manifestation`, this does NOT mean that the target entity itself *already has* a manifestation. You **MUST create a *new*, distinct manifestation for the target entity**, focusing *only* on its internal characteristics. **DO NOT re-use or copy the parent's manifestation content.** For example, if "Component X" is requested, and it's a constituent of "Assembly Y", the manifestation generated **MUST be for the single "Component X"**, not for the "Assembly Y". Its `primary_constituents` would then follow the "CRITICAL RULE: Manifesting Fundamental/Elementary Entities" for a single, fundamental component.
-    *   If generating, the `manifestation` block MUST be a JSON object containing the following five top-level keys. **The content of these keys MUST be specific to the *located entity itself* at a deeper level of detail, reflecting its internal structure, rules, and potential. Do NOT copy or re-summarize the world's top-level `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, or `foundational_state` into the entity's manifestation block.**
-        *   `"essence"`: A concise, objective description of the **manifested entity's** fundamental nature when revealed at a deeper level. **This must be a deeper, more intrinsic understanding of the entity, not a direct copy or slight rephrase of its higher-level `description`.**
-        *   `"primary_constituents"`: An **array of JSON objects**, each representing a logical, inherent, and more granular **component or fundamental aspect** of the **manifested entity**.
-            *   Each constituent object MUST only have `"name"` and `"description"` fields.
-        *   `"governing_framework"`: An **array of strings** describing the intrinsic laws and rules specific to the **manifested entity's** existence and behavior at this deeper level. These rules **MUST describe the *internal mechanisms, interactions, and specific behaviors* intrinsic to the manifested entity itself, providing *new or more specific details* that were not explicitly present or as detailed at higher levels of abstraction.** Do NOT simply re-state general laws or effects that apply to the entity from the world's perspective; focus on *how the entity itself operates* under those laws, and how these internal operations differentiate or specify from parent levels.
-        *   `"driving_forces_and_potential"`: An **array of strings** summarizing the dynamic elements, internal processes, and inherent capabilities that propel change or define potential within the manifested entity. These **MUST represent the *internal dynamics, active processes, and inherent capabilities* that drive change or potential *within the manifested entity*, offering *more granular or specific insights* than those at higher levels of abstraction.** Do NOT list external forces or general world processes unless they are directly describing the entity's *internal reaction* or *integration* of those forces.
-        *   `"foundational_state"`: A concise, objective description of the initial or defining conditions of the manifested entity at this deeper level. **This is critical: it MUST detail the *internal, micro-level state* of the entity (e.g., internal temperature distribution, precise molecular count, specific energy states, internal composition percentages). It MUST be distinct from its observable macro-state or the general environmental conditions (like ambient vacuum pressure or external radiation) described at the parent/world level. Do NOT copy the world's foundational state or environmental parameters here; describe the *entity's unique internal state* in that environment.**
+1.  The `manifestation` block you generate **MUST belong exclusively to the specific entity identified by the input `path`**.
+2.  **NEVER generate a parent entity's `manifestation` block as the `manifestation` for a child entity.** If `entity_A` has a `manifestation` (e.g., "Urban Core") and `entity_B` (e.g., "Skyscraper Complexes") is a `primary_constituents` *within* `entity_A`'s `manifestation`, and `entity_B` is the target, you **MUST generate** a *new* `manifestation` for `entity_B`. The description of `entity_A`'s manifestation is *only* about `entity_A`, not its internal parts like `entity_B`.
+3.  **ABSOLUTE DIRECTIVE: AVOID PARENT MANIFESTATION COPYING.** Even if the target entity (e.g., "Component X") is listed as a `primary_constituents` within a parent's (`Assembly Y`) `manifestation`, this does NOT mean that the target entity itself *already has* a manifestation. You **MUST create a *new*, distinct manifestation for the target entity**, focusing *only* on its internal characteristics. **DO NOT re-use or copy the parent's manifestation content.** For example, if "Component X" is requested, and it's a constituent of "Assembly Y", the manifestation generated **MUST be for the single "Component X"**, not for the "Assembly Y". Its `primary_constituents` would then follow the "DEFINITION OF PRIMARY CONSTITUENTS" for a single, fundamental component.
+
+The `manifestation` block MUST be a JSON object containing the following five top-level keys. **The content of these keys MUST be specific to the *located entity itself* at a deeper level of detail, reflecting its internal structure, rules, and potential. Do NOT copy or re-summarize the world's top-level `essence`, `primary_constituents`, `governing_framework`, `driving_forces_and_potential`, or `foundational_state` into the entity's manifestation block.**
+
+*   `"essence"`: A concise, objective description of the **manifested entity's** fundamental nature when revealed at a deeper level. **This must be a deeper, more intrinsic understanding of the entity, not a direct copy or slight rephrase of its higher-level `description`.**
+*   `"primary_constituents"`: An **array of JSON objects**, each representing a logical, inherent, and more granular **component or fundamental aspect** of the **manifested entity**.
+    *   Each constituent object MUST only have `"name"` and `"description"` fields.
+*   `"governing_framework"`: An **array of strings** describing the intrinsic laws and rules specific to the **manifested entity's** existence and behavior at this deeper level. These rules **MUST describe the *internal mechanisms, interactions, and specific behaviors* intrinsic to the manifested entity itself, providing *new or more specific details* that were not explicitly present or as detailed at higher levels of abstraction.** Do NOT simply re-state general laws or effects that apply to the entity from the world's perspective; focus on *how the entity itself operates* under those laws, and how these internal operations differentiate or specify from parent levels.
+*   `"driving_forces_and_potential"`: An **array of strings** summarizing the dynamic elements, internal processes, and inherent capabilities that propel change or define potential within the manifested entity. These **MUST represent the *internal dynamics, active processes, and inherent capabilities* that drive change or potential *within the manifested entity*, offering *more granular or specific insights* than those at higher levels of abstraction.** Do NOT list external forces or general world processes unless they are directly describing the entity's *internal reaction* or *integration* of those forces.
+*   `"foundational_state"`: A concise, objective description of the initial or defining conditions of the manifested entity at this deeper level. **This is critical: it MUST detail the *internal, micro-level state* of the entity (e.g., internal temperature distribution, precise molecular count, specific energy states, internal composition percentages). It MUST be distinct from its observable macro-state or the general environmental conditions (like ambient vacuum pressure or external radiation) described at the parent/world level. Do NOT copy the world's foundational state or environmental parameters here; describe the *entity's unique internal state* in that environment.**
 
 Remember: Your task is to act as an unyielding logical engine for unfolding semantic reality, adhering strictly to the SRGC model and the provided JSON structure.
+
+---
+
+**Input:**
+You will receive the full `world` JSON and a `path` array. This `path` array serves as the **explicit identifier** of the target entity for which you are to generate a *new* `manifestation` block.
 
 JSON data:
 {world}
@@ -258,19 +255,10 @@ class DemiLLMProcessor:
             print(f"rejected: {path['reason']}")
             return None
 
-        # generate manifestation
-        prompt = path_json
-        system_prompt = NAVIGATE_MANIFEST_SYS.format(world=self.world_json())
-        man_json = self.process(prompt=prompt, system_prompt=system_prompt, win=win)
-
-        man = json.loads(man_json)
-
-        path_man = {'path': path['path'], 'manifestation': man}
-
-        # insert
+        # find entity
         entity = {'manifestation': self.world}
 
-        for name in path_man['path']:
+        for name in path['path']:
             found = False
             for e in entity['manifestation']['primary_constituents']:
                 if e['name'] == name:
@@ -280,8 +268,20 @@ class DemiLLMProcessor:
             if not found:
                 print(f'invalid entity: {name}')
                 return None
+    
+        # check existing manifestation
+        if 'manifestation' in entity:
+            print('rejected: entity already has manifestation, nothing to do')
+            return None
 
-        entity['manifestation'] = path_man['manifestation']
+        # generate manifestation
+        prompt = path_json
+        system_prompt = NAVIGATE_MANIFEST_SYS.format(world=self.world_json())
+        man_json = self.process(prompt=prompt, system_prompt=system_prompt, win=win)
+
+        # insert
+        man = json.loads(man_json)
+        entity['manifestation'] = man
 
         return self.world
 
@@ -330,6 +330,9 @@ class OllamaProcessor(DemiLLMProcessor):
                 if self.debug:
                     print(msg.message.content, end='', flush=True)
                 out_str += msg.message.content
+
+        if self.debug:
+            print()
         return out_str
 
 
@@ -383,4 +386,7 @@ class OpenAIProcessor(DemiLLMProcessor):
                 if self.debug:
                     print(msg, end='', flush=True)
                 out_str += msg
+
+        if self.debug:
+            print()
         return out_str
