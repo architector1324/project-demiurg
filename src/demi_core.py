@@ -243,7 +243,70 @@ class DemiLLMProcessor:
         system_prompt = QUERY_SYS.format(world=self.world_json())
         return self.process(prompt=prompt, system_prompt=system_prompt, win=win)
 
-    def navigate(self, prompt, win):
+    def _navigate_find_entity(entity, path):
+        if not path:
+            return entity
+
+        if 'manifestation' not in entity or 'primary_constituents' not in entity['manifestation']:
+            return None
+
+        name = path[0]
+        next = None
+
+        for e in entity['manifestation']['primary_constituents']:
+            if e['name'] == name:
+                next = e
+                break
+
+        if next is None:
+            print(f'invalid entity: {name}')
+            return None
+        return DemiLLMProcessor._navigate_find_entity(next, path[1:])
+    
+    def _navigate_lean_branch(entity, path):
+        if not path:
+            return entity
+
+        name = path[0]
+        lean_node = {
+            'name': entity['name'],
+            'description': entity['description']
+        }
+
+        if 'manifestation' in entity:
+            original_manifestation = entity['manifestation']
+
+            lean_manifestation = {
+                'essence': original_manifestation['essence'],
+                'primary_constituents': [],
+                'governing_framework': original_manifestation['governing_framework'],
+                'driving_forces_and_potential': original_manifestation['driving_forces_and_potential'],
+                'foundational_state': original_manifestation['foundational_state']
+            }
+
+            if 'primary_constituents' in original_manifestation:
+                next = None
+
+                for e in original_manifestation['primary_constituents']:
+                    if e['name'] == name:
+                        next = e
+                        break
+                
+                if next:
+                    lean_manifestation['primary_constituents'].append(
+                        DemiLLMProcessor._navigate_lean_branch(next, path[1:])
+                    )
+                else:
+
+                    for e in original_manifestation['primary_constituents']:
+                        lean_manifestation['primary_constituents'].append({
+                            'name': e['name'],
+                            'description': e['description']
+                        })
+            lean_node['manifestation'] = lean_manifestation
+        return lean_node
+
+    def navigate(self, prompt, lean, win):
         # generate path
         system_prompt = NAVIGATE_PATH_SYS.format(world=self.world_json())
         path_json = self.process(prompt=prompt, system_prompt=system_prompt, win=win)
@@ -256,27 +319,48 @@ class DemiLLMProcessor:
             return None
 
         # find entity
-        entity = {'manifestation': self.world}
+        path = path['path']
+        entity = DemiLLMProcessor._navigate_find_entity({'manifestation': self.world}, path)
+        if not entity:
+            return None
 
-        for name in path['path']:
-            found = False
-            for e in entity['manifestation']['primary_constituents']:
-                if e['name'] == name:
-                    entity = e
-                    found = True
-                    break
-            if not found:
-                print(f'invalid entity: {name}')
-                return None
-    
         # check existing manifestation
         if 'manifestation' in entity:
             print('rejected: entity already has manifestation, nothing to do')
             return None
 
+        # agressive lean optimization
+        target = self.world_json()
+        if lean:
+            tmp_world = {
+                'essence': self.world['essence'],
+                'primary_constituents': [],
+                'governing_framework': self.world['governing_framework'],
+                'driving_forces_and_potential': self.world['driving_forces_and_potential'],
+                'foundational_state': self.world['foundational_state']
+            }
+
+            # include simplified world entities
+            for e in self.world['primary_constituents']:
+                if e['name'] == path[0]:
+                    # include target path entities
+                    tmp_world['primary_constituents'].append(
+                        DemiLLMProcessor._navigate_lean_branch(e, path[1:])
+                    )
+                else:
+                    tmp_world['primary_constituents'].append({
+                        'name': e['name'],
+                        'description': e['description']
+                    })
+
+            target = json.dumps(tmp_world, indent=2, ensure_ascii=False)
+
+            if self.debug:
+                print(f'simplified world:\n{target}')
+
         # generate manifestation
         prompt = path_json
-        system_prompt = NAVIGATE_MANIFEST_SYS.format(world=self.world_json())
+        system_prompt = NAVIGATE_MANIFEST_SYS.format(world=target)
         man_json = self.process(prompt=prompt, system_prompt=system_prompt, win=win)
 
         # insert

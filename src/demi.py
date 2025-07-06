@@ -108,6 +108,13 @@ if __name__ == '__main__':
         help=f'Specify the Ollama model to use as semantic core. Available models: {", ".join(models)}'
     )
     navigate_parser.add_argument(
+        '--lean',
+        '-l',
+        default=False,
+        action='store_true',
+        help='Reduce the context provided to the semantic core by trimming non-relevant branches, trading some detail for efficiency.'
+    )
+    navigate_parser.add_argument(
         '--debug',
         '-d',
         default=False,
@@ -158,7 +165,7 @@ if __name__ == '__main__':
 
             llm_processor = LLMProcessor(core=core, world=meta['world'], seed=meta['discovery']['seed'], think=True, debug=args.debug)
 
-            world = llm_processor.navigate(prompt=args.prompt, win=args.win)
+            world = llm_processor.navigate(prompt=args.prompt, lean=args.lean, win=args.win)
             if world is None:
                 sys.exit()
 
