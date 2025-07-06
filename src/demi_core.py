@@ -338,7 +338,7 @@ class OpenAIProcessor(DemiLLMProcessor):
         super().__init__(core, world, seed, think, debug)
 
     def get_models():
-        return ['qwen3:4b']
+        return ['qwen3:4b', 'qwen3']
     
     def process(self, prompt, system_prompt, win=4096):
         out_str = ''

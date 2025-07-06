@@ -41,6 +41,13 @@ if __name__ == '__main__':
         default=random.randint(0, 2**32 - 1),
         help='Specify a numerical seed for reproducible reality generation. If not provided, a random seed will be used.'
     )
+    create_parser.add_argument(
+        '--debug',
+        '-d',
+        default=False,
+        action='store_true',
+        help='Enable debug mode to show verbose output and internal workings.'
+    )
 
     # demi query <prompt> --input <filename> --output <filename> --core <name> --win <size>
     query_parser = subparsers.add_parser('query', help='Investigate an existing reality with a specific query.')
@@ -72,6 +79,13 @@ if __name__ == '__main__':
         default=6144,
         help='Specify the maximum context window size (in tokens) for the model during this operation.'
     )
+    query_parser.add_argument(
+        '--debug',
+        '-d',
+        default=False,
+        action='store_true',
+        help='Enable debug mode to show verbose output and internal workings.'
+    )
 
     # demi navigate <prompt> --input <filename> --output <filename> --core <name> --win <size>
     navigate_parser = subparsers.add_parser('navigate', help='Dive into a specific constituent or subsystem of an existing world and semantically elaborate its details recursively.')
@@ -92,6 +106,13 @@ if __name__ == '__main__':
         choices=models if models else None,
         help=f'Specify the Ollama model to use as semantic core. Available models: {", ".join(models)}'
     )
+    navigate_parser.add_argument(
+        '--debug',
+        '-d',
+        default=False,
+        action='store_true',
+        help='Enable debug mode to show verbose output and internal workings.'
+    )
 
     args = parser.parse_args()
 
@@ -99,7 +120,7 @@ if __name__ == '__main__':
     result = None
 
     if args.command == 'create':
-        llm_processor = LLMProcessor(core=args.core, world=None, seed=args.seed, think=True, debug=True)
+        llm_processor = LLMProcessor(core=args.core, world=None, seed=args.seed, think=True, debug=args.debug)
         world = llm_processor.create(prompt=args.prompt)
 
         res = {
@@ -121,7 +142,7 @@ if __name__ == '__main__':
         with open(args.input, 'r') as f:
             meta = json.loads(f.read())
             core = args.core if args.core else meta['discovery']['core']
-            llm_processor = LLMProcessor(core=core , world=meta['world'], seed=meta['discovery']['seed'], think=args.think, debug=True)
+            llm_processor = LLMProcessor(core=core , world=meta['world'], seed=meta['discovery']['seed'], think=args.think, debug=args.debug)
             result = llm_processor.query(args.prompt, win=args.win)
 
     elif args.command == 'navigate':
@@ -134,7 +155,7 @@ if __name__ == '__main__':
                 'prompt': args.prompt
             })
 
-            llm_processor = LLMProcessor(core=core, world=meta['world'], seed=meta['discovery']['seed'], think=True, debug=True)
+            llm_processor = LLMProcessor(core=core, world=meta['world'], seed=meta['discovery']['seed'], think=True, debug=args.debug)
 
             world = llm_processor.navigate(prompt=args.prompt, win=args.win)
             if world is None:
