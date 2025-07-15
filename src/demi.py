@@ -10,7 +10,6 @@ import demi_core
 # main
 if __name__ == '__main__':
     LLMProcessor = demi_core.OllamaProcessor
-    # LLMProcessor = demi_core.OpenAIProcessor
 
     models = LLMProcessor.get_models()
     if not models:
